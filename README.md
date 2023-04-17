@@ -68,3 +68,55 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+<-------Install Tailwind CSS and its dependencies as dev dependencies using npm or yarn. Run the following command in your terminal:-------------------------------->
+
+## npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
+
+<------Create a Tailwind CSS configuration file by running the following command:------>
+## npx tailwindcss init
+
+<-----------Create a PostCSS configuration file named postcss.config.js in the root directory of your project and add the following code:--------->
+##
+module.exports = {
+  plugins: [
+    require('tailwindcss'),
+    require('autoprefixer'),
+  ],
+};
+##
+
+<---------Import Tailwind CSS styles in your project's main CSS file, which is usually src/index.css. Add the following line to the top of the file:----->
+
+##
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+##
+
+
+#### font-awesome
+set up the svg core
+## npm i --save @fortawesome/fontawesome-svg-core
+For Free icons, you can add either -- or both -- of these styles:
+## Free icons styles
+### npm i --save @fortawesome/free-solid-svg-icons
+### npm i --save @fortawesome/free-regular-svg-icons
+And lastly, install the Font Awesome React component:
+### npm i --save @fortawesome/react-fontawesome@latest
+
+font-awesome
+## npm install @fortawesome/fontawesome-free
+
+for momitor icon
+### npm install --save @fortawesome/free-brands-svg-icons
+
+
+mui-material
+## npm install @mui/material @emotion/react @emotion/styled
+## npm install @mui/material @mui/styled-engine-sc styled-components
+## npm install @mui/icons-material
+
+
+## npm install react-slider
