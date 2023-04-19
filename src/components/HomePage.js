@@ -44,10 +44,10 @@ const HomePage = () => {
           <div className="flex md:order-2 p-4">
             <button
               type="button"
-              className="w-36 text-white bg-red-500 hover:bg-red-700 font-serif text-xl rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 transform transition duration-300 hover:scale-110"
+              className="w-40 text-white bg-red-500 hover:bg-red-700 font-serif text-xl rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 transform transition duration-300 hover:scale-110"
               onClick={getStarted}
             >
-              Get started
+              LogIn/SignUp
             </button>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LoginTab from "./LoginTab";
-import NavBar from "./NavBar";
+import LoginNavbar from "./LoginNavbar";
 import { Navbar } from "@material-tailwind/react";
 
 const LoginPage = () => {
@@ -8,7 +8,7 @@ const LoginPage = () => {
   return (
     <div className="flex md:flex-row flex-col">
       {/* NavBar */}
-      <NavBar/>
+      <LoginNavbar/>
       <div className="flex md:flex-row flex-col">
         {/* left-container */}
         <div className="lg:w-3/5">
