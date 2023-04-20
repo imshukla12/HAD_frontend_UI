@@ -51,7 +51,7 @@ const DoctorVideocall = () => {
     }
 
     return (
-        <div className='room-page'>
+        <div className='room-page bg-blue-50'>
             <div ref={myMeeting} />
         </div>
     )
