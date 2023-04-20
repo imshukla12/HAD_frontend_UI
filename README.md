@@ -120,3 +120,7 @@ mui-material
 
 
 ## npm install react-slider
+## npm i mdb-ui-kit
+
+for zegocloud
+## npm i @zegocloud/zego-uikit-prebuilt --save
