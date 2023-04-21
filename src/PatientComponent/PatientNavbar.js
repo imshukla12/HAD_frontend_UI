@@ -3,21 +3,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import WhiteLogo from "./whiteLogo.png";
 
-const DoctorNavbar = () => {
+const PatientNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const doctor = JSON.parse(localStorage.getItem("doctorDetails"))
+  const patient = JSON.parse(localStorage.getItem("patientDetails"))
 
   return (
     <nav className="bg-white dark:bg-blue-900 top-0 w-full z-20 left-0 dark:border-blue-600">
       <div className="max-w-full mx-auto px-0 sm:px-6 lg:px-8">
         <div className="flex flex-row justify-between h-16">
           <div className="flex-shrink-0 flex items-center p-4">
-            <a href='/doctor'><img src={WhiteLogo} alt="logo" className="w-auto h-9" /></a>
+            <a href='/patient'><img src={WhiteLogo} alt="logo" className="w-auto h-9" /></a>
           </div>
           <div className="flex flex-row items-center justify-end">
             <div className="relative flex flex-row items-center justify-end space-x-4">
-              <div><a href='/doctor' className='text-white font-medium font-serif hover:text-blue-200'>Home</a></div>
-              <div className='text-white font-medium font-serif'>Dr.{doctor.firstName}</div>
+              <div><a href='/patient' className='text-white font-medium font-serif hover:text-blue-200'>Home</a></div>
+              <div><a href='/patient/waitingroom' className='text-white font-medium font-serif hover:text-blue-200'>OPD</a></div>
+              <div className='text-white font-medium font-serif'>{patient.firstName}</div>
               <div>
                 <button
                   className="py-2 rounded inline-flex items-center"
@@ -47,4 +48,4 @@ const DoctorNavbar = () => {
   )
 }
 
-export default DoctorNavbar
+export default PatientNavbar
