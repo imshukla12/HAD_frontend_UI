@@ -13,6 +13,7 @@ import PatientRegistration from './PatientComponent/PatientRegistration';
 import PatientWaitingRoom from './PatientComponent/PatientWaitingRoom';
 import FolloUp from './PatientComponent/FollowUp';
 import Calender from './PatientComponent/Calender'
+import Appointment from './PatientComponent/Appointment';
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
         <Route path='/patient/waitingroom' element = { <PatientWaitingRoom/> } />
         <Route path='/patient/followUp' element = { <FolloUp/> } />   {/* isko htana h baad me */}
         <Route path='/calender' element = { <Calender/>} />           {/* isko htana h */}
+        <Route path = '/app' element = { <Appointment/> } />
 
       </Routes>
       </BrowserRouter>
