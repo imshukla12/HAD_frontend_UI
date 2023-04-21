@@ -124,3 +124,6 @@ mui-material
 
 for zegocloud
 ## npm i @zegocloud/zego-uikit-prebuilt --save
+
+full-calender
+npm i @fullcalendar/daygrid @fullcalendar/interaction @fullcalendar/timegrid 

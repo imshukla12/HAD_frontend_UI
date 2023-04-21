@@ -1,8 +1,13 @@
 import React from 'react'
+import PatientNavbar from './PatientNavbar'
+
 
 const PatientDashboard = () => {
   return (
-    <div><h1>Patient Dashboard</h1></div>
+    <div>
+      <PatientNavbar />
+      
+    </div>
   )
 }
 

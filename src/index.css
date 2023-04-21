@@ -16,3 +16,20 @@ code {
     monospace,"Urbanist";
 }
 
+.calender-container{
+  width: 300px;
+  height: 300px;
+}
+
+@media (max-width: 768px) {
+  .calender-container{
+    height:300px
+  }
+}
+/* .popoverStyle{
+  z-index: 99999 !important;
+}
+
+a{
+  color: #212529 !important;
+} */
