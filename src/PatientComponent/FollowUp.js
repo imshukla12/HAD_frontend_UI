@@ -21,9 +21,8 @@ const FollowUp = () => {
     },
   ]);
   return (
-    <div>
+    <div className='bg-white'>
       <Fullcalendar
-        className = "calender-container"
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView={"dayGridMonth"}
         headerToolbar={{
@@ -31,11 +30,16 @@ const FollowUp = () => {
           center: "title",
           end: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
-        // height={"80vh"}
+        height={"auto"}
+        // dayMinWidth={"70vw"}
         // contentHeight={300}
-        // aspectRatio={"2"}
-        expandRows={false}
+        // aspectRatio={1}
+        // expandRows={false}
         events={events}
+        eventColor={'red'}
+        eventBackgroundColor='red'
+        eventBorderColor='black'
+        eventDisplay='auto'
         eventDidMount={(info) => {
           const popover = document.querySelector(`[aria-describedby='${info.event.id}']`);
           if (popover) {

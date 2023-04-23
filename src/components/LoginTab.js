@@ -49,7 +49,7 @@ const LoginTab = () => {
                                     >
                                         Register
                                     </button> */}
-                  <a href="#" className="text-blue-500 hover:text-blue-900">
+                  <a href="/register" className="text-blue-500 hover:text-blue-900">
                     Register
                   </a>
                 </div>

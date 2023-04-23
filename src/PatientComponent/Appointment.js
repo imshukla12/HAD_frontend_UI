@@ -89,7 +89,7 @@ const Appointment = () => {
   }, [count])
 
   return (
-    <>
+    <div className="items-center justify-center">
       {/* Button to open modal */}
       {prevAppointment ?
         <button
@@ -203,7 +203,7 @@ const Appointment = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

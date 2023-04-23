@@ -18,7 +18,7 @@ const PatientNavbar = () => {
             <div className="relative flex flex-row items-center justify-end space-x-4">
               <div><a href='/patient' className='text-white font-medium font-serif hover:text-blue-200'>Home</a></div>
               <div><a href='/patient/waitingroom' className='text-white font-medium font-serif hover:text-blue-200'>OPD</a></div>
-              <div className='text-white font-medium font-serif'>{patient.firstName}</div>
+              <div className='text-white font-medium font-serif'>Pt.{patient.firstName}</div>
               <div>
                 <button
                   className="py-2 rounded inline-flex items-center"
@@ -34,7 +34,7 @@ const PatientNavbar = () => {
                 <div className="overflow-hidden z-10 absolute top-8 right-0 mt-2 w-36 rounded-sm shadow-lg">
                   <div className="rounded-md bg-blue-50 shadow-xs">
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                      <a href="#" className="block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-blue-200 hover:text-gray-900" role="menuitem">Update Profile</a>
+                      <a href="/patient/updateProfile" className="block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-blue-200 hover:text-gray-900" role="menuitem">Update Profile</a>
                       <a href="#" className="block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-red-400 hover:text-gray-900" role="menuitem">Logout</a>
                     </div>
                   </div>
