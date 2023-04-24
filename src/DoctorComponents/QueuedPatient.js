@@ -58,11 +58,12 @@ const QueuedPatient = () => {
     return (
         <div className='absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300 font-serif sm:px-2 sm:py-2 md:px-4 md:py-8 items-center justify-center float-right shadow-lg shadow-blue-500 shadow-opacity-70'>
             <div className='flex flex-row items-center space-x-2 px-8'>
-                <h2 className='py-2'>Queued Patients</h2>
+                <h2 className='py-2 text-md'>Queued Patients</h2>
                 <button onClick={handleClick}>
                     <FontAwesomeIcon icon={faArrowsRotate} className={`text-gray-600 ${isRotating ? "animate-spin" : ""}`} />
                 </button>
             </div>
+            <div className='border-b-2 border-gray-500'></div>
             {queuedPt.length ? (
                 queuedPt.map((p, index) => {
                     return (

@@ -6,21 +6,19 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import PatientMedicalHistory from './PatientMedicalHistory';
 import GradientLogo from "./GradientLogo.png"
-
 
 const Prescription = () => {
 
     const navigate = useNavigate()
     const patientId = localStorage.getItem("patientId");
     const doctorDetails = JSON.parse(localStorage.getItem("doctorDetails"))
-    // const [value, setValue] = useState("");
-    // const [followUp, setFollowUp] = useState(false);
     const [observation, setObservation] = useState("")
     const [advice, setAdvice] = useState("")
-    // const [medicine, setMedicine] = useState("");
     const [allMedicineData, setAllMedicineData] = useState([]);
     const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
+    const [showHistory, setShowHistory] = useState(false)
     const [selectedDate, setSelectedDate] = useState(null)
     const [patientDetail, setPatientDetail] = useState([
         {
@@ -89,8 +87,12 @@ const Prescription = () => {
     // };
 
     const handleToggle = () => {
-        setIsDatePickerVisible(!isDatePickerVisible);
+        setIsDatePickerVisible(!isDatePickerVisible)
     };
+
+    const handleHistory = () => {
+        setShowHistory(!showHistory)
+    }
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -105,9 +107,9 @@ const Prescription = () => {
 
     const ptAge = calculateAge(patientDetail.dob)
     
-    console.log("input",inputFeilds)
-    console.log("medicinestring",medicineString)
-
+    // console.log("input",inputFeilds)
+    // console.log("medicinestring",medicineString)
+    // console.log("follow",selectedDate)
     const submitHandler = async (event) => {
         event.preventDefault();
         const data = {
@@ -125,8 +127,8 @@ const Prescription = () => {
         await axios
           .post("http://localhost:9090/prescription/addPrescription", data)
           .then((response) => {
-            console.log("inside post prescription api");
-            console.log(response.data);
+            // console.log("inside post prescription api");
+            // console.log(response.data);
             navigate(`/doctor`);
           })
           .catch((error) => {
@@ -228,6 +230,7 @@ const Prescription = () => {
                     <input type="text" name="Remarks" id="Remarks" autoComplete='false' className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " value={advice} onChange={(e) => setAdvice(e.target.value)} required />
                     <label for="Remarks" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Remarks</label>
                 </div>
+                {/* show follow-up */}
                 <div className='relative z-0 w-full mb-6 group'>
                     <div>
                         <label className="relative inline-flex items-center cursor-pointer">
@@ -240,22 +243,44 @@ const Prescription = () => {
                                 placeholder='Select Date'
                             />
                             <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                            <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            <span className="ml-3 text-sm font-serif text-gray-900 dark:text-gray-800">
                                 Follow up
                             </span>
                         </label>
                     </div>
                     {isDatePickerVisible && (
-                        <div>
-                            <DatePicker
-                                selected={selectedDate}
-                                onChange={handleDateChange}
-                                className="bg-white border border-gray-300 rounded-md shadow-md p-2 mt-2"
-                            />
-                        </div>
+                        <div className="relative w-1/3 mb-6 group">
+                                <DatePicker
+                                    selected={selectedDate}
+                                    onChange={(date) => setSelectedDate(date)}
+                                    dateFormat="dd/MM/yyyy"
+                                    placeholderText="Add follow-up"
+                                    className="block w-full px-4 py-2 text-gray-700 bg-transparent border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                />
+                            </div>
                     )}
                 </div>
-                <button type="submit" onClick={submitHandler} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                {/* show patient history */}
+                <div className='relative z-0 w-full mb-6 group'>
+                    <div>
+                        <label className="relative inline-flex items-center cursor-pointer">
+                            <input
+                                type="checkbox"
+                                value=""
+                                className="sr-only peer"
+                                checked={showHistory}
+                                onChange={handleHistory}
+                                placeholder='Show Patient Medical History'
+                            />
+                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            <span className="ml-3 text-sm font-serif text-gray-900 dark:text-gray-800">
+                                Show Patient Medical History
+                            </span>
+                        </label>
+                    </div>
+                    { showHistory && (<PatientMedicalHistory patientDetail={patientDetail}/>)}
+                </div>
+                <button type="submit" onClick={submitHandler} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Prescription</button>
             </form>
         </div>
 

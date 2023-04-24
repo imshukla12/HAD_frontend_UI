@@ -5,7 +5,7 @@ import DoctorVideocall from './DoctorVideocall'
 
 const DoctorConsultationPage = () => {
   return (
-    <div className='bg-blue-50 h-screen'>
+    <div className='bg-blue-50 h-full'>
         <DoctorNavbar/>
         <div className='grid grid-cols-5 gap-4'>
           <div className='p-4' style={{ gridColumn: "1 / span 2" }}>
