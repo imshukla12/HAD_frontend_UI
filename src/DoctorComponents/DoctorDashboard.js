@@ -34,48 +34,50 @@ const DoctorDashboard = () => {
         <div className='w-1/6 h-screen relative'>
           <QueuedPatient />
         </div>
-        <div className='flex-grow flex flex-row p-8 justify-between'>
-          <div className='w-1/2 flex flex-col items-center space-y-24'>
-            <div className='flex flex-row justify-between p-8 w-full space-x-6'>
-              <div className='w-1/2 p-4 border-t-4 border-blue-900 shadow-lg font-serif rounded-lg flex flex-col justify-evenly transition-transform duration-500 transform-gpu hover:scale-110'>
+        <div className='flex-grow flex flex-row p-8 justify-between h-screen'>
+          <div className='w-3/5 grid grid-rows-5'>
+            <div className='row-span-2 flex flex-row justify-between p-8 w-full space-x-6'>
+              <div className='w-1/2 p-4 h-3/5 border-t-4 border-blue-900 shadow-lg font-serif rounded-lg flex flex-col justify-evenly transition-transform duration-500 transform-gpu hover:scale-110'>
                 <p>Total Consultations</p>
                 <p className='text-5xl text-center'>1020</p>
               </div>
-              <div className='w-1/2 p-4 border-t-4 border-blue-900 shadow-lg font-serif rounded-lg flex flex-col justify-evenly transition-transform duration-500 transform-gpu hover:scale-110'>
+              <div className='w-1/2 p-4 h-3/5 border-t-4 border-blue-900 shadow-lg font-serif rounded-lg flex flex-col justify-evenly transition-transform duration-500 transform-gpu hover:scale-110'>
                 <p>Today's Consultations</p>
                 <p className='text-5xl text-center'>1000</p>
               </div>
             </div>
-            <div className='shadow-lg p-6 w-3/5 border-t-4 border-blue-900 rounded-lg'>
-              <table className="table-auto w-full mx-auto">
-                <caption className="caption-top font-serif text-2xl p-2">
-                  Daily Log
-                </caption>
-                <thead className='font-serif text-lg'>
-                  <tr>
-                    <th>Pt.Id</th>
-                    <th>Observation</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody className='font-serif text-md text-center'>
-                  {dailyLog ? (
-                    dailyLog.map((p,index) => (
-                      <tr key={index}>
-                        <td>{p.patientId}</td>
-                        <td>{p.observation}</td>
-                        <td><FontAwesomeIcon icon={faCircleCheck} beatFade style={{color: "#3ee302",}} /></td>
-                      </tr>
-                    ))
-                  ) : (
-                  <tr></tr>
-                  )}
-                </tbody>
-              </table>
+            <div className='row-span-3 h-4/5 w-full flex justify-center'>
+              <Infographics />
             </div>
           </div>
-          <div className='w-1/2 relative'>
-            <Infographics />
+          <div className='shadow-lg p-6 w-2/5 h-4/5 border-t-4 border-blue-900 rounded-lg mt-8'>
+            <table className="table-auto w-full mx-auto">
+              <caption className="caption-top font-serif text-2xl p-2 border-b-2 border-gray-700">
+                Daily Log
+              </caption>
+              <thead className='font-serif text-lg'>
+                <tr>
+                  <th>Pt.Id</th>
+                  <th>Observation</th>
+                  <th>Remarks</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody className='font-serif text-md text-center'>
+                {dailyLog ? (
+                  dailyLog.map((p, index) => (
+                    <tr key={index} className='p-8'>
+                      <td>{p.patientId}</td>
+                      <td>{p.observation}</td>
+                      <td>{p.observation}</td>
+                      <td><FontAwesomeIcon icon={faCircleCheck} beatFade style={{ color: "#3ee302", }} /></td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr></tr>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

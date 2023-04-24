@@ -55,7 +55,7 @@ const PatientRegistration = () => {
             <LoginNavbar/>
             <div className='flex items-center justify-center h-screen mt-4'>
                 <div className='w-full flex items-center justify-center'>
-                    <form className='w-4/5 p-8 items-center justify-evenly h-4/5 font-serif border-2 border-gray-200 rounded-lg'>
+                    <form onSubmit={handleSubmit} className='w-4/5 p-8 items-center justify-evenly h-4/5 font-serif border-2 border-gray-200 rounded-lg'>
                         <h1 className='mb-10 text-center text-4xl'>Patient Registration</h1>
                         <div className="grid md:grid-cols-3 md:gap-6 align-center justify-center">
                             <div className="relative z-0 w-full mb-6 group" >
@@ -122,7 +122,7 @@ const PatientRegistration = () => {
                                 <label for="Pincode" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pincode</label>
                             </div>
                         </div>
-                        <button type="submit" className="text-white bg-green-400 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" onClick={handleSubmit}>Register</button>
+                        <button type="submit" className="text-white bg-green-400 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Register</button>
                     </form>
                 </div>
             </div>

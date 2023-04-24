@@ -143,7 +143,7 @@ function Otp(props) {
                 value={phoneNumber}
                 onChange={setPhoneNumber}
                 className="w-60 border border-gray-300 rounded-lg px-4 py-2"
-              />
+              />  
               {/* {phoneNumber && phoneNumber.length > 0 && !isValid && (
               <p className="text-red-500">Phone number must have 10 digits.</p>
             )} */}
