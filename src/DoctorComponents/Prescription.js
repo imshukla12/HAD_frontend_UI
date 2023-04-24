@@ -37,9 +37,9 @@ const Prescription = () => {
 
     const medicineString = inputFeilds
         .map((item) => {
-            return `Medicine: ${item.medicine} --> Dosage: ${item.dosage}`;
+            return `${item.medicine}-->${item.dosage}`;
         })
-        .join("\n");
+        
 
     const getAllMedicine = async () => {
         await axios
@@ -104,14 +104,16 @@ const Prescription = () => {
     }
 
     const ptAge = calculateAge(patientDetail.dob)
-
+    
+    console.log("input",inputFeilds)
+    console.log("medicinestring",medicineString)
 
     const submitHandler = async (event) => {
         event.preventDefault();
         const data = {
             consultationDate: new Date(),
             observation: observation,
-            medicine: inputFeilds,
+            medicine: medicineString,
             remark: advice,
             doctorId: doctorDetails.doctorId,
             patientName: patientDetail.firstName,
@@ -119,17 +121,17 @@ const Prescription = () => {
             followUpDate: selectedDate,
         };
 
-        console.log("form updated data", data);
-        // await axios
-        //   .post("http://localhost:9090/prescription/addPrescription", data)
-        //   .then((response) => {
-        //     console.log("inside post prescription api");
-        //     console.log(response.data);
-        //     navigate(`/doctor`);
-        //   })
-        //   .catch((error) => {
-        //     console.log("error", error);
-        //   });
+        // console.log("form updated data", data);
+        await axios
+          .post("http://localhost:9090/prescription/addPrescription", data)
+          .then((response) => {
+            console.log("inside post prescription api");
+            console.log(response.data);
+            navigate(`/doctor`);
+          })
+          .catch((error) => {
+            console.log("error", error);
+          });
     }
 
     useEffect(() => {

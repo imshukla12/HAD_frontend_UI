@@ -6,21 +6,21 @@ import { useNavigate } from 'react-router-dom'
 const PatientWaitingRoom = () => {
 
     const navigate = useNavigate()
-    // const appointmentId = localStorage.getItem("appointmentId");
-    // const [count, setCount] = useState(0);
+    const appointmentId = localStorage.getItem("ptAppointmentId");
+    const [count, setCount] = useState(0);
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const response = await fetch(
-    //             `http://localhost:9090/appointment/waitingPatients/${appointmentId}`
-    //         );
-    //         const json = await response.json();
-    //         setCount(json);
-    //         console.log(json);
-    //         console.log("count", count);
-    //     };
-    //     fetchData();
-    // }, [appointmentId, count]);
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch(
+                `http://localhost:9090/appointment/waitingPatients/${appointmentId}`
+            );
+            const json = await response.json();
+            setCount(json);
+            console.log(json);
+            console.log("count", count);
+        };
+        fetchData();
+    }, [appointmentId, count]);
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -39,7 +39,7 @@ const PatientWaitingRoom = () => {
                     </div>
                     <div className='justify-center items-center flex flex-col gap-8 h-full w-1/6 p-8'>
                         <div className='border-2 border-gray-300 text-center justify-center p-4'>
-                            <h1 className='font-serif text-9xl'>3</h1>
+                            <h1 className='font-serif text-9xl'>{count}</h1>
                         </div>
                         <div className='items-center justify-center'>
                             <button type="button" className="text-white w-full bg-green-500 hover:bg-green-700 font-serif text-lg rounded-lg text-sm px-2 py-2 text-center mr-3 md:mr-0 transform transition duration-300 hover:scale-110" onClick={handleSubmit}>

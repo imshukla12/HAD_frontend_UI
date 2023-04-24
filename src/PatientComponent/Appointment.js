@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Appointment = () => {
+  const navigate = useNavigate()
   const patientDetails = JSON.parse(localStorage.getItem("patientDetails"))
   const [departments, setDepartments] = useState()
   const languages = ["English", "Spanish", "French", "German", "Japanese"]
@@ -11,7 +12,7 @@ const Appointment = () => {
   const [isOpenLang, setIsOpenLang] = useState(false)
   const [selectedDepartment, setSelectedDepartment] = useState("")
   const [selectedLanguage, setSelectedLanguage] = useState("")
-  const [prevAppointment, setPrevAppointment] = useState("false")
+  const [prevAppointment, setPrevAppointment] = useState(false)
   const [count, setCount] = useState(0)
 
   const toggleModal = () => {
@@ -54,14 +55,19 @@ const Appointment = () => {
   const submitHandler = async (event) => {
     // setShow(!show)
     event.preventDefault()
-    await axios.post(`http://localhost:9090/appointment/requestAppointment`, {
+    const data = {
       appointmentTimestamp: new Date(),
       patientId: patientDetails.patientId,
       departmentName: selectedDepartment,
       preferredLanguage: selectedLanguage
-    })
+    }
+
+    console.log("data",data)
+    await axios.post(`http://localhost:9090/appointment/requestAppointment`,data)
       .then((response) => {
-        localStorage.setItem("appointmentId", response.data)
+        console.log("appointment set",response.data)
+        localStorage.setItem("ptAppointmentId", response.data)
+        navigate(`/patient/waitingroom`)
       })
       .catch((error) => {
         console.log(error)
