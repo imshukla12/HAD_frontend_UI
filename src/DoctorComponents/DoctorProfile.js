@@ -22,7 +22,7 @@ const DoctorProfile = () => {
   const [address, setAddress] = useState(doctorDetails.addr)
   const [city, setCity] = useState(doctorDetails.city)
   const [pinCode, setPinCode] = useState(doctorDetails.pincode)
-  const [drLang, setDrLang] = useState([])
+  const [drLang, setDrLang] = useState(doctorDetails.doctorLanguages)
   const options = [
     { value: "english", label: "English" },
     { value: "french", label: "French" },
@@ -41,7 +41,7 @@ const DoctorProfile = () => {
     setDrLang(selectedOptions.map((option) => option.value));
   };
    
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault()
     const data = {
       title: title,
@@ -56,11 +56,19 @@ const DoctorProfile = () => {
       addr: address,
       city: city,
       pincode: pinCode,
-      //dr lang kaise bhejna hai duffrr se puchna hai
+      doctorLanguages: drLang
     }
-    console.log("data", data)
+    // console.log("data", data)
     // api called for updation
-    navigate('/doctor')
+    await axios.put(`http://localhost:9090/doctor/updateDoctor/${doctorDetails.doctorId}`,data)
+    .then((response) => {
+      // console.log(JSON.stringify(response.data));
+      localStorage.setItem("doctorDetails", JSON.stringify(response.data));
+      navigate("/doctor");
+    })
+    .catch((error) =>{
+      console.log(error)
+    })
   }
 
   return (
@@ -73,26 +81,26 @@ const DoctorProfile = () => {
             <div className="grid md:grid-cols-3 md:gap-6 align-center justify-center">
               <div className="relative z-0 w-full mb-6 group" >
                 {/* <label for="Title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label> */}
-                <select id="Title" className=" text-gray-900 text-sm rounded-lg border-2 border-gray-200 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 bg-white" placeholder='Title' value={title} onChange={(e) => setTitle(e.target.value)} required>
+                <select id="Title" className=" text-zinc-500 text-sm rounded-lg border-2 border-gray-200 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 bg-white" placeholder='Title' value={title} onChange={(e) => setTitle(e.target.value)} disabled>
                   <option>Title</option>
-                  <option>Mr</option>
-                  <option>Miss</option>
-                  <option>Mrs</option>
+                  <option>Mr.</option>
+                  <option>Miss.</option>
+                  <option>Mrs.</option>
                 </select>
               </div>
               <div className="relative z-0 w-full mb-6 group">
-                <input type="text" name="FirstName" id="FirstName" autoComplete='false' className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+                <input type="text" name="FirstName" id="FirstName" autoComplete='false' className="block py-2.5 px-0 w-full text-sm text-zinc-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " value={firstName} onChange={(e) => setFirstName(e.target.value)} disabled/>
                 <label for="FirstName" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Firstname</label>
               </div>
               <div className="relative z-0 w-full mb-6 group">
-                <input type="text" name="LastName" id="LastName" autoComplete='false' className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+                <input type="text" name="LastName" id="LastName" autoComplete='false' className="block py-2.5 px-0 w-full text-sm text-zinc-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " value={lastName} onChange={(e) => setLastName(e.target.value)} disabled />
                 <label for="LastName" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Lastname</label>
               </div>
             </div>
             <div className='grid md:grid-cols-2 md:gap-6 align-center justify-center'>
               <div className="relative z-0 w-full mb-6 group items-center justify-center" >
                 {/* <label for="Title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label> */}
-                <select id="Gender" className="border-2 border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 bg-white" value={gender} onChange={(e) => setGender(e.target.value)} required>
+                <select id="Gender" className="border-2 border-gray-200 text-zinc-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 bg-white" value={gender} onChange={(e) => setGender(e.target.value)} disabled>
                   <option>Gender</option>
                   <option>Male</option>
                   <option>Female</option>

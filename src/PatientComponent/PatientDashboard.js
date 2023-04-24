@@ -21,12 +21,12 @@ const PatientDashboard = () => {
         <div className='bg-green-200 w-1/5'>
           <div className='bg-red-300'><img src={flow} alt='steps' className='w-full h-full object-cover rounded-md' /></div>
         </div>
-        <div className='flex flex-col p-2 bg-red-200 w-4/5'>
+        <div className='flex flex-col p-2 w-4/5'>
           <div className='flex flex-row gap-2 p-2 bg-blue-200'>
             <div className='w-2/3 bg-red-600'><Appointment /></div>
             <div className='w-1/3 bg-red-900'><Calender/></div>
           </div>
-          <div className='bg-yellow-100 p-2 relative z-0 w-full group'>
+          <div className='p-2 relative z-0 w-full group'>
             <div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input

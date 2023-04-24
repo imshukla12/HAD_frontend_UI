@@ -137,9 +137,9 @@ const PatientHistory = () => {
   }, []);
 
   return (
-    <div className="p-6 bg-red-100 rounded-lg">
+    <div className="p-6 rounded-lg border-2 border-gray-200">
       <table className="table-auto w-full mx-auto">
-        <caption className="caption-top font-serif text-2xl p-2">Prescriptions</caption>
+        <caption className="caption-top font-serif text-2xl p-2 border-b-2">Prescriptions</caption>
         <thead className="font-serif text-lg">
           <tr>
             <th>Date</th>
@@ -151,11 +151,11 @@ const PatientHistory = () => {
         <tbody className="font-serif text-md text-center">
           {currentItems.length > 0 ? (
             currentItems.map((p) => (
-              <tr key={p.prescriptionId} className='bg-blue-50 border-4'>
+              <tr key={p.prescriptionId} className='bg-blue-50 border-2'>
                 <td>{p.consultationDate}</td>
                 <td>{p.observation}</td>
                 <td>{p.remark}</td>
-                <td className='p-4'>
+                <td className='p-2'>
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded"
                     onClick={() => downloadPDF(p.prescriptionId, p.date)}
