@@ -15,7 +15,7 @@ const DoctorDashboard = () => {
   const fetchTotalConsult = async() => {
     await axios.get(`http://localhost:9090/consultation/getAllConsultationsCount`)
     .then((response) => {
-      console.log("totalCount",response.data)
+      // console.log("totalCount",response.data)
       setTotalConsult(response.data)
     })
     .catch((error) => {
@@ -95,7 +95,7 @@ const DoctorDashboard = () => {
                     <tr key={index} className='p-8'>
                       <td>{p.patientId}</td>
                       <td>{p.observation}</td>
-                      <td>{p.observation}</td>
+                      <td>{p.remark}</td>
                       <td><FontAwesomeIcon icon={faCircleCheck} beatFade style={{ color: "#3ee302", }} /></td>
                     </tr>
                   ))

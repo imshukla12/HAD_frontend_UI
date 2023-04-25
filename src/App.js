@@ -17,6 +17,7 @@ import Appointment from './PatientComponent/Appointment';
 import PatientHistory from './PatientComponent/PatientHistory';
 import PatientUpdateProfile from './PatientComponent/PatientUpdateProfile';
 import PatientVideoCallPage from './PatientComponent/PatientVideoCallPage';
+import FileUpload from './PatientComponent/FileUpload';
 // import Appp from './PatientComponent/Appp';
 
 const App = () => {
@@ -44,7 +45,7 @@ const App = () => {
         <Route path='/history' element = { <PatientHistory/> } />   {/* htana h */}
         <Route path='/patient/updateProfile' element = { <PatientUpdateProfile/> } />
         <Route path= '/patient/patientVideoCall' element = {<PatientVideoCallPage/>} />
-
+        <Route path='/file' element = { <FileUpload/> } />
       </Routes>
       </BrowserRouter>
     </div>

@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import axios from 'axios'
-import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
+import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons'
 
 const QueuedPatient = () => {
     const [count, setCount] = useState(0);
     const doctorDetails = JSON.parse(localStorage.getItem("doctorDetails"));
     const [queuedPt, setQueuedPt] = useState([]);
-    const [isRotating, setIsRotating] = useState(false);
+    const [isRotating, setIsRotating] = useState(false)
     var appointmentId;
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     function timeout(delay) {
         return new Promise( res => setTimeout(res, delay) );
     }
     const handleClick = async() => {
         setIsRotating(true)
-        await fetchQueuePt();
-        await timeout(1000);
-        handleAnimationEnd();
+        await fetchQueuePt()
+        await timeout(1000)
+        handleAnimationEnd()
     }
 
     const handleAnimationEnd = () => {
         setIsRotating(false);
-    };
+    }
 
     const fetchQueuePt = async () => {
         await axios.get(`http://localhost:9090/appointment/getAllAppointments/${doctorDetails.departmentName}`)
@@ -38,12 +38,12 @@ const QueuedPatient = () => {
     }
 
     const deletePt = async () => {
-        console.log("inside deletePt", appointmentId);
+        // console.log("inside deletePt", appointmentId);
         await axios.delete(`http://localhost:9090/appointment/deleteAppointment/${appointmentId}`)
             .then((response) => {
-                console.log("Delete successful");
+                // console.log("Delete successful");
                 setCount(count + 1);
-                console.log("appID_dr", appointmentId)
+                // console.log("appID_dr", appointmentId)
                 navigate(`/doctor/consultationpage`, { state: { appointmentId }});
             })
             .catch((error) => {
@@ -75,7 +75,7 @@ const QueuedPatient = () => {
                                 onClick={() => {
                                     appointmentId = p.appointmentId;
                                     localStorage.setItem("patientId", p.patientId);
-                                    console.log("appointmentId: ", appointmentId);
+                                    // console.log("appointmentId: ", appointmentId);
                                     deletePt();
                                 }}
                             >

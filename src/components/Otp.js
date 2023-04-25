@@ -31,7 +31,7 @@ function Otp(props) {
 
   async function sendOTP(e) {
     e.preventDefault();
-    console.log("isVAlid",isValid);
+    // console.log("isVAlid",isValid);
     if(isValid){
     setSend(true);
     generateRecaptcha();
@@ -39,7 +39,7 @@ function Otp(props) {
     signInWithPhoneNumber(authentication, phoneNumber, appVerifier)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
-        console.log("true");
+        // console.log("true");
       })
       .catch((error) => {
         console.log(error);
@@ -59,9 +59,9 @@ function Otp(props) {
       .then((result) => {
         // User signed in successfully.
         // fetchPtData();
-        const user = result.user;
-        console.log(result);
-        console.log("number verified");
+        const userI = result.user;
+        // console.log(result);
+        // console.log("number verified");
         setValidOTP(true);
         if (props.value == 1) {
           fetchPtDetail()
@@ -102,9 +102,9 @@ function Otp(props) {
   const fetchPtDetail = async () => {
     await axios.get(`http://localhost:9090/patient/getPatientByPhoneNumber/${phoneNumber}`)
       .then((response) => {
-        console.log("phoneNumber", phoneNumber)
+        // console.log("phoneNumber", phoneNumber)
         localStorage.setItem("patientDetails", JSON.stringify(response.data))
-        console.log("Ptresponsedata", response.data)
+        // console.log("Ptresponsedata", response.data)
       })
       .catch((error) => {
         console.log(error)
@@ -115,7 +115,7 @@ function Otp(props) {
     await axios.get(`http://localhost:9090/doctor/getDoctorByPhoneNumber/${phoneNumber}`)
       .then((response) => {
         localStorage.setItem("doctorDetails", JSON.stringify(response.data));
-        console.log("Drresponsedata",response.data);
+        // console.log("Drresponsedata",response.data);
       })
       .catch((error) =>{
         console.log(error)

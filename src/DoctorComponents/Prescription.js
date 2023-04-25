@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSquareMinus, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { faSquareMinus, faSquarePlus, faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +20,7 @@ const Prescription = () => {
     const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
     const [showHistory, setShowHistory] = useState(false)
     const [selectedDate, setSelectedDate] = useState(null)
+    const [isRotating, setIsRotating] = useState(false)
     const [patientDetail, setPatientDetail] = useState([
         {
             patientId: 1,
@@ -37,7 +38,20 @@ const Prescription = () => {
         .map((item) => {
             return `${item.medicine}-->${item.dosage}`;
         })
-        
+
+    function timeout(delay) {
+        return new Promise(res => setTimeout(res, delay))
+    }
+    const handleClick = async () => {
+        setIsRotating(true)
+        // await fetchQueuePt()
+        await timeout(1000)
+        handleAnimationEnd()
+    }
+
+    const handleAnimationEnd = () => {
+        setIsRotating(false)
+    }
 
     const getAllMedicine = async () => {
         await axios
@@ -81,11 +95,6 @@ const Prescription = () => {
         setInputFeilds(data);
     };
 
-    // const handleFollowUp = () => {
-    //     setFollowUp(true);
-    //     setValue(new Date());
-    // };
-
     const handleToggle = () => {
         setIsDatePickerVisible(!isDatePickerVisible)
     };
@@ -93,10 +102,6 @@ const Prescription = () => {
     const handleHistory = () => {
         setShowHistory(!showHistory)
     }
-
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    };
 
     const calculateAge = (dateOfBirth) => {
         const dob = new Date(dateOfBirth);
@@ -106,7 +111,7 @@ const Prescription = () => {
     }
 
     const ptAge = calculateAge(patientDetail.dob)
-    
+
     // console.log("input",inputFeilds)
     // console.log("medicinestring",medicineString)
     // console.log("follow",selectedDate)
@@ -125,15 +130,15 @@ const Prescription = () => {
 
         // console.log("form updated data", data);
         await axios
-          .post("http://localhost:9090/prescription/addPrescription", data)
-          .then((response) => {
-            // console.log("inside post prescription api");
-            // console.log(response.data);
-            navigate(`/doctor`);
-          })
-          .catch((error) => {
-            console.log("error", error);
-          });
+            .post("http://localhost:9090/prescription/addPrescription", data)
+            .then((response) => {
+                // console.log("inside post prescription api");
+                // console.log(response.data);
+                navigate(`/doctor`);
+            })
+            .catch((error) => {
+                console.log("error", error);
+            });
     }
 
     useEffect(() => {
@@ -250,16 +255,17 @@ const Prescription = () => {
                     </div>
                     {isDatePickerVisible && (
                         <div className="relative w-1/3 mb-6 group">
-                                <DatePicker
-                                    selected={selectedDate}
-                                    onChange={(date) => setSelectedDate(date)}
-                                    dateFormat="dd/MM/yyyy"
-                                    placeholderText="Add follow-up"
-                                    className="block w-full px-4 py-2 text-gray-700 bg-transparent border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                />
-                            </div>
+                            <DatePicker
+                                selected={selectedDate}
+                                onChange={(date) => setSelectedDate(date)}
+                                dateFormat="dd/MM/yyyy"
+                                placeholderText="Add follow-up"
+                                className="block w-full px-4 py-2 text-gray-700 bg-transparent border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                        </div>
                     )}
                 </div>
+                <button type="submit" onClick={submitHandler} className="mb-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Prescription</button>
                 {/* show patient history */}
                 <div className='relative z-0 w-full mb-6 group'>
                     <div>
@@ -274,13 +280,21 @@ const Prescription = () => {
                             />
                             <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                             <span className="ml-3 text-sm font-serif text-gray-900 dark:text-gray-800">
-                                Show Patient Medical History
+                                Show Patient E-Aarogya Medical History
                             </span>
                         </label>
                     </div>
-                    { showHistory && (<PatientMedicalHistory patientDetail={patientDetail}/>)}
+                    {showHistory && (<PatientMedicalHistory patientDetail={patientDetail} />)}
                 </div>
-                <button type="submit" onClick={submitHandler} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Prescription</button>
+                <div className=" flex flex-col border-2 rounded-lg border-blue-300 items-center justify-center p-4">
+                    <div className='flex flex-row items-center space-x-2 px-8'>
+                        <p className='py-2 text-sm text-gray-900 font-serif'>Patient's Uploaded Health Records</p>
+                        <button onClick={handleClick}>
+                            <FontAwesomeIcon icon={faArrowsRotate} className={`text-gray-600 ${isRotating ? "animate-spin" : ""}`} />
+                        </button>
+                    </div>
+                    <div className="flex items-center justify-center space-y-4"><p className="text-sm text-zinc-400 font-serif">No records found</p></div>
+                </div>
             </form>
         </div>
 

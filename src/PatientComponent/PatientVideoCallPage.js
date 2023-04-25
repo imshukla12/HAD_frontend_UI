@@ -2,18 +2,15 @@ import React from 'react'
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt'
 import { useNavigate, useLocation } from 'react-router-dom';
 import PatientNavbar from './PatientNavbar';
+import FileUpload from './FileUpload';
 
 const PatientVideoCallPage = () => {
 
     const { state } = useLocation()
-    // console.log("stateValue",state.appointmentId)
-    const navigate = useNavigate()
-    const goBack = () => {
-        navigate('/patient')
-    }
-
+    console.log("stateValue",state.appointmentId)
+    // const navigate = useNavigate()
     const roomId = state.appointmentId.toString()
-    // console.log("roomCode",roomId)
+    console.log("roomCode",roomId)
     const pt = JSON.parse(localStorage.getItem("patientDetails"))
     const ptName = pt.firstName
 
@@ -64,11 +61,13 @@ const PatientVideoCallPage = () => {
         })
     }
     return (
-        <div className='room-page'>
-            <PatientNavbar/>
-            <div ref={myMeeting} className='w/1/2 h-1/2 justify-center mt-6' />
-            <div>
-                <button type='secondary' onClick={goBack}>Go To Dashboard</button>
+        <div className='bg-blue-50'>
+            <PatientNavbar />
+            <div className='grid grid-cols-5'>
+                <div className='col-span-4 p-8' >
+                    <div ref={myMeeting} />
+                </div>
+                <div className='col-span-1 bg-indigo-200'><FileUpload /></div>
             </div>
         </div>
     )
