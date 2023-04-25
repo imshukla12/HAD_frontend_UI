@@ -7,8 +7,32 @@ import axios from 'axios'
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons'
 
 const DoctorDashboard = () => {
-  const [dailyLog, setDailyLog] = useState();
+  const [dailyLog, setDailyLog] = useState()
+  const [totalConsult, setTotalConsult] = useState(0)
+  const [todayConsult, setTodayConsult] = useState(0)
   const doctorDetails = JSON.parse(localStorage.getItem("doctorDetails"));
+
+  const fetchTotalConsult = async() => {
+    await axios.get(`http://localhost:9090/consultation/getAllConsultationsCount`)
+    .then((response) => {
+      console.log("totalCount",response.data)
+      setTotalConsult(response.data)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
+  // const fetchTodayConsult = async() =>{
+  //   await axios.get(`http://localhost:9090/consultation/totalDateWiseConsultations`)
+  //   .then((response) => {
+  //     console.log("todayConsult",response.data)
+  //     setTodayConsult(response.data)
+  //   })
+  //   .catch((error) =>{
+  //     console.log(error)
+  //   })
+  // }
 
   const fetchDailyLog = async () => {
     await axios.get(`http://localhost:9090/doctor/doctorDailyLog/${doctorDetails.doctorId}`)
@@ -22,6 +46,8 @@ const DoctorDashboard = () => {
   }
 
   useEffect(() => {
+    fetchTotalConsult()
+    // fetchTodayConsult()
     fetchDailyLog()
   }, [])
 
@@ -39,11 +65,11 @@ const DoctorDashboard = () => {
             <div className='row-span-2 flex flex-row justify-between p-8 w-full space-x-6'>
               <div className='w-1/2 p-4 h-3/5 border-t-4 border-blue-900 shadow-lg font-serif rounded-lg flex flex-col justify-evenly transition-transform duration-500 transform-gpu hover:scale-110'>
                 <p>Total Consultations</p>
-                <p className='text-5xl text-center'>1020</p>
+                <p className='text-5xl text-center'>{totalConsult}</p>
               </div>
               <div className='w-1/2 p-4 h-3/5 border-t-4 border-blue-900 shadow-lg font-serif rounded-lg flex flex-col justify-evenly transition-transform duration-500 transform-gpu hover:scale-110'>
                 <p>Today's Consultations</p>
-                <p className='text-5xl text-center'>1000</p>
+                <p className='text-5xl text-center'>120</p>
               </div>
             </div>
             <div className='row-span-3 h-4/5 w-full flex justify-center'>
