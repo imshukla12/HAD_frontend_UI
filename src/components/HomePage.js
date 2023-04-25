@@ -75,11 +75,6 @@ const HomePage = () => {
                   className="fa-5x"
                   style={{ color: "#ffffff" }}
                 />
-                {/* <img
-                src="./images/monitorrr.png"
-                alt="monitor"
-                class="max-h-full max-w-full"
-                /> */}
               </div>
               <p class="font-serif font-normal font-400 md:text-center text-blue-980 text-xl p-2">
                 Online OPD
