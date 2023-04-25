@@ -54,9 +54,9 @@ const Prescription = () => {
         await axios
             .get(`http://localhost:9090/patient/getPatientById/${patientId}`)
             .then((response) => {
-                // console.log("patientDetail", response.data);
+                console.log("patientDetail", response.data);
                 setPatientDetail(response.data);
-                // console.log("patients", patientDetail);
+                console.log("patients", patientDetail);
             })
             .catch((error) => {
                 console.log("error:", error);

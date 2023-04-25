@@ -1,16 +1,21 @@
 import React from 'react'
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import PatientNavbar from './PatientNavbar';
 
 const PatientVideoCallPage = () => {
 
+    const { state } = useLocation()
+    // console.log("stateValue",state.appointmentId)
     const navigate = useNavigate()
     const goBack = () => {
         navigate('/patient')
     }
 
-    const roomId = "123"
+    const roomId = state.appointmentId.toString()
+    // console.log("roomCode",roomId)
+    const pt = JSON.parse(localStorage.getItem("patientDetails"))
+    const ptName = pt.firstName
 
     const myMeeting = async (element) => {
         //   const appID = 1613973613;             ***one-on-one call
@@ -22,7 +27,7 @@ const PatientVideoCallPage = () => {
             serverSecret,
             roomId,
             Date.now().toString(),
-            'Akanksha'
+            ptName
         )
 
         const zp = ZegoUIKitPrebuilt.create(kitToken)

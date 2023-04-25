@@ -1,12 +1,15 @@
 import React,{ useEffect, useState } from 'react'
 import PatientNavbar from './PatientNavbar'
 import namaste from './7617.jpg'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const PatientWaitingRoom = () => {
 
     const navigate = useNavigate()
-    const appointmentId = localStorage.getItem("ptAppointmentId");
+    const { state } = useLocation()
+    // console.log("state", state.appId)
+    // const appointmentId = localStorage.getItem("ptAppointmentId");
+    const appointmentId = state.appId
     const [count, setCount] = useState(0);
 
     useEffect(() => {
@@ -24,7 +27,7 @@ const PatientWaitingRoom = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        navigate(`/patient/patientVideoCall`)
+        navigate(`/patient/patientVideoCall`, { state: { appointmentId }})
     }
 
     return (

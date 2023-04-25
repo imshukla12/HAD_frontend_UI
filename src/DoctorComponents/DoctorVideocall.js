@@ -1,8 +1,13 @@
 import React from 'react'
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt'
 
-const DoctorVideocall = () => {
-    const roomId = "123"
+const DoctorVideocall = (props) => {
+    console.log("props",props)
+    // console.log("videoCall",{props.value})
+    const roomId = props.value.toString()
+    const dr = JSON.parse(localStorage.getItem("doctorDetails"))
+    const drName = dr.firstName
+    console.log("roomCode",roomId)
 
     const myMeeting = async (element) => {
         //   const appID = 1613973613;             ***one-on-one call
@@ -14,7 +19,7 @@ const DoctorVideocall = () => {
             serverSecret,
             roomId,
             Date.now().toString(), //userId
-            "Akanksha"  
+            drName  
         )
 
         const zp = ZegoUIKitPrebuilt.create(kitToken)

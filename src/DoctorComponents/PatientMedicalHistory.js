@@ -12,7 +12,7 @@ const PatientMedicalHistory = ({ patientDetail }) => {
     const [prescription, setPrescription] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(2);
-    
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = prescription.slice(indexOfFirstItem, indexOfLastItem);
@@ -40,21 +40,20 @@ const PatientMedicalHistory = ({ patientDetail }) => {
             })
     }
 
-    // const downloadPDF = async (id, date) => {
-    //     try {
-    //       const response = await axios.get(`http://localhost:9090/pdf/getPdf/${id}`, {
-    //         responseType: 'blob',
-    //       });
-    //       const url = window.URL.createObjectURL(new Blob([response.data]));
-    //       const link = document.createElement('a');
-    //       link.href = url;
-    //       link.setAttribute('download', `${date}.pdf`);
-    //       document.body.appendChild(link);
-    //       link.click();
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   };
+    const downloadPDF = async (id, date) => {
+        try {
+            const response = await axios.get(`http://localhost:9090/pdf/getPdfDoctor/${id}`, {
+                responseType: 'blob',
+            });
+            console.log("inside download pdf")
+            const blob = new Blob([response.data], { type: 'application/pdf' });
+            const url = window.URL.createObjectURL(blob);
+            const newWindow = window.open();
+            newWindow.document.write(`<iframe src="${url}" width="100%" height="100%"></iframe>`);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const generateRecaptcha = () => {
         window.recaptchaVerifier = new RecaptchaVerifier(
@@ -137,44 +136,44 @@ const PatientMedicalHistory = ({ patientDetail }) => {
             )}
             {showMedicalHistory && (
                 <div className="p-2 rounded-lg border-2 border-gray-200">
-                <table className="table-auto w-full mx-auto">
-                  <caption className="caption-top font-serif text-xl p-2 border-b-2">Prescriptions</caption>
-                  <thead className="font-serif text-md">
-                    <tr>
-                      <th>Date</th>
-                      <th>Symptom</th>
-                      {/* <th>Remarks</th> */}
-                      <th>PDF</th>
-                    </tr>
-                  </thead>
-                  <tbody className="font-serif text-sm text-center">
-                    {currentItems.length > 0 ? (
-                      currentItems.map((p) => (
-                        <tr key={p.prescriptionId} className='bg-blue-50 border-2'>
-                          <td>{p.consultationDate}</td>
-                          <td>{p.observation}</td>
-                          {/* <td>{p.remark}</td> */}
-                          <td className='p-2'>
-                            {/* <button
-                              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded"
-                              onClick={() => downloadPDF(p.prescriptionId, p.date)}
-                            >
-                              download pdf
-                            </button> */}
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan="4">No prescriptions found</td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-                <ul className="flex justify-center mt-4">
-                  {renderPageNumbers}
-                </ul>
-              </div>
+                    <table className="table-auto w-full mx-auto">
+                        <caption className="caption-top font-serif text-xl p-2 border-b-2">Prescriptions</caption>
+                        <thead className="font-serif text-md">
+                            <tr>
+                                <th>Date</th>
+                                <th>Symptom</th>
+                                {/* <th>Remarks</th> */}
+                                <th>PDF</th>
+                            </tr>
+                        </thead>
+                        <tbody className="font-serif text-sm text-center">
+                            {currentItems.length > 0 ? (
+                                currentItems.map((p) => (
+                                    <tr key={p.prescriptionId} className='bg-blue-50 border-2'>
+                                        <td>{p.consultationDate}</td>
+                                        <td>{p.observation}</td>
+                                        {/* <td>{p.remark}</td> */}
+                                        <td className='p-2'>
+                                            <button
+                                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded"
+                                                onClick={() => downloadPDF(p.prescriptionId, p.date)}
+                                            >
+                                                download pdf
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="4">No prescriptions found</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                    <ul className="flex justify-center mt-4">
+                        {renderPageNumbers}
+                    </ul>
+                </div>
             )}
         </div>
     )

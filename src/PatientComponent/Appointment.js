@@ -65,9 +65,11 @@ const Appointment = () => {
     console.log("data",data)
     await axios.post(`http://localhost:9090/appointment/requestAppointment`,data)
       .then((response) => {
-        console.log("appointment set",response.data)
-        localStorage.setItem("ptAppointmentId", response.data)
-        navigate(`/patient/waitingroom`)
+        // console.log("appointment set",response.data)
+        // localStorage.setItem("ptAppointmentId", response.data)
+        const appId = response.data
+        // console.log("appId",appId)
+        navigate(`/patient/waitingroom`, { state: {appId}})
       })
       .catch((error) => {
         console.log(error)

@@ -43,7 +43,8 @@ const QueuedPatient = () => {
             .then((response) => {
                 console.log("Delete successful");
                 setCount(count + 1);
-                navigate(`/doctor/consultationpage`);
+                console.log("appID_dr", appointmentId)
+                navigate(`/doctor/consultationpage`, { state: { appointmentId }});
             })
             .catch((error) => {
                 console.log(`Error: ${error.message}`);
