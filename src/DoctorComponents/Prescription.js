@@ -65,6 +65,7 @@ const Prescription = () => {
     };
 
     const fetchPatientDetail = async () => {
+        
         await axios
             .get(`http://localhost:9090/patient/getPatientById/${patientId}`)
             .then((response) => {
@@ -142,6 +143,8 @@ const Prescription = () => {
     }
 
     useEffect(() => {
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
         fetchPatientDetail();
         getAllMedicine();
     }, []);

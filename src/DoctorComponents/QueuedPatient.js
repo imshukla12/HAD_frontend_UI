@@ -27,6 +27,8 @@ const QueuedPatient = () => {
     }
 
     const fetchQueuePt = async () => {
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
         await axios.get(`http://localhost:9090/appointment/getAllAppointments/${doctorDetails.departmentName}`)
             .then((response) => {
                 setQueuedPt(response.data);
@@ -38,6 +40,8 @@ const QueuedPatient = () => {
     }
 
     const deletePt = async () => {
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
         // console.log("inside deletePt", appointmentId);
         await axios.delete(`http://localhost:9090/appointment/deleteAppointment/${appointmentId}`)
             .then((response) => {

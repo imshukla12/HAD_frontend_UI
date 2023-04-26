@@ -60,6 +60,15 @@ function Otp(props) {
         // User signed in successfully.
         // fetchPtData();
         const userI = result.user;
+
+        axios.post('http://localhost:9090/authenticate',{
+          username:phoneNumber,
+          password:phoneNumber
+        }).then((response=>{
+          localStorage.setItem("jwtToken",response.data.jwtToken)
+          // console.log(localStorage.getItem("jwtToken"));
+        })).catch((e)=>console.log(e))
+        
         // console.log(result);
         // console.log("number verified");
         setValidOTP(true);
