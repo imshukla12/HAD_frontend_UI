@@ -12,7 +12,7 @@ import GradientLogo from "./GradientLogo.png"
 const Prescription = () => {
 
     const navigate = useNavigate()
-    const patientId = localStorage.getItem("patientId");
+    const patientId = localStorage.getItem("DrPatientId");
     const doctorDetails = JSON.parse(localStorage.getItem("doctorDetails"))
     const [observation, setObservation] = useState("")
     const [advice, setAdvice] = useState("")

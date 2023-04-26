@@ -17,17 +17,17 @@ const Appointment = () => {
 
   const toggleModal = () => {
     setShow(!show);
-  };
+  }
 
   const handleSelectDepartment = (department) => {
     setSelectedDepartment(department);
     setIsOpen(false);
-  };
+  }
 
   const handleSelectLanguage = (lang) => {
     setSelectedLanguage(lang);
     setIsOpenLang(false);
-  };
+  }
 
   const fetchDept = async () => {
     await axios.get(`http://localhost:9090/department/getDepartment`)
@@ -65,11 +65,11 @@ const Appointment = () => {
     console.log("data",data)
     await axios.post(`http://localhost:9090/appointment/requestAppointment`,data)
       .then((response) => {
-        // console.log("appointment set",response.data)
-        // localStorage.setItem("ptAppointmentId", response.data)
-        const appId = response.data
+        console.log("appointment set",response.data)
+        localStorage.setItem("ptAppointmentId", response.data)
+        // const appId = response.data
         // console.log("appId",appId)
-        navigate(`/patient/waitingroom`, { state: {appId}})
+        navigate(`/patient/waitingroom`)
       })
       .catch((error) => {
         console.log(error)
@@ -108,10 +108,10 @@ const Appointment = () => {
         </button>
 
         : <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
           onClick={toggleModal}
         >
-          Open Modal
+          Apply for Consultation
         </button>
       }
       {/* Modal */}

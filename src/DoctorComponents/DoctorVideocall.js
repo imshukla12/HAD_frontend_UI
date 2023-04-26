@@ -3,17 +3,15 @@ import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt'
 
 const DoctorVideocall = (props) => {
     console.log("props",props)
-    // console.log("videoCall",{props.value})
+    console.log("videoCall",props.value)
     const roomId = props.value.toString()
     const dr = JSON.parse(localStorage.getItem("doctorDetails"))
     const drName = dr.firstName
     console.log("roomCode",roomId)
 
     const myMeeting = async (element) => {
-        //   const appID = 1613973613;             ***one-on-one call
-        //   const serverSecret = "f06a963274343ee0a50c0ed8377bcd10";
-        const appID = 524151284;       //tele-health
-        const serverSecret = "430713bb560808706b4918807d0af4a9";
+        const appID = 626528421;       //tele-health
+        const serverSecret = "c2c7fce47f9e72f2f039bdc026c4bfdc";
         const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
             appID,
             serverSecret,
@@ -56,7 +54,7 @@ const DoctorVideocall = (props) => {
     }
 
     return (
-        <div className='room-page bg-blue-50'>
+        <div className='bg-blue-50'>
             <div ref={myMeeting} />
         </div>
     )

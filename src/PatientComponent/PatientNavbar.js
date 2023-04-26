@@ -7,6 +7,12 @@ const PatientNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const patient = JSON.parse(localStorage.getItem("patientDetails"))
 
+  const logOut = () => {
+    localStorage.removeItem("patientDetails")
+    localStorage.removeItem("ptAppointmentId")
+    window.location.href = "/login"
+  }
+
   return (
     <nav className="bg-white dark:bg-blue-900 top-0 w-full z-20 left-0 dark:border-blue-600">
       <div className="max-w-full mx-auto px-0 sm:px-6 lg:px-8">
@@ -35,7 +41,7 @@ const PatientNavbar = () => {
                   <div className="rounded-md bg-blue-50 shadow-xs">
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                       <a href="/patient/updateProfile" className="block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-blue-200 hover:text-gray-900" role="menuitem">Update Profile</a>
-                      <a href="#" className="block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-red-400 hover:text-gray-900" role="menuitem">Logout</a>
+                      <button className="block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-red-400 hover:text-gray-900" role="menuitem" onClick={logOut}>Logout</button>
                     </div>
                   </div>
                 </div>

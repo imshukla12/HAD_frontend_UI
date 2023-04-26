@@ -6,19 +6,17 @@ import FileUpload from './FileUpload';
 
 const PatientVideoCallPage = () => {
 
-    const { state } = useLocation()
-    console.log("stateValue",state.appointmentId)
+    // const { state } = useLocation()
+    // console.log("stateValue",state.appointmentId)
     // const navigate = useNavigate()
-    const roomId = state.appointmentId.toString()
+    const roomId = localStorage.getItem("ptAppointmentId")
     console.log("roomCode",roomId)
     const pt = JSON.parse(localStorage.getItem("patientDetails"))
     const ptName = pt.firstName
 
     const myMeeting = async (element) => {
-        //   const appID = 1613973613;             ***one-on-one call
-        //   const serverSecret = "f06a963274343ee0a50c0ed8377bcd10";
-        const appID = 524151284;       //tele-health
-        const serverSecret = "430713bb560808706b4918807d0af4a9";
+        const appID = 626528421;       //tele-health
+        const serverSecret = "c2c7fce47f9e72f2f039bdc026c4bfdc";
         const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
             appID,
             serverSecret,
@@ -34,16 +32,16 @@ const PatientVideoCallPage = () => {
             scenario: {
                 mode: ZegoUIKitPrebuilt.OneONoneCall
             },
-            sharedLinks: [
-                {
-                    name: 'Personal link',
-                    url:
-                        window.location.protocol + '//' +
-                        window.location.host + window.location.pathname +
-                        '?roomID=' +
-                        roomId,
-                },
-            ],
+            // sharedLinks: [
+            //     {
+            //         name: 'Personal link',
+            //         url:
+            //             window.location.protocol + '//' +
+            //             window.location.host + window.location.pathname +
+            //             '?roomID=' +
+            //             roomId,
+            //     },
+            // ],
             showPreJoinView: true,
             showScreenSharingButton: false,
             maxUsers: 2,

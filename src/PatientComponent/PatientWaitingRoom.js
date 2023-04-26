@@ -6,10 +6,11 @@ import { useNavigate, useLocation } from 'react-router-dom'
 const PatientWaitingRoom = () => {
 
     const navigate = useNavigate()
-    const { state } = useLocation()
-    // console.log("state", state.appId)
-    // const appointmentId = localStorage.getItem("ptAppointmentId");
-    const appointmentId = state.appId
+    // const { state } = useLocation()
+    // console.log("Wtstate", state.appId)
+    const appointmentId = localStorage.getItem("ptAppointmentId")
+    console.log("appointmentId",appointmentId)
+    // const appointmentId = state.appId
     const [count, setCount] = useState(0);
 
     useEffect(() => {
