@@ -15,45 +15,47 @@ import {
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
 
-
 const HomePage = () => {
-
-  const navigate = useNavigate()
-  const [totalConsult, setTotalConsult] = useState(0)
-  const [onlineDr, setOnlineDr] = useState(0)
-  const [count, setCount] = useState(0)
-  const [countDr, setCountDr] = useState(0)
+  const navigate = useNavigate();
+  const [totalConsult, setTotalConsult] = useState(0);
+  const [onlineDr, setOnlineDr] = useState(0);
+  const [count, setCount] = useState(0);
+  const [countDr, setCountDr] = useState(0);
 
   const getStarted = () => {
-    navigate('/login');
-  }
+    navigate("/login");
+  };
 
   const fetchTotalConsult = async () => {
-    await axios.get(`http://localhost:9090/consultation/getAllConsultationsCount`)
+    await axios
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/consultation/getAllConsultationsCount`
+      )
       .then((response) => {
         // console.log("response",response.data)
-        setTotalConsult(response.data)
+        setTotalConsult(response.data);
         // console.log("totalConsult",totalConsult)
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }
+        console.log(error);
+      });
+  };
 
   const fetchOnlineDr = async () => {
-    await axios.get(`http://localhost:9090/OnlineDoctors/totalOnline`)
+    await axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/OnlineDoctors/totalOnline`)
       .then((response) => {
-        setOnlineDr(response.data)
+        setOnlineDr(response.data);
         // console.log("onlineDr",onlineDr)
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
-    fetchTotalConsult()
-    fetchOnlineDr()
+    fetchTotalConsult();
+    fetchOnlineDr();
     const countIntervalId = setInterval(() => {
       setCount((prevCount) => {
         if (prevCount >= totalConsult) {
@@ -80,7 +82,7 @@ const HomePage = () => {
       clearInterval(countIntervalId);
       clearInterval(onlineDrIntervalId);
     };
-  }, [totalConsult, onlineDr])
+  }, [totalConsult, onlineDr]);
 
   // useEffect(() => {
   //   fetchTotalConsult()
@@ -216,7 +218,9 @@ const HomePage = () => {
       {/* Page-3 */}
       <div className="bg-gray-950 flex flex-row justify-evenly items-center">
         <div className="mt-8 mb-8 w-1/3">
-          <p className="font-serif text-lg text-white mb-8 text-center">Steps for Consultation</p>
+          <p className="font-serif text-lg text-white mb-8 text-center">
+            Steps for Consultation
+          </p>
           <Stepper />
         </div>
         <div className="flex-col justify-evenly items-center w-2/3">
@@ -242,11 +246,19 @@ const HomePage = () => {
             </div>
             <div className="flex flex-col justify-evenly space-y-8">
               <div className="flex flex-row font-serif space-x-4 items-center">
-                <FontAwesomeIcon icon={faEnvelope} beat style={{ color: "#ffffff", }} />
+                <FontAwesomeIcon
+                  icon={faEnvelope}
+                  beat
+                  style={{ color: "#ffffff" }}
+                />
                 <p className="text-white text-lg">eaarogya@gmail.com</p>
               </div>
               <div className="flex flex-row font-serif space-x-4 items-center">
-                <FontAwesomeIcon icon={faPhone} beat style={{ color: "#ffffff", }} />
+                <FontAwesomeIcon
+                  icon={faPhone}
+                  beat
+                  style={{ color: "#ffffff" }}
+                />
                 <p className="text-white text-lg">7020744562</p>
               </div>
             </div>

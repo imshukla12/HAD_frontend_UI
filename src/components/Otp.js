@@ -7,7 +7,6 @@ import { authentication } from "../firebase";
 import axios from "axios";
 
 function Otp(props) {
-
   const navigate = useNavigate();
   const user = props.value;
   const [phoneNumber, setPhoneNumber] = useState();
@@ -32,23 +31,21 @@ function Otp(props) {
   async function sendOTP(e) {
     e.preventDefault();
     // console.log("isVAlid",isValid);
-    if(isValid){
-    setSend(true);
-    generateRecaptcha();
-    let appVerifier = window.recaptchaVerifier;
-    signInWithPhoneNumber(authentication, phoneNumber, appVerifier)
-      .then((confirmationResult) => {
-        window.confirmationResult = confirmationResult;
-        // console.log("true");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (isValid) {
+      setSend(true);
+      generateRecaptcha();
+      let appVerifier = window.recaptchaVerifier;
+      signInWithPhoneNumber(authentication, phoneNumber, appVerifier)
+        .then((confirmationResult) => {
+          window.confirmationResult = confirmationResult;
+          // console.log("true");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      alert("Invalid Number");
     }
-    else{
-      alert("Invalid Number")
-    }
-   
   }
 
   const verifyOTP = (e) => {
@@ -64,12 +61,11 @@ function Otp(props) {
         // console.log("number verified");
         setValidOTP(true);
         if (props.value == 1) {
-          fetchPtDetail()
-          navigate(`/patient`)
-        }
-        else if (props.value == 2) {
-          fetchDrDetail()
-          navigate(`/doctor`)
+          fetchPtDetail();
+          navigate(`/patient`);
+        } else if (props.value == 2) {
+          fetchDrDetail();
+          navigate(`/doctor`);
         }
       })
       .catch((error) => {
@@ -80,56 +76,67 @@ function Otp(props) {
   };
 
   const verifyPatient = () => {
-    axios.get(`http://localhost:9090/login/verifyPatientPhoneNumber/${phoneNumber}`)
+    axios
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/login/verifyPatientPhoneNumber/${phoneNumber}`
+      )
       .then((response) => {
-        setIsValid(response.data)
+        setIsValid(response.data);
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }
+        console.log(error);
+      });
+  };
 
   const verifyDoctor = () => {
-    axios.get(`http://localhost:9090/login/verifyDoctorPhoneNumber/${phoneNumber}`)
+    axios
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/login/verifyDoctorPhoneNumber/${phoneNumber}`
+      )
       .then((response) => {
-        setIsValid(response.data)
+        setIsValid(response.data);
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }
+        console.log(error);
+      });
+  };
 
   const fetchPtDetail = async () => {
-    await axios.get(`http://localhost:9090/patient/getPatientByPhoneNumber/${phoneNumber}`)
+    await axios
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/patient/getPatientByPhoneNumber/${phoneNumber}`
+      )
       .then((response) => {
         // console.log("phoneNumber", phoneNumber)
-        localStorage.setItem("patientDetails", JSON.stringify(response.data))
+        localStorage.setItem("patientDetails", JSON.stringify(response.data));
         // console.log("Ptresponsedata", response.data)
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }
+        console.log(error);
+      });
+  };
 
   const fetchDrDetail = async () => {
-    await axios.get(`http://localhost:9090/doctor/getDoctorByPhoneNumber/${phoneNumber}`)
+    await axios
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/doctor/getDoctorByPhoneNumber/${phoneNumber}`
+      )
       .then((response) => {
         localStorage.setItem("doctorDetails", JSON.stringify(response.data));
         // console.log("Drresponsedata",response.data);
       })
-      .catch((error) =>{
-        console.log(error)
-      })
-  }
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
- useEffect(() =>{
-  if(user == 1){
-    verifyPatient();
-  }
-  else if(user == 2){
-    verifyDoctor();
-  }
- },[phoneNumber])
+  useEffect(() => {
+    if (user == 1) {
+      verifyPatient();
+    } else if (user == 2) {
+      verifyDoctor();
+    }
+  }, [phoneNumber]);
 
   return (
     <div>
@@ -143,7 +150,7 @@ function Otp(props) {
                 value={phoneNumber}
                 onChange={setPhoneNumber}
                 className="w-60 border border-gray-300 rounded-lg px-4 py-2"
-              />  
+              />
               {/* {phoneNumber && phoneNumber.length > 0 && !isValid && (
               <p className="text-red-500">Phone number must have 10 digits.</p>
             )} */}

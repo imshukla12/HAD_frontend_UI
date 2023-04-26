@@ -1,5 +1,5 @@
 // import React, { useState } from 'react'
-// import FullCalendar from '@fullcalendar/react' 
+// import FullCalendar from '@fullcalendar/react'
 // import dayGridPlugin from '@fullcalendar/daygrid'
 // import { Popover } from '@headlessui/react'
 // import './Calendar.css'
@@ -38,8 +38,8 @@
 //         contentHeight={'auto'}
 //         weekNumberCalculation={'auto'}
 //         buttonIcons={{
-//           prevYear: 'chevrons-left', 
-//           nextYear: 'chevrons-right' 
+//           prevYear: 'chevrons-left',
+//           nextYear: 'chevrons-right'
 //         }}
 //         themeSystem={'standard'}
 //         showNonCurrentDates={false}
@@ -47,7 +47,7 @@
 //           const popover = document.querySelector(`[aria-describedby='${info.event.id}']`);
 //           if (popover) {
 //             popover.classList.add("popoverStyle");
-//             popover.style.zIndex = 1000;  
+//             popover.style.zIndex = 1000;
 //           }
 //         }}
 //         eventContent={(eventInfo) => {
@@ -73,7 +73,6 @@
 
 // export default Calender
 
-
 // import { Calendar } from '@mui/lab';
 // import { AdapterDateFns } from '@mui/lab/dateAdapter/AdapterDateFns';
 // import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -89,24 +88,23 @@
 
 // export default MyCalendar;
 
-import React, { useEffect, useState } from 'react'
-import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import Modal from 'react-modal';
-import './Calendar.css'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
-import { responsiveFontSizes } from '@mui/material';
+import React, { useEffect, useState } from "react";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import Modal from "react-modal";
+import "./Calendar.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { responsiveFontSizes } from "@mui/material";
 // import { useToasts } from 'react-toast-notifications';
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
 const Calendar = () => {
-
-  const patient = JSON.parse(localStorage.getItem("patientDetails"))
-  const patientId = patient.patientId
-  const [events, setEvents] = useState([])
+  const patient = JSON.parse(localStorage.getItem("patientDetails"));
+  const patientId = patient.patientId;
+  const [events, setEvents] = useState([]);
   // const [events, setEvents] = useState([
   //   {
   //     title: "Event1",
@@ -136,60 +134,68 @@ const Calendar = () => {
   };
 
   const handleButton = () => {
-    handleModalClose()
+    handleModalClose();
     // addToast('Successfully added.', {
     //   appearance: 'success',
     //   autoDismiss: true,
     // })
     // toast('Successfully added.');
-    alert("added to calender")
+    alert("added to calender");
     // setToast(true)
-  }
+  };
 
-  const fetchFollowUp = async() => {
-    await axios.get(`http://localhost:9090/patient/getFollowUp/${patientId}`)
-    .then((response) => {
-      const formattedEvents = response.data.map((event) => ({
-        title: `${event.departmentName}`,
-        start: event.followUpDate,
-        description: event.observation,
-        id: Math.random().toString(36).substring(7),
-      }));
-      setEvents(formattedEvents)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-  }
+  const fetchFollowUp = async () => {
+    await axios
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/patient/getFollowUp/${patientId}`
+      )
+      .then((response) => {
+        const formattedEvents = response.data.map((event) => ({
+          title: `${event.departmentName}`,
+          start: event.followUpDate,
+          description: event.observation,
+          id: Math.random().toString(36).substring(7),
+        }));
+        setEvents(formattedEvents);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
-    fetchFollowUp()
-  },[])
+    fetchFollowUp();
+  }, []);
 
   return (
-    <div className='container mx-auto font-serif' style={{ height: "100%", width: "100%", marginTop: "0" }}>
+    <div
+      className="container mx-auto font-serif"
+      style={{ height: "100%", width: "100%", marginTop: "0" }}
+    >
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
         headerToolbar={{
-          left: 'title',
-          right: 'prevYear,prev,next,nextYear'
+          left: "title",
+          right: "prevYear,prev,next,nextYear",
         }}
         // backgroundColor='#ffffff'
         events={events}
         // eventBackgroundColor='#172554'
         // eventDisplay='background'
         aspectRatio={1}
-        contentHeight={'auto'}
-        weekNumberCalculation={'auto'}
+        contentHeight={"auto"}
+        weekNumberCalculation={"auto"}
         buttonIcons={{
-          prevYear: 'chevrons-left',
-          nextYear: 'chevrons-right'
+          prevYear: "chevrons-left",
+          nextYear: "chevrons-right",
         }}
-        themeSystem={'standard'}
+        themeSystem={"standard"}
         showNonCurrentDates={false}
         eventDidMount={(info) => {
-          const popover = document.querySelector(`[aria-describedby='${info.event.id}']`);
+          const popover = document.querySelector(
+            `[aria-describedby='${info.event.id}']`
+          );
           if (popover) {
             popover.classList.add("popoverStyle");
             popover.style.zIndex = 1000;
@@ -214,10 +220,16 @@ const Calendar = () => {
         overlayClassName="fixed z-10 inset-0 bg-blue-50 bg-opacity-80"
       >
         {selectedEvent && (
-          <div className='flex flex-col justify-center items-center space-y-2'>
+          <div className="flex flex-col justify-center items-center space-y-2">
             <h2 className="text-2xl font-bold mb-2">{selectedEvent.title}</h2>
             <p>{selectedEvent.extendedProps.description}</p>
-            <button type='submit' className='bg-blue-400 rounded-lg px-2 py-2' onClick={handleButton}>Add to google Calender</button>
+            <button
+              type="submit"
+              className="bg-blue-400 rounded-lg px-2 py-2"
+              onClick={handleButton}
+            >
+              Add to google Calender
+            </button>
           </div>
         )}
       </Modal>
@@ -229,7 +241,7 @@ const Calendar = () => {
         </button>
       </div>)} */}
     </div>
-  )
-}
+  );
+};
 
 export default Calendar;

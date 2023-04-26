@@ -4,11 +4,10 @@ import LoginNavbar from "./LoginNavbar";
 import { Navbar } from "@material-tailwind/react";
 
 const LoginPage = () => {
-
   return (
     <div className="flex md:flex-row flex-col">
       {/* NavBar */}
-      <LoginNavbar/>
+      <LoginNavbar />
       <div className="flex md:flex-row flex-col">
         {/* left-container */}
         <div className="lg:w-3/5">
