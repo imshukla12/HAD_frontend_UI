@@ -17,7 +17,7 @@ const FileUpload = () => {
   }
 
   const fetchAllFile = async () => {
-    await axios.get(`http://localhost:9090/fileaws/getAllFiles`)
+    await axios.get(`http://localhost:9090/fileaws/getAllFiles/${patientId}`)
       .then((response) => {
         console.log("inside fetch files", response.data)
         setFileList(response.data)
@@ -42,7 +42,7 @@ const FileUpload = () => {
 
   const handleFileUpload = async (event) => {
     const files = event.target.files[0];
-    console.log(files)
+    console.log("files",files)
     // setSelectedFile(event.target.files)
     console.log("file", files)
     const formData = new FormData();
@@ -61,10 +61,9 @@ const FileUpload = () => {
     }
   }
 
-
   return (
     <div className="w-full h-screen flex flex-col">
-      <div className="flex flex-col items-center justify-center space-y-8 p-8">
+      <div className="flex flex-col items-center justify-center space-y-8 p-4">
         <p className="font-serif text-2xl font-bold text-blue-900">Upload Records</p>
         <label
           className="w-44 flex flex-col items-center px-4 py-4 bg-white text-blue-600 rounded-lg shadow-lg tracking-wide uppercase border border-blue-600 cursor-pointer hover:bg-blue-600 hover:text-white"
@@ -79,8 +78,8 @@ const FileUpload = () => {
         </label>
       </div>
       <div className="p-4">
-        <div className=" flex flex-col border-2 rounded-lg border-blue-300 items-center justify-center p-4">
-          <div className='flex flex-row items-center space-x-2 px-8'>
+        <div className="flex flex-col border-2 rounded-lg border-blue-300 items-center justify-center">
+          <div className='flex flex-row items-center space-x-2 px-2'>
             <h2 className='py-2 text-md font-serif'>Uploaded Records</h2>
             <button onClick={handleClick}>
               <FontAwesomeIcon icon={faArrowsRotate} className={`text-gray-600 ${isRotating ? "animate-spin" : ""}`} />
@@ -90,15 +89,15 @@ const FileUpload = () => {
             (<div>
               <ul>
                 {fileList.map((file) => (
-                  <div className="flex flex-row">
+                  <div className="flex flex-row p-2">
                     <li key={file.Key}>
                       {file}
                     </li>
-                    <li>
+                    {/* <li>
                       <button className="bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                       Delete
                     </button>
-                    </li>
+                    </li> */}
                   </div>
                 ))}
               </ul>

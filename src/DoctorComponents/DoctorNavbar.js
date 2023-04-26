@@ -40,7 +40,7 @@ const DoctorNavbar = () => {
                   <div className="rounded-md bg-blue-50 shadow-xs">
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                       <a href="/doctor/profile" className="block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-blue-200 hover:text-gray-900" role="menuitem">Update Profile</a>
-                      <button className="block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-red-400 hover:text-gray-900" role="menuitem" onClick={logOut}>Logout</button>
+                      <button className="w-full block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-red-400 hover:text-gray-900" role="menuitem" onClick={logOut}>Logout</button>
                     </div>
                   </div>
                 </div>

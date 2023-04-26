@@ -21,6 +21,8 @@ const Prescription = () => {
     const [showHistory, setShowHistory] = useState(false)
     const [selectedDate, setSelectedDate] = useState(null)
     const [isRotating, setIsRotating] = useState(false)
+    const [ptHistory, setPtHistory] = useState(false)
+    const [fileList, setFileList] = useState([])
     const [patientDetail, setPatientDetail] = useState([
         {
             patientId: 1,
@@ -44,7 +46,7 @@ const Prescription = () => {
     }
     const handleClick = async () => {
         setIsRotating(true)
-        // await fetchQueuePt()
+        await fetchPtHistory()
         await timeout(1000)
         handleAnimationEnd()
     }
@@ -134,12 +136,49 @@ const Prescription = () => {
             .then((response) => {
                 // console.log("inside post prescription api");
                 // console.log(response.data);
+                // deletePtHistory()
                 navigate(`/doctor`);
             })
             .catch((error) => {
                 console.log("error", error);
             });
     }
+
+    const fetchPtHistory = async () => {
+        await axios.get(`http://localhost:9090/fileaws/getAllFiles/${patientId}`)
+            .then((response) => {
+                console.log("fetched files", response.data)
+                setFileList(response.data)
+                setPtHistory(true)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    const handleViewClick = async (fileKey) => {
+        console.log(`File key:`,fileKey);
+        await axios.get(`http://localhost:9090/fileaws/downloadFile/${fileKey}`, { responseType: 'arraybuffer' })
+            .then(response => {
+                console.log("fileeeee")
+                const file = new Blob([response.data], { type: 'application/pdf' });
+                const fileURL = URL.createObjectURL(file);
+                window.open(fileURL);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    // const deletePtHistory = async() => {
+    //     await axios.delete(`http://localhost:9090/fileaws/deleteAllFiles/${patientId}`)
+    //     .then((response) => {
+    //         console.log("response of delete", response.data)
+    //     })
+    //     .catch((error) => {
+    //         console.log(error)
+    //     })
+    // }
 
     useEffect(() => {
         fetchPatientDetail();
@@ -293,7 +332,25 @@ const Prescription = () => {
                             <FontAwesomeIcon icon={faArrowsRotate} className={`text-gray-600 ${isRotating ? "animate-spin" : ""}`} />
                         </button>
                     </div>
-                    <div className="flex items-center justify-center space-y-4"><p className="text-sm text-zinc-400 font-serif">No records found</p></div>
+                    {ptHistory ?
+                        (<div>
+                            <ul>
+                                {fileList.map((file,index) => (
+                                    <div className="flex flex-row p-2" key={file.Key}>
+                                        <li>
+                                            {file}
+                                        </li>
+                                        <li key={`view-${index}`}>
+                                            <button className="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleViewClick(file)}>
+                                                View
+                                            </button>
+                                        </li>
+                                    </div>
+                                ))}
+                            </ul>
+                        </div>)
+                        : (<div className="flex items-center justify-center space-y-4"><p className="text-sm text-zinc-400 font-serif">No records found</p></div>
+                        )}
                 </div>
             </form>
         </div>
