@@ -10,13 +10,13 @@ const Calender = () => {
       title: "Event1",
       description: "event111",
       start: '2023-03-26',
-      end: '2023-03-26',
+      // end: '2023-03-26',
     },
     {
       title: "Event2",
       description: "eventtt2",
       start: '2023-04-18',
-      end: '2023-04-18',
+      // end: '2023-04-18',
     },
   ]);
 
@@ -58,7 +58,7 @@ const Calender = () => {
                   <Popover.Button className="inline-flex justify-center w-full text-sm font-medium text-blue-950 hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-0">
                     {eventInfo.event.title}
                   </Popover.Button>
-                  <Popover.Panel className="fixed text-center z-70 w-64 p-4 mt-3 transform -translate-x-1/2 left-1/2 sm:px-0 bg-blue-50 rounded-lg shadow-lg ring-1 ring-black ring-opacity-75" position="fixed">
+                  <Popover.Panel className="absolue text-center z-70 w-44 p-4 mt-3 transform -translate-x-1/2 left-1/2 sm:px-0 bg-blue-50 rounded-lg shadow-lg ring-1 ring-black ring-opacity-75" position="absolute">
                     <p>{eventInfo.event.extendedProps.description}</p>
                   </Popover.Panel>
                 </>

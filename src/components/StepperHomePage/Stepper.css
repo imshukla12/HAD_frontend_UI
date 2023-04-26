@@ -56,7 +56,7 @@
   }
   
   .step {
-    @apply w-36 flex items-center justify-around z-10 relative font-serif text-white;
+    @apply w-44 flex items-center justify-around z-10 relative font-serif text-white;
   }
   
   .step-number {

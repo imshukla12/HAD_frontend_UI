@@ -1,25 +1,91 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import Stepper from "./StepperHomePage/Stepper";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
+import axios from "axios";
 import {
   faComments,
+  faEnvelope,
   faHeartPulse,
   faIndianRupeeSign,
+  faPhone,
   faStethoscope,
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
 
 
 const HomePage = () => {
-  
-  const navigate = useNavigate();
 
-  const getStarted = () =>{
+  const navigate = useNavigate()
+  const [totalConsult, setTotalConsult] = useState(0)
+  const [onlineDr, setOnlineDr] = useState(0)
+  const [count, setCount] = useState(0)
+  const [countDr, setCountDr] = useState(0)
+
+  const getStarted = () => {
     navigate('/login');
   }
+
+  const fetchTotalConsult = async () => {
+    await axios.get(`http://localhost:9090/consultation/getAllConsultationsCount`)
+      .then((response) => {
+        // console.log("response",response.data)
+        setTotalConsult(response.data)
+        // console.log("totalConsult",totalConsult)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  const fetchOnlineDr = async () => {
+    await axios.get(`http://localhost:9090/OnlineDoctors/totalOnline`)
+      .then((response) => {
+        setOnlineDr(response.data)
+        // console.log("onlineDr",onlineDr)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  useEffect(() => {
+    fetchTotalConsult()
+    fetchOnlineDr()
+    const countIntervalId = setInterval(() => {
+      setCount((prevCount) => {
+        if (prevCount >= totalConsult) {
+          clearInterval(countIntervalId);
+          return prevCount;
+        } else {
+          return prevCount + 1;
+        }
+      });
+    }, 50);
+
+    const onlineDrIntervalId = setInterval(() => {
+      setCountDr((prevCount) => {
+        if (prevCount >= onlineDr) {
+          clearInterval(onlineDrIntervalId);
+          return prevCount;
+        } else {
+          return prevCount + 1;
+        }
+      });
+    }, 50);
+
+    return () => {
+      clearInterval(countIntervalId);
+      clearInterval(onlineDrIntervalId);
+    };
+  }, [totalConsult, onlineDr])
+
+  // useEffect(() => {
+  //   fetchTotalConsult()
+  //   fetchOnlineDr()
+  // },[])
 
   return (
     <div class="md:flex md:flex-col">
@@ -148,35 +214,43 @@ const HomePage = () => {
         </div>
       </div>
       {/* Page-3 */}
-      <div className="bg-black flex flex-row justify-evenly items-center">
-        <div className="flex-col justify-evenly items-center">
-          <div className="flex flex-row items-center">
-            <div class="bg-blue-900 md:w-44 md:h-44 rounded-full md:flex md:items-center md:justify-center ">
-              <FontAwesomeIcon
-                icon={faComments}
-                className="fa-5x"
-                style={{ color: "#ffffff" }}
-              />
-            </div>
-            <div class="bg-white md:w-44 md:h-44 rounded-full md:flex md:items-center md:justify-center ml-40">
-              <p className="font-serif text-blue-700">10</p>
-              <br/>
-              <p className="font-serif text-blue-700">Online Doctors</p>
-            </div>
-          </div>
-          <div className="ml-4 mt-14 justify-center">
-            <button
-              type="button"
-              className="w-36 text-black bg-white hover:bg-red-400 font-serif text-xl rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 transform transition duration-300 hover:scale-125"
-              onClick={getStarted}
-            >
-              Get started
-            </button>
-          </div>
-        </div>
-        <div className="mt-8 mb-8">
-          <p className="font-serif text-lg text-white mb-8">Steps for Consultation</p>
+      <div className="bg-gray-950 flex flex-row justify-evenly items-center">
+        <div className="mt-8 mb-8 w-1/3">
+          <p className="font-serif text-lg text-white mb-8 text-center">Steps for Consultation</p>
           <Stepper />
+        </div>
+        <div className="flex-col justify-evenly items-center w-2/3">
+          <div className="flex flex-row items-center justify-evenly">
+            <div class="bg-white font-serif md:w-60 md:h-40 rounded-lg md:flex md:flex-col md:items-center md:justify-center shadow-xl transform transition duration-300 hover:scale-110">
+              <p className="text-7xl text-bold">{count}</p>
+              <p>Total Consultations</p>
+            </div>
+            <div class="bg-white font-serif md:w-60 md:h-40 rounded-lg md:flex md:flex-col md:items-center md:justify-center shadow-xl transform transition duration-300 hover:scale-110">
+              <p className="text-7xl text-bold">{countDr}</p>
+              <p>Online Doctorrs</p>
+            </div>
+          </div>
+          <div className="ml-4 mt-14 flex flex-row justify-evenly p-8">
+            <div>
+              <button
+                type="button"
+                className="w-36 text-black bg-white hover:bg-green-400 font-serif text-xl rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 transform transition duration-300 hover:scale-125"
+                onClick={getStarted}
+              >
+                Get started
+              </button>
+            </div>
+            <div className="flex flex-col justify-evenly space-y-8">
+              <div className="flex flex-row font-serif space-x-4 items-center">
+                <FontAwesomeIcon icon={faEnvelope} beat style={{ color: "#ffffff", }} />
+                <p className="text-white text-lg">eaarogya@gmail.com</p>
+              </div>
+              <div className="flex flex-row font-serif space-x-4 items-center">
+                <FontAwesomeIcon icon={faPhone} beat style={{ color: "#ffffff", }} />
+                <p className="text-white text-lg">7020744562</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

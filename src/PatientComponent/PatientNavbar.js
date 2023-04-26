@@ -10,7 +10,7 @@ const PatientNavbar = () => {
   const logOut = () => {
     localStorage.removeItem("patientDetails")
     localStorage.removeItem("ptAppointmentId")
-    window.location.href = "/login"
+    window.location.href = "/"
   }
 
   return (

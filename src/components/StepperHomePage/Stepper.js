@@ -5,7 +5,7 @@ const Stepper = () => {
   const steps = ["Registration", "Login", "Apply for Consultation", "Get Consultation", "Get prescription"];
   
   return (
-    <div className="flex flex-col items-center bg-black">
+    <div className="flex flex-col items-center">
       {steps?.map((step, i) => (
         <div key={i} className="step-item">
           <div className="step">
