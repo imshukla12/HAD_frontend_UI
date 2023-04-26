@@ -101,7 +101,7 @@ const PatientHistory = () => {
     }
   };
 
-  const downloadPDF = async (id, date) => {
+  const downloadPDF = async (id) => {
     try {
       const response = await axios.get(`http://localhost:9090/pdf/getPdf/${id}`, {
         responseType: 'blob',
@@ -109,7 +109,7 @@ const PatientHistory = () => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `${date}.pdf`);
+      link.setAttribute('download', `${id}-prescription.pdf`);
       document.body.appendChild(link);
       link.click();
     } catch (error) {
