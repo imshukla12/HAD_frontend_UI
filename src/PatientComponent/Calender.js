@@ -97,7 +97,7 @@ import './Calendar.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import { responsiveFontSizes } from '@mui/material';
+import GoogleEvent from './GoogleEvent';
 // import { useToasts } from 'react-toast-notifications';
 
 Modal.setAppElement('#root');
@@ -156,12 +156,13 @@ const Calendar = () => {
         id: Math.random().toString(36).substring(7),
       }));
       setEvents(formattedEvents)
+      console.log("events",events)
     })
     .catch((error) => {
       console.log(error)
     })
   }
-
+  console.log("eventS",events)
   useEffect(() => {
     fetchFollowUp()
   },[])
@@ -217,7 +218,9 @@ const Calendar = () => {
           <div className='flex flex-col justify-center items-center space-y-2'>
             <h2 className="text-2xl font-bold mb-2">{selectedEvent.title}</h2>
             <p>{selectedEvent.extendedProps.description}</p>
-            <button type='submit' className='bg-blue-400 rounded-lg px-2 py-2' onClick={handleButton}>Add to google Calender</button>
+            <p>{selectedEvent.extendedProps.start}</p>
+            {/* <button type='submit' className='bg-blue-400 rounded-lg px-2 py-2' onClick={handleButton}>Add to google Calender</button> */}
+            <GoogleEvent followUp={selectedEvent.extendedProps.start}/>
           </div>
         )}
       </Modal>
