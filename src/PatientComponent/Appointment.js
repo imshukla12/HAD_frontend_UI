@@ -52,6 +52,10 @@ const Appointment = () => {
       });
   }
 
+  const OPD = () => {
+    navigate(`/patient/waitingroom`)
+  }
+
   const submitHandler = async (event) => {
     // setShow(!show)
     event.preventDefault()
@@ -105,12 +109,20 @@ const Appointment = () => {
       <p className="font-serif text-5xl text-red-700">Welcome to E-Aarogya</p>
       {/* Button to open modal */}
       {prevAppointment ?
-        <button
-          className="bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-          onClick={deletePrevAppointment}
-        >
-          Revoke Consultation
-        </button>
+        (<div className="flex flex-row justify-evenly  p-4 items-center w-full">
+          <button
+            className="bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            onClick={deletePrevAppointment}
+          >
+            Revoke Consultation
+          </button>
+          <button
+            className="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={OPD}
+          >
+           Waiting Room
+          </button>
+        </div>)
 
         : <button
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"

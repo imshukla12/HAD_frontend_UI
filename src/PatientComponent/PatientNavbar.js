@@ -3,9 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import WhiteLogo from "./whiteLogo.png";
 
-const PatientNavbar = () => {
+const PatientNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const patient = JSON.parse(localStorage.getItem("patientDetails"))
+  // const patient = props.value
+  // console.log("pt",patient)
 
   const logOut = () => {
     localStorage.removeItem("patientDetails")
@@ -23,7 +25,7 @@ const PatientNavbar = () => {
           <div className="flex flex-row items-center justify-end">
             <div className="relative flex flex-row items-center justify-end space-x-4">
               <div><a href='/patient' className='text-white font-medium font-serif hover:text-blue-200'>Home</a></div>
-              <div><a href='/patient/waitingroom' className='text-white font-medium font-serif hover:text-blue-200'>OPD</a></div>
+              {/* <div><a href='/patient/waitingroom' className='text-white font-medium font-serif hover:text-blue-200'>OPD</a></div> */}
               <div className='text-white font-medium font-serif'>Pt.{patient.firstName}</div>
               <div>
                 <button

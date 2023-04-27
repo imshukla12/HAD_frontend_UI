@@ -12,7 +12,7 @@ const PatientWaitingRoom = () => {
     const patient = JSON.parse(localStorage.getItem("patientDetails"))
     const patientId = patient.patientId
     const appointmentId = localStorage.getItem("ptAppointmentId")
-    console.log("appointmentId",appointmentId)
+    // console.log("appointmentId",appointmentId)
     // const appointmentId = state.appId
     const [count, setCount] = useState(0);
     const [isAccepted, setIsAccepted] = useState(false)
