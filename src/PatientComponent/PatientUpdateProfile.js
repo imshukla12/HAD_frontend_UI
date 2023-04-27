@@ -35,6 +35,9 @@ const PatientUpdateProfile = () => {
             city: city,
             pincode: pinCode,
         }
+
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
         await axios.put(`http://localhost:9090/patient/updatePatient/${patientId}`, data)
             .then((response) => {
                 // console.log(JSON.stringify(response.data));

@@ -30,6 +30,8 @@ const PatientMedicalHistory = ({ patientDetail }) => {
 
 
     const fetchPrescription = async () => {
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
         await axios.get(`http://localhost:9090/prescription/getPrescriptions/${patientId}`)
             .then((response) => {
                 setPrescription(response.data)
@@ -42,6 +44,8 @@ const PatientMedicalHistory = ({ patientDetail }) => {
 
     const downloadPDF = async (id, date) => {
         try {
+            const jwtToken=localStorage.getItem("jwtToken");
+            axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
             const response = await axios.get(`http://localhost:9090/pdf/getPdfDoctor/${id}`, {
                 responseType: 'blob',
             });

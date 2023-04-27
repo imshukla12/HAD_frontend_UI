@@ -8,6 +8,8 @@ const Infographics = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
         const response = await axios.get('http://localhost:9090/consultation/totalDateWiseConsultations');
         const formattedData = response.data.map((d) => {
           return {
