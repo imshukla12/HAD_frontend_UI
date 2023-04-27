@@ -7,8 +7,14 @@ const DoctorNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const doctor = JSON.parse(localStorage.getItem("doctorDetails"))
 
+  const logOut = () => {
+    localStorage.removeItem("doctorDetails")
+    localStorage.removeItem("DrPatientId")
+    window.location.href = "/"
+  }
+
   return (
-    <nav className="bg-white dark:bg-blue-900 top-0 w-full z-20 left-0 dark:border-blue-600">
+    <nav className="bg-blue-900 border-blue-600 dark:bg-blue-900 top-0 w-full z-20 left-0 dark:border-blue-600">
       <div className="max-w-full mx-auto px-0 sm:px-6 lg:px-8">
         <div className="flex flex-row justify-between h-16">
           <div className="flex-shrink-0 flex items-center p-4">
@@ -34,7 +40,7 @@ const DoctorNavbar = () => {
                   <div className="rounded-md bg-blue-50 shadow-xs">
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                       <a href="/doctor/profile" className="block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-blue-200 hover:text-gray-900" role="menuitem">Update Profile</a>
-                      <a href="#" className="block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-red-400 hover:text-gray-900" role="menuitem">Logout</a>
+                      <button className="w-full block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-red-400 hover:text-gray-900" role="menuitem" onClick={logOut}>Logout</button>
                     </div>
                   </div>
                 </div>

@@ -32,23 +32,23 @@ function Otp(props) {
   async function sendOTP(e) {
     e.preventDefault();
     // console.log("isVAlid",isValid);
-    if(isValid){
-    setSend(true);
-    generateRecaptcha();
-    let appVerifier = window.recaptchaVerifier;
-    signInWithPhoneNumber(authentication, phoneNumber, appVerifier)
-      .then((confirmationResult) => {
-        window.confirmationResult = confirmationResult;
-        // console.log("true");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (isValid) {
+      setSend(true);
+      generateRecaptcha();
+      let appVerifier = window.recaptchaVerifier;
+      signInWithPhoneNumber(authentication, phoneNumber, appVerifier)
+        .then((confirmationResult) => {
+          window.confirmationResult = confirmationResult;
+          // console.log("true");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-    else{
+    else {
       alert("Invalid Number")
     }
-   
+
   }
 
   const verifyOTP = (e) => {
@@ -126,19 +126,19 @@ function Otp(props) {
         localStorage.setItem("doctorDetails", JSON.stringify(response.data));
         // console.log("Drresponsedata",response.data);
       })
-      .catch((error) =>{
+      .catch((error) => {
         console.log(error)
       })
   }
 
- useEffect(() =>{
-  if(user == 1){
-    verifyPatient();
-  }
-  else if(user == 2){
-    verifyDoctor();
-  }
- },[phoneNumber])
+  useEffect(() => {
+    if (user == 1) {
+      verifyPatient();
+    }
+    else if (user == 2) {
+      verifyDoctor();
+    }
+  }, [phoneNumber])
 
   return (
     <div>
@@ -152,7 +152,7 @@ function Otp(props) {
                 value={phoneNumber}
                 onChange={setPhoneNumber}
                 className="w-60 border border-gray-300 rounded-lg px-4 py-2"
-              />  
+              />
               {/* {phoneNumber && phoneNumber.length > 0 && !isValid && (
               <p className="text-red-500">Phone number must have 10 digits.</p>
             )} */}

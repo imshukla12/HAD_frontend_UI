@@ -13,9 +13,12 @@ const DoctorDashboard = () => {
   const doctorDetails = JSON.parse(localStorage.getItem("doctorDetails"));
 
   const fetchTotalConsult = async() => {
+
     const jwtToken=localStorage.getItem("jwtToken");
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-    await axios.get(`http://localhost:9090/consultation/getAllConsultationsCount`)
+    //await axios.get(`http://localhost:9090/consultation/getAllConsultationsCount`)
+    await axios.get(`http://localhost:9090/consultation/totalConsultationByDoctor/${doctorDetails.doctorId}`)
+
     .then((response) => {
       // console.log("totalCount",response.data)
       setTotalConsult(response.data)
@@ -25,16 +28,16 @@ const DoctorDashboard = () => {
     })
   }
 
-  // const fetchTodayConsult = async() =>{
-  //   await axios.get(`http://localhost:9090/consultation/totalDateWiseConsultations`)
-  //   .then((response) => {
-  //     console.log("todayConsult",response.data)
-  //     setTodayConsult(response.data)
-  //   })
-  //   .catch((error) =>{
-  //     console.log(error)
-  //   })
-  // }
+  const fetchTodayConsult = async() =>{
+    await axios.get(`http://localhost:9090/consultation/totalDailyConsultationByDoctor/${doctorDetails.doctorId}`)
+    .then((response) => {
+      console.log("todayConsult",response.data)
+      setTodayConsult(response.data)
+    })
+    .catch((error) =>{
+      console.log(error)
+    })
+  }
 
   const fetchDailyLog = async () => {
     const jwtToken=localStorage.getItem("jwtToken");
@@ -51,7 +54,7 @@ const DoctorDashboard = () => {
 
   useEffect(() => {
     fetchTotalConsult()
-    // fetchTodayConsult()
+    fetchTodayConsult()
     fetchDailyLog()
   }, [])
 
@@ -73,7 +76,7 @@ const DoctorDashboard = () => {
               </div>
               <div className='w-1/2 p-4 h-3/5 border-t-4 border-blue-900 shadow-lg font-serif rounded-lg flex flex-col justify-evenly transition-transform duration-500 transform-gpu hover:scale-110'>
                 <p>Today's Consultations</p>
-                <p className='text-5xl text-center'>120</p>
+                <p className='text-5xl text-center'>{todayConsult}</p>
               </div>
             </div>
             <div className='row-span-3 h-4/5 w-full flex justify-center'>

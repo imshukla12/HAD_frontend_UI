@@ -47,7 +47,7 @@ const QueuedPatient = () => {
             .then((response) => {
                 // console.log("Delete successful");
                 setCount(count + 1);
-                // console.log("appID_dr", appointmentId)
+                console.log("appID_dr", appointmentId)
                 navigate(`/doctor/consultationpage`, { state: { appointmentId }});
             })
             .catch((error) => {
@@ -78,8 +78,8 @@ const QueuedPatient = () => {
                                 className="menu-item bg-green-400 hover:bg-green-600 rounded-lg px-2"
                                 onClick={() => {
                                     appointmentId = p.appointmentId;
-                                    localStorage.setItem("patientId", p.patientId);
-                                    // console.log("appointmentId: ", appointmentId);
+                                    localStorage.setItem("DrPatientId", p.patientId);
+                                    console.log("appointmentId: ", appointmentId);
                                     deletePt();
                                 }}
                             >
