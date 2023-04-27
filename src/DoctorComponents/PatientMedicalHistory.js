@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const PatientMedicalHistory = ({ patientDetail }) => {
     const phoneNo = patientDetail.phoneNo
-    const patientId = localStorage.getItem("patientId")
+    const patientId = localStorage.getItem("DrPatientId")
     const [showMedicalHistory, setShowMedicalHistory] = useState(false)
     const [showVerifyOTP, setShowVerifyOTP] = useState(false)
     const [otp, setOtp] = useState()
@@ -30,10 +30,12 @@ const PatientMedicalHistory = ({ patientDetail }) => {
 
 
     const fetchPrescription = async () => {
-        const jwtToken=localStorage.getItem("jwtToken");
-        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        // const jwtToken=localStorage.getItem("jwtToken");
+        // axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        console.log("pt id",patientId)
         await axios.get(`http://localhost:9090/prescription/getPrescriptions/${patientId}`)
             .then((response) => {
+                console.log("egfgwe")
                 setPrescription(response.data)
                 console.log("prescription", prescription)
             })

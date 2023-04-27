@@ -42,7 +42,7 @@ const FileUpload = () => {
 
   const handleFileUpload = async (event) => {
     const files = event.target.files[0];
-    console.log("files",files)
+    console.log("files", files)
     // setSelectedFile(event.target.files)
     console.log("file", files)
     const formData = new FormData();
@@ -50,6 +50,8 @@ const FileUpload = () => {
     console.log("formData", formData)
     console.log("ptID", patientId)
     try {
+      const jwtToken = localStorage.getItem("jwtToken");
+      axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`
       const response = await axios.post(`http://localhost:9090/fileaws/uploadFile/${patientId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",

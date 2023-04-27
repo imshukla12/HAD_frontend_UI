@@ -29,6 +29,8 @@ const DoctorDashboard = () => {
   }
 
   const fetchTodayConsult = async() =>{
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios.get(`http://localhost:9090/consultation/totalDailyConsultationByDoctor/${doctorDetails.doctorId}`)
     .then((response) => {
       console.log("todayConsult",response.data)
