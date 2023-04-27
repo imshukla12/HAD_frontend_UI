@@ -14,7 +14,7 @@ const DoctorNavbar = () => {
   }
 
   return (
-    <nav className="bg-white dark:bg-blue-900 top-0 w-full z-20 left-0 dark:border-blue-600">
+    <nav className="bg-blue-900 border-blue-600 dark:bg-blue-900 top-0 w-full z-20 left-0 dark:border-blue-600">
       <div className="max-w-full mx-auto px-0 sm:px-6 lg:px-8">
         <div className="flex flex-row justify-between h-16">
           <div className="flex-shrink-0 flex items-center p-4">
