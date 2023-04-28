@@ -2,19 +2,22 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
-
   const navigate = useNavigate();
 
   const getStarted = () => {
-    navigate('/login');
-  }
+    navigate("/login");
+  };
 
   return (
     <div>
       <nav className="bg-white dark:bg-blue-900 fixed  w-full z-20 top-0 left-0 dark:border-blue-600">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <div className="flex items-center flex-shrink-0">
-            <img src = "./images/whiteLogo.png" alt="logo" className="w-auto h-8"/>
+            <img
+              src="./images/whiteLogo.png"
+              alt="logo"
+              className="w-auto h-8"
+            />
             {/* <span className="md:self-center md:text-2xl font-serif md:whitespace-nowrap dark:text-white">
               E-Aarogya
             </span> */}

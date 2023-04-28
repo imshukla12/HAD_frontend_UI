@@ -7,7 +7,6 @@ import { authentication } from "../firebase";
 import axios from "axios";
 
 function Otp(props) {
-
   const navigate = useNavigate();
   const user = props.value;
   const [phoneNumber, setPhoneNumber] = useState();
@@ -44,9 +43,8 @@ function Otp(props) {
         .catch((error) => {
           console.log(error);
         });
-    }
-    else {
-      alert("Invalid Number")
+    } else {
+      alert("Invalid Number");
     }
 
   }
@@ -73,12 +71,11 @@ function Otp(props) {
         // console.log("number verified");
         setValidOTP(true);
         if (props.value == 1) {
-          fetchPtDetail()
-          navigate(`/patient`)
-        }
-        else if (props.value == 2) {
-          fetchDrDetail()
-          navigate(`/doctor`)
+          fetchPtDetail();
+          navigate(`/patient`);
+        } else if (props.value == 2) {
+          fetchDrDetail();
+          navigate(`/doctor`);
         }
       })
       .catch((error) => {
@@ -91,34 +88,34 @@ function Otp(props) {
   const verifyPatient = () => {
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/login/verifyPatientPhoneNumber/${phoneNumber}`)
       .then((response) => {
-        setIsValid(response.data)
+        setIsValid(response.data);
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }
+        console.log(error);
+      });
+  };
 
   const verifyDoctor = () => {
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/login/verifyDoctorPhoneNumber/${phoneNumber}`)
       .then((response) => {
-        setIsValid(response.data)
+        setIsValid(response.data);
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }
+        console.log(error);
+      });
+  };
 
   const fetchPtDetail = async () => {
     await axios.get(`${process.env.REACT_APP_BACKEND_URL}/patient/getPatientByPhoneNumber/${phoneNumber}`)
       .then((response) => {
         // console.log("phoneNumber", phoneNumber)
-        localStorage.setItem("patientDetails", JSON.stringify(response.data))
+        localStorage.setItem("patientDetails", JSON.stringify(response.data));
         // console.log("Ptresponsedata", response.data)
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }
+        console.log(error);
+      });
+  };
 
   const fetchDrDetail = async () => {
     await axios.get(`${process.env.REACT_APP_BACKEND_URL}/doctor/getDoctorByPhoneNumber/${phoneNumber}`)
@@ -127,9 +124,10 @@ function Otp(props) {
         // console.log("Drresponsedata",response.data);
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }
+        console.log(error);
+      });
+  };
+
 
   useEffect(() => {
     if (user == 1) {

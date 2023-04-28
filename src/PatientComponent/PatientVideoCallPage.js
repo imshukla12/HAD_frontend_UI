@@ -5,23 +5,25 @@ import PatientNavbar from './PatientNavbar';
 import FileUpload from './FileUpload';
 
 const PatientVideoCallPage = () => {
-
     const navigate = useNavigate()
     const roomId = localStorage.getItem("ptAppointmentId")
     // console.log("roomCode",roomId)
     const pt = JSON.parse(localStorage.getItem("patientDetails"))
     const ptName = pt.firstName
-
+    
     const myMeeting = async (element) => {
-        const appID = 626528421;       //tele-health
-        const serverSecret = "c2c7fce47f9e72f2f039bdc026c4bfdc";
-        const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
-            appID,
-            serverSecret,
-            roomId,
-            Date.now().toString(),
-            ptName
-        )
+    const appID = 626528421; //tele-health
+    const serverSecret = "c2c7fce47f9e72f2f039bdc026c4bfdc";
+    const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
+      appID,
+      serverSecret,
+      roomId,
+      Date.now().toString(),
+      ptName
+    );
+
+    const zp = ZegoUIKitPrebuilt.create(kitToken);
+
 
         const zp = ZegoUIKitPrebuilt.create(kitToken)
 
@@ -79,7 +81,9 @@ const PatientVideoCallPage = () => {
                 <div className='col-span-1 bg-indigo-200'><FileUpload /></div>
             </div>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default PatientVideoCallPage
+export default PatientVideoCallPage;

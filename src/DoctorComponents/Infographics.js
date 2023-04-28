@@ -1,6 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
 
 const Infographics = () => {
   const [data, setData] = useState([]);
@@ -36,7 +44,13 @@ const Infographics = () => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="consultations" stroke="#3b82f6" strokeWidth={2} activeDot={{ r: 8 }} />
+          <Line
+            type="monotone"
+            dataKey="consultations"
+            stroke="#3b82f6"
+            strokeWidth={2}
+            activeDot={{ r: 8 }}
+          />
         </LineChart>
       ) : (
         <div>Loading data...</div>
