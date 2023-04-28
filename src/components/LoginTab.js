@@ -40,7 +40,7 @@ const LoginTab = () => {
             {toggleState === 1 ? (
               <div className="tab-panel p-6 transition duration-300">
                 {/* <h2 className="text-xl font-semibold text-gray-800">second tab panel</h2> */}
-                <Otp value={toggleState} />
+                <Otp value = {toggleState}/>
                 <div className="flex items-center justify-center pb-6">
                   <p className="mb-0 mr-2">Don't have an account?</p>
                   {/* <button
@@ -49,10 +49,7 @@ const LoginTab = () => {
                                     >
                                         Register
                                     </button> */}
-                  <a
-                    href="/register"
-                    className="text-blue-500 hover:text-blue-900"
-                  >
+                  <a href="/register" className="text-blue-500 hover:text-blue-900">
                     Register
                   </a>
                 </div>

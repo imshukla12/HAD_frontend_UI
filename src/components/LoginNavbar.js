@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const LoginNavbar = () => {
   return (
@@ -6,12 +6,8 @@ const LoginNavbar = () => {
       <nav className="bg-white dark:bg-blue-900 fixed  w-full z-20 top-0 left-0 dark:border-blue-600">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <div className="flex items-center flex-shrink-0">
-            <a href="/">
-              <img
-                src="./images/whiteLogo.png"
-                alt="logo"
-                className="w-auto h-8"
-              />
+            <a href='/'>
+              <img src="./images/whiteLogo.png" alt="logo" className="w-auto h-8" />
             </a>
             {/* <span className="md:self-center md:text-2xl font-serif md:whitespace-nowrap dark:text-white">
                   E-Aarogya
@@ -55,7 +51,7 @@ const LoginNavbar = () => {
             >
               <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
                 <li className="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
-                  <a href="/"> Home</a>
+                 <a href='/'> Home</a>
                 </li>
                 <li className="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
                   About
@@ -76,6 +72,6 @@ const LoginNavbar = () => {
       </nav>
     </div>
   );
-};
+}
 
-export default LoginNavbar;
+export default LoginNavbar

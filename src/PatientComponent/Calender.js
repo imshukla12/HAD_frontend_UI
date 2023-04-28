@@ -5,14 +5,15 @@ import Modal from 'react-modal';
 import './Calendar.css'
 import axios from 'axios';
 import { gapi } from "gapi-script"
+// import { useToasts } from 'react-toast-notifications';
 
-Modal.setAppElement("#root");
+Modal.setAppElement('#root');
 
 const Calendar = () => {
+
   const patient = JSON.parse(localStorage.getItem("patientDetails"))
   // const patientId = patient.patientId
   const [events, setEvents] = useState([])
-
   // const { addToast } = useToasts()
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -94,46 +95,41 @@ const Calendar = () => {
           description: event.observation,
           id: Math.random().toString(36).substring(7),
         }));
-
-        setEvents(formattedEvents);
+        setEvents(formattedEvents)
+        // console.log("events",events)
       })
       .catch((error) => {
-        console.log(error);
-      });
-  };
+        console.log(error)
+      })
+  }
 
   useEffect(() => {
-    fetchFollowUp();
-  }, []);
+    fetchFollowUp()
+  }, [])
 
   return (
-    <div
-      className="container mx-auto font-serif"
-      style={{ height: "100%", width: "100%", marginTop: "0" }}
-    >
+    <div className='container mx-auto font-serif' style={{ height: "100%", width: "100%", marginTop: "0" }}>
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
         headerToolbar={{
-          left: "title",
-          right: "prevYear,prev,next,nextYear",
+          left: 'title',
+          right: 'prevYear,prev,next,nextYear'
         }}
         events={events}
         // eventBackgroundColor='#172554'
         // eventDisplay='background'
         aspectRatio={1}
-        contentHeight={"auto"}
-        weekNumberCalculation={"auto"}
+        contentHeight={'auto'}
+        weekNumberCalculation={'auto'}
         buttonIcons={{
-          prevYear: "chevrons-left",
-          nextYear: "chevrons-right",
+          prevYear: 'chevrons-left',
+          nextYear: 'chevrons-right'
         }}
-        themeSystem={"standard"}
+        themeSystem={'standard'}
         showNonCurrentDates={false}
         eventDidMount={(info) => {
-          const popover = document.querySelector(
-            `[aria-describedby='${info.event.id}']`
-          );
+          const popover = document.querySelector(`[aria-describedby='${info.event.id}']`);
           if (popover) {
             popover.classList.add("popoverStyle");
             popover.style.zIndex = 1000;
@@ -158,7 +154,7 @@ const Calendar = () => {
         overlayClassName="fixed z-10 inset-0 bg-blue-50 bg-opacity-80"
       >
         {selectedEvent && (
-          <div className="flex flex-col justify-center items-center space-y-2">
+          <div className='flex flex-col justify-center items-center space-y-2'>
             <h2 className="text-2xl font-bold mb-2">{selectedEvent.title}</h2>
             <p>{selectedEvent.extendedProps.description}</p>
             <p>{new Date(selectedEvent.start).toLocaleDateString()}</p>
@@ -167,7 +163,7 @@ const Calendar = () => {
         )}
       </Modal>
     </div>
-  );
-};
+  )
+}
 
 export default Calendar;
