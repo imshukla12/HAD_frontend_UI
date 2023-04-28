@@ -1,11 +1,9 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { authentication } from "../firebase";
 import axios from 'axios';
-import { LoggedinUserContext } from '../context/LoggedinUserContext';
 
 const PatientMedicalHistory = ({ patientDetail }) => {
-    const {loggedinuser, setLoggedinUser} = useContext(LoggedinUserContext)
     const phoneNo = patientDetail.phoneNo
     const patientId = localStorage.getItem("DrPatientId")
     const [showMedicalHistory, setShowMedicalHistory] = useState(false)
@@ -48,8 +46,8 @@ const PatientMedicalHistory = ({ patientDetail }) => {
 
     const downloadPDF = async (id, date) => {
         try {
-            // const jwtToken=localStorage.getItem("jwtToken");
-            axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
+            const jwtToken=localStorage.getItem("jwtToken");
+            axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
             const response = await axios.get(`http://localhost:9090/pdf/getPdfDoctor/${id}`, {
                 responseType: 'blob',
             });

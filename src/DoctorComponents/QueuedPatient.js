@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import axios from 'axios'
 import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons'
-import { LoggedinUserContext } from '../context/LoggedinUserContext'
 
 const QueuedPatient = () => {
-    const {loggedinuser, setLoggedinUser} = useContext(LoggedinUserContext)
     const [count, setCount] = useState(0);
     const doctorDetails = JSON.parse(localStorage.getItem("doctorDetails"));
     const [queuedPt, setQueuedPt] = useState([]);
@@ -29,8 +27,8 @@ const QueuedPatient = () => {
     }
 
     const fetchQueuePt = async () => {
-        // const jwtToken=localStorage.getItem("jwtToken");
-        axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
         await axios.get(`http://localhost:9090/appointment/getAllAppointments/${doctorDetails.departmentName}`)
             .then((response) => {
                 setQueuedPt(response.data);
@@ -42,8 +40,8 @@ const QueuedPatient = () => {
     }
 
     const deletePt = async () => {
-        // const jwtToken=localStorage.getItem("jwtToken");
-        axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
         // console.log("inside deletePt", appointmentId);
         await axios.delete(`http://localhost:9090/appointment/deleteAppointment/${appointmentId}`)
             .then((response) => {

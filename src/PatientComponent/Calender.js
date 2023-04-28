@@ -1,18 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import Modal from 'react-modal';
 import './Calendar.css'
 import axios from 'axios';
 import { gapi } from "gapi-script"
-import { LoggedinUserContext } from '../context/LoggedinUserContext';
 // import { useToasts } from 'react-toast-notifications';
 
 Modal.setAppElement('#root');
 
 const Calendar = () => {
-
-  const {loggedinuser, setLoggedinUser} = useContext(LoggedinUserContext)
 
   const patient = JSON.parse(localStorage.getItem("patientDetails"))
   const patientId = patient.patientId
@@ -88,8 +85,8 @@ const Calendar = () => {
   }
 
   const fetchFollowUp = async () => {
-    // const jwtToken = localStorage.getItem("jwtToken");
-    axios.defaults.headers.common["Authorization"] = `Bearer ${loggedinuser.token}`
+    const jwtToken = localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`
     await axios.get(`http://localhost:9090/patient/getFollowUp/${patientId}`)
       .then((response) => {
         const formattedEvents = response.data.map((event) => ({

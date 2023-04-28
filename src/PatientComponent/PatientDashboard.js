@@ -1,15 +1,12 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import PatientNavbar from './PatientNavbar'
 import Appointment from './Appointment'
 import PatientHistory from './PatientHistory'
 import Calender from './Calender'
-import { LoggedinUserContext } from '../context/LoggedinUserContext'
 import flow from '../components/images/FLOW (1).png'
-
 
 const PatientDashboard = () => {
 
-  const {loggedinuser, setLoggedinUser} = useContext(LoggedinUserContext)
   // const patient = JSON.parse(localStorage.getItem("patientDetails"))
   const [viewHistory, setViewHistory] = useState(false)
 
