@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareMinus, faSquarePlus, faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
@@ -8,8 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PatientMedicalHistory from './PatientMedicalHistory';
 import GradientLogo from "./GradientLogo.png"
+import { LoggedinUserContext } from '../context/LoggedinUserContext';
 
 const Prescription = () => {
+    const {loggedinuser, setLoggedinUser} = useContext(LoggedinUserContext)
 
     const navigate = useNavigate()
     const patientId = localStorage.getItem("DrPatientId");
@@ -67,8 +69,8 @@ const Prescription = () => {
     };
 
     const fetchPatientDetail = async () => {
-        const jwtToken=localStorage.getItem("jwtToken");
-        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        // const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
         await axios
             .get(`http://localhost:9090/patient/getPatientById/${patientId}`)
             .then((response) => {
@@ -133,8 +135,8 @@ const Prescription = () => {
         };
 
         // console.log("form updated data", data);
-        const jwtToken=localStorage.getItem("jwtToken");
-        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        // const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
         await axios
             .post("http://localhost:9090/prescription/addPrescription", data)
             .then((response) => {
@@ -149,8 +151,8 @@ const Prescription = () => {
     }
 
     const fetchPtHistory = async () => {
-        const jwtToken=localStorage.getItem("jwtToken");
-        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        // const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
         await axios.get(`http://localhost:9090/fileaws/getAllFiles/${patientId}`)
             .then((response) => {
                 console.log("fetched files", response.data)
@@ -164,8 +166,8 @@ const Prescription = () => {
 
     const handleViewClick = async (fileKey) => {
         console.log(`File key:`,fileKey);
-        const jwtToken=localStorage.getItem("jwtToken");
-        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        // const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
         await axios.get(`http://localhost:9090/fileaws/downloadFile/${fileKey}`, { responseType: 'arraybuffer' })
             .then(response => {
                 console.log("fileeeee")

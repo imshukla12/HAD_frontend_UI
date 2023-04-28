@@ -23,7 +23,7 @@ const DoctorNavbar = () => {
           <div className="flex flex-row items-center justify-end">
             <div className="relative flex flex-row items-center justify-end space-x-4">
               <div><a href='/doctor' className='text-white font-medium font-serif hover:text-blue-200'>Home</a></div>
-              <div className='text-white font-medium font-serif'>Dr.{doctor.firstName}</div>
+              <div className='text-white font-medium font-serif'>Dr.{doctor?.firstName}</div>
               <div>
                 <button
                   className="py-2 rounded inline-flex items-center"

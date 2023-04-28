@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { authentication } from "../firebase";
 import axios from "axios";
+import { LoggedinUserContext } from "../context/LoggedinUserContext";
 
 function Otp(props) {
+  const { loggedinuser, setLoggedinuser } = useContext(LoggedinUserContext)
 
   const navigate = useNavigate();
   const user = props.value;
@@ -65,7 +67,8 @@ function Otp(props) {
           username:phoneNumber,
           password:phoneNumber
         }).then((response=>{
-          localStorage.setItem("jwtToken",response.data.jwtToken)
+          // localStorage.setItem("jwtToken",response.data.jwtToken)
+          setLoggedinuser({...loggedinuser, token:response.data.jwtToken})
           // console.log(localStorage.getItem("jwtToken"));
         })).catch((e)=>console.log(e))
         

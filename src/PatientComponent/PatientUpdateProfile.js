@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PatientNavbar from './PatientNavbar';
+import { LoggedinUserContext } from '../context/LoggedinUserContext';
 
 const PatientUpdateProfile = () => {
+    const {loggedinuser, setLoggedinUser} = useContext(LoggedinUserContext)
 
     const navigate = useNavigate()
     const patientDetails = JSON.parse(localStorage.getItem("patientDetails"))
@@ -36,8 +38,8 @@ const PatientUpdateProfile = () => {
             pincode: pinCode,
         }
 
-        const jwtToken=localStorage.getItem("jwtToken");
-        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        // const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
         await axios.put(`http://localhost:9090/patient/updatePatient/${patientId}`, data)
             .then((response) => {
                 // console.log(JSON.stringify(response.data));

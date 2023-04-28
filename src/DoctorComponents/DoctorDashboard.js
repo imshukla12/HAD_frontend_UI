@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DoctorNavbar from './DoctorNavbar'
 import QueuedPatient from './QueuedPatient'
 import Infographics from './Infographics'
 import axios from 'axios'
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons'
+import { LoggedinUserContext } from '../context/LoggedinUserContext';
 
 const DoctorDashboard = () => {
+  const {loggedinuser, setLoggedinUser} = useContext(LoggedinUserContext)
+  // console.log("context api", loggedinuser);
   const [dailyLog, setDailyLog] = useState()
   const [totalConsult, setTotalConsult] = useState(0)
   const [todayConsult, setTodayConsult] = useState(0)
@@ -14,8 +17,8 @@ const DoctorDashboard = () => {
 
   const fetchTotalConsult = async() => {
 
-    const jwtToken=localStorage.getItem("jwtToken");
-    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+    // const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
     //await axios.get(`http://localhost:9090/consultation/getAllConsultationsCount`)
     await axios.get(`http://localhost:9090/consultation/totalConsultationByDoctor/${doctorDetails.doctorId}`)
 
@@ -29,8 +32,8 @@ const DoctorDashboard = () => {
   }
 
   const fetchTodayConsult = async() =>{
-    const jwtToken=localStorage.getItem("jwtToken");
-    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+    // const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
     await axios.get(`http://localhost:9090/consultation/totalDailyConsultationByDoctor/${doctorDetails.doctorId}`)
     .then((response) => {
       console.log("todayConsult",response.data)
@@ -42,8 +45,8 @@ const DoctorDashboard = () => {
   }
 
   const fetchDailyLog = async () => {
-    const jwtToken=localStorage.getItem("jwtToken");
-    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+    // const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
     await axios.get(`http://localhost:9090/doctor/doctorDailyLog/${doctorDetails.doctorId}`)
       .then((response) => {
         setDailyLog(response.data)

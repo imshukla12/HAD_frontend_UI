@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { LoggedinUserContext } from '../context/LoggedinUserContext';
 
 const Infographics = () => {
+  const {loggedinuser, setLoggedinUser} = useContext(LoggedinUserContext)
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const jwtToken=localStorage.getItem("jwtToken");
-        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        // const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
         const response = await axios.get('http://localhost:9090/consultation/totalDateWiseConsultations');
         const formattedData = response.data.map((d) => {
           return {
