@@ -12,7 +12,7 @@ Modal.setAppElement('#root');
 const Calendar = () => {
 
   const patient = JSON.parse(localStorage.getItem("patientDetails"))
-  const patientId = patient.patientId
+  // const patientId = patient.patientId
   const [events, setEvents] = useState([])
   // const { addToast } = useToasts()
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -87,7 +87,7 @@ const Calendar = () => {
   const fetchFollowUp = async () => {
     const jwtToken = localStorage.getItem("jwtToken");
     axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`
-    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/patient/getFollowUp/${patientId}`)
+    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/patient/getFollowUp/${patient?.patientId}`)
       .then((response) => {
         const formattedEvents = response.data.map((event) => ({
           title: `${event.departmentName}`,
