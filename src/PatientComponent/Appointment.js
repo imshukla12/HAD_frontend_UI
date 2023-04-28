@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { LoggedinUserContext } from "../context/LoggedinUserContext";
 
 const Appointment = () => {
-  const {loggedinuser, setLoggedinUser} = useContext(LoggedinUserContext)
   const navigate = useNavigate()
   const patientDetails = JSON.parse(localStorage.getItem("patientDetails"))
   const [departments, setDepartments] = useState()
@@ -32,8 +30,8 @@ const Appointment = () => {
   }
 
   const fetchDept = async () => {
-    // const jwtToken=localStorage.getItem("jwtToken");
-    axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios.get(`http://localhost:9090/department/getDepartment`)
       .then((response) => {
         setDepartments(response.data)
@@ -44,8 +42,8 @@ const Appointment = () => {
   }
 
   const fetchPrevAppointment = async () => {
-    // const jwtToken=localStorage.getItem("jwtToken");
-    axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios
       .get(
         `http://localhost:9090/appointment/checkAppointments/${patientDetails.patientId}`
@@ -74,8 +72,8 @@ const Appointment = () => {
 
 
     console.log("data",data)
-    // const jwtToken=localStorage.getItem("jwtToken");
-    axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios.post(`http://localhost:9090/appointment/requestAppointment`,data)
       .then((response) => {
         console.log("appointment set", response.data)
@@ -91,8 +89,8 @@ const Appointment = () => {
   }
 
   const deletePrevAppointment = async () => {
-    // const jwtToken=localStorage.getItem("jwtToken");
-    axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios
       .delete(
         `http://localhost:9090/appointment/deleteAppointmentByPatientId/${patientDetails.patientId}`

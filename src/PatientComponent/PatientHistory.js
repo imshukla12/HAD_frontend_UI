@@ -82,14 +82,11 @@
 
 // export default PatientHistory;
 
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 // import ReactPaginate from 'react-paginate';
 import axios from 'axios';
-import { LoggedinUserContext } from '../context/LoggedinUserContext';
 
 const PatientHistory = () => {
-  const {loggedinuser, setLoggedinUser} = useContext(LoggedinUserContext)
-
   const patientDetails = JSON.parse(localStorage.getItem('patientDetails'));
   const [prescription, setPrescription] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -108,8 +105,8 @@ const PatientHistory = () => {
 
   const downloadPDF = async (id) => {
     try {
-      // const jwtToken=localStorage.getItem("jwtToken");
-      axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
+      const jwtToken=localStorage.getItem("jwtToken");
+      axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
       const response = await axios.get(`http://localhost:9090/pdf/getPdf/${id}`, {
         responseType: 'blob',
       });
