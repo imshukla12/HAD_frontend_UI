@@ -2,12 +2,26 @@ import React, { useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import WhiteLogo from "../components/images/whiteLogo.png";
+import axios from 'axios';
 
 const DoctorNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const doctor = JSON.parse(localStorage.getItem("doctorDetails"))
 
-  const logOut = () => {
+  const drLogout = async() => {
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+    await axios.put(`${process.env.REACT_APP_BACKEND_URL}/doctor/Doctorlogout/${doctor.doctorId}`)
+    .then((response) => {
+      // console.log(response.data)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
+  const logOut = async() => {
+    await drLogout()
     localStorage.removeItem("doctorDetails")
     localStorage.removeItem("DrPatientId")
     window.location.href = "/"
