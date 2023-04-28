@@ -11,7 +11,7 @@ const DoctorNavbar = () => {
   const drLogout = async() => {
     const jwtToken=localStorage.getItem("jwtToken");
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-    await axios.put(`${process.env.REACT_APP_BACKEND_URL}/doctor/Doctorlogout/${doctor.doctorId}`)
+    await axios.put(`${process.env.REACT_APP_BACKEND_URL}/doctor/Doctorlogout/${doctor?.doctorId}`)
     .then((response) => {
       // console.log(response.data)
     })
@@ -24,6 +24,7 @@ const DoctorNavbar = () => {
     await drLogout()
     localStorage.removeItem("doctorDetails")
     localStorage.removeItem("DrPatientId")
+    localStorage.removeItem("jwtToken")
     window.location.href = "/"
   }
 

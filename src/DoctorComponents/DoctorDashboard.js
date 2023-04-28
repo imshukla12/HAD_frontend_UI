@@ -17,7 +17,7 @@ const DoctorDashboard = () => {
     const jwtToken=localStorage.getItem("jwtToken");
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     //await axios.get(`http://localhost:9090/consultation/getAllConsultationsCount`)
-    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/consultation/totalConsultationByDoctor/${doctorDetails.doctorId}`)
+    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/consultation/totalConsultationByDoctor/${doctorDetails?.doctorId}`)
 
     .then((response) => {
       // console.log("totalCount",response.data)
@@ -31,7 +31,7 @@ const DoctorDashboard = () => {
   const fetchTodayConsult = async() =>{
     const jwtToken=localStorage.getItem("jwtToken");
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/consultation/totalDailyConsultationByDoctor/${doctorDetails.doctorId}`)
+    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/consultation/totalDailyConsultationByDoctor/${doctorDetails?.doctorId}`)
     .then((response) => {
       console.log("todayConsult",response.data)
       setTodayConsult(response.data)
@@ -44,7 +44,7 @@ const DoctorDashboard = () => {
   const fetchDailyLog = async () => {
     const jwtToken=localStorage.getItem("jwtToken");
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/doctor/doctorDailyLog/${doctorDetails.doctorId}`)
+    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/doctor/doctorDailyLog/${doctorDetails?.doctorId}`)
       .then((response) => {
         setDailyLog(response.data)
         // console.log(response.data);

@@ -12,6 +12,7 @@ const PatientNavbar = () => {
   const logOut = () => {
     localStorage.removeItem("patientDetails")
     localStorage.removeItem("ptAppointmentId")
+    localStorage.removeItem("jwtToken")
     window.location.href = "/"
   }
 

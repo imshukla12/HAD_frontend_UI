@@ -93,7 +93,7 @@ const Appointment = () => {
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios
       .delete(
-        `${process.env.REACT_APP_BACKEND_URL}/appointment/deleteAppointmentByPatientId/${patientDetails.patientId}`
+        `${process.env.REACT_APP_BACKEND_URL}/appointment/deleteAppointmentByPatientId/${patientDetails?.patientId}`
       )
       .then((response) => {
         setCount(count + 1);

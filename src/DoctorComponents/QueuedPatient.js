@@ -29,7 +29,7 @@ const QueuedPatient = () => {
     const fetchQueuePt = async () => {
         const jwtToken=localStorage.getItem("jwtToken");
         axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/appointment/getAllAppointments/${doctorDetails.departmentName}`)
+        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/appointment/getAllAppointments/${doctorDetails?.departmentName}`)
             .then((response) => {
                 setQueuedPt(response.data);
                 // console.log(queuedPt);

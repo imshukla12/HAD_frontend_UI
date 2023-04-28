@@ -119,6 +119,7 @@ const Prescription = () => {
     // console.log("input",inputFeilds)
     // console.log("medicinestring",medicineString)
     // console.log("follow",selectedDate)
+   
     const submitHandler = async (event) => {
         event.preventDefault();
         const data = {
@@ -131,7 +132,6 @@ const Prescription = () => {
             patientId: patientId,
             followUpDate: selectedDate,
         };
-
         // console.log("form updated data", data);
         const jwtToken=localStorage.getItem("jwtToken");
         axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`

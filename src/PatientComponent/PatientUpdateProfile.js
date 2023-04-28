@@ -35,7 +35,6 @@ const PatientUpdateProfile = () => {
             city: city,
             pincode: pinCode,
         }
-
         const jwtToken=localStorage.getItem("jwtToken");
         axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
         await axios.put(`${process.env.REACT_APP_BACKEND_URL}/patient/updatePatient/${patientId}`, data)
