@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
-import WhiteLogo from "./whiteLogo.png";
+import WhiteLogo from "../components/images/whiteLogo.png";
 
-const PatientNavbar = (props) => {
+const PatientNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const patient = JSON.parse(localStorage.getItem("patientDetails"))
   // const patient = props.value

@@ -3,8 +3,6 @@ import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt'
 import { useNavigate } from 'react-router-dom';
 import PatientNavbar from './PatientNavbar';
 import FileUpload from './FileUpload';
-import logo from './GradientLogo.png'
-import loga from './whiteLogo.png'
 
 const PatientVideoCallPage = () => {
 
