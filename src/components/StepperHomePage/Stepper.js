@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useTransition } from "react";
 import "./Stepper.css";
+import { useTranslation } from "react-i18next";
 
 const Stepper = () => {
-  const steps = ["Registration", "Login", "Apply for Consultation", "Get Consultation", "Get prescription"];
-  
+  const { t } = useTranslation();
+  const steps = [
+    "Registration",
+    "Login",
+    "Apply for Consultation",
+    "Get Consultation",
+    "Get prescription",
+  ];
+
   return (
     <div className="flex flex-col items-center">
       {steps?.map((step, i) => (

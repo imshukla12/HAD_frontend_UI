@@ -14,6 +14,8 @@ import {
   faStethoscope,
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -88,7 +90,7 @@ const HomePage = () => {
   //   fetchTotalConsult()
   //   fetchOnlineDr()
   // },[])
-
+  const { t } = useTranslation();
   return (
     <div className="md:flex md:flex-col">
       {/* NavBar  */}
@@ -98,15 +100,15 @@ const HomePage = () => {
         <div className="md:flex-1 md:w-1/2 p-4 md:flex md:flex-col md:items-center md:justify-center">
           <p className="text-white font-serif md:text-center">
             <span className="md:text-4xl leading-60 font-normal">
-              Welcome to our
+              {t("Welcome to our")}
             </span>
             <br />
             <span className="md:text-4xl leading-60 font-normal">
-              Tele-Consultation Platform
+              {t("Tele-Consultation Platform")}
             </span>
             <br />
             <span className="md:text-lg leading-36">
-              where healthcare meets convenience
+              {t("where healthcare meets convenience")}
             </span>
           </p>
           <div className="flex md:order-2 p-4">
@@ -115,7 +117,7 @@ const HomePage = () => {
               className="w-40 text-white bg-red-500 hover:bg-red-700 font-serif text-xl rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 transform transition duration-300 hover:scale-110"
               onClick={getStarted}
             >
-              LogIn/SignUp
+              {t("LogIn/SignUp")}
             </button>
           </div>
         </div>
@@ -131,7 +133,7 @@ const HomePage = () => {
       <div className="md:flex md:flex-col md:h-full md:justify-between p-8">
         <div className="h-1/3 flex md:justify-center md:items-center">
           <h1 className="font-serif font-normal font-400 text-5xl md:text-5xl lg:text-7xl md:text-center md:justify-center text-blue-950 p-4">
-            Why E-Aarogya?
+            {t("Why E-Aarogya?")}
           </h1>
         </div>
         <div className="p-10">
@@ -145,7 +147,7 @@ const HomePage = () => {
                 />
               </div>
               <p className="font-serif font-normal font-400 md:text-center text-blue-980 text-xl p-2">
-                Online OPD
+                {t("Online OPD")}
               </p>
             </div>
             <div className="md:flex md:flex-col md:items-center">
@@ -157,7 +159,7 @@ const HomePage = () => {
                 />
               </div>
               <p className="font-serif font-normal font-400 md:text-center text-blue-980 text-xl p-2">
-                Real Time Tele-medicine
+                {t("Real Time Tele-medicine")}
               </p>
             </div>
             <div className="flex flex-col items-center">
@@ -169,7 +171,7 @@ const HomePage = () => {
                 />
               </div>
               <p className="font-serif font-normal font-400 md:text-center text-blue-980 text-xl p-2">
-                Video Consultations
+                {t("Video Consultations")}
               </p>
             </div>
           </div>
@@ -185,7 +187,7 @@ const HomePage = () => {
                 />
               </div>
               <p className="font-serif font-normal font-400 md:text-center text-blue-980 text-xl p-2">
-                Chat
+                {t("Chat")}
               </p>
             </div>
             <div className="md:flex md:flex-col md:items-center">
@@ -197,7 +199,7 @@ const HomePage = () => {
                 />
               </div>
               <p className="font-serif font-normal font-400 md:text-center text-blue-980 text-xl p-2">
-                Best Medical Specialists
+                {t("Best Medical Specialists")}
               </p>
             </div>
             <div className="md:flex md:flex-col md:items-center">
@@ -209,7 +211,7 @@ const HomePage = () => {
                 />
               </div>
               <p className="font-serif font-normal font-400 md:text-center text-blue-980 text-xl p-2">
-                Free Service
+                {t("Free Service")}
               </p>
             </div>
           </div>
@@ -219,7 +221,7 @@ const HomePage = () => {
       <div className="bg-gray-950 flex flex-row justify-evenly items-center">
         <div className="mt-8 mb-8 w-1/3">
           <p className="font-serif text-lg text-white mb-8 text-center">
-            Steps for Consultation
+            {t("Steps for Consultation")}
           </p>
           <Stepper />
         </div>
@@ -227,11 +229,11 @@ const HomePage = () => {
           <div className="flex flex-row items-center justify-evenly">
             <div className="bg-white font-serif md:w-60 md:h-40 rounded-lg md:flex md:flex-col md:items-center md:justify-center shadow-xl transform transition duration-300 hover:scale-110">
               <p className="text-7xl text-bold">{count}</p>
-              <p>Total Consultations</p>
+              <p>{t("Total Consultations")}</p>
             </div>
             <div className="bg-white font-serif md:w-60 md:h-40 rounded-lg md:flex md:flex-col md:items-center md:justify-center shadow-xl transform transition duration-300 hover:scale-110">
               <p className="text-7xl text-bold">{countDr}</p>
-              <p>Online Doctorrs</p>
+              <p>{t("Online Doctors")}</p>
             </div>
           </div>
           <div className="ml-4 mt-14 flex flex-row justify-evenly p-8">
@@ -241,7 +243,7 @@ const HomePage = () => {
                 className="w-36 text-black bg-white hover:bg-green-400 font-serif text-xl rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 transform transition duration-300 hover:scale-125"
                 onClick={getStarted}
               >
-                Get started
+                {t("Get started")}
               </button>
             </div>
             <div className="flex flex-col justify-evenly space-y-8">

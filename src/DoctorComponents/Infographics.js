@@ -9,10 +9,11 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { useTranslation } from "react-i18next";
 
 const Infographics = () => {
   const [data, setData] = useState([]);
-
+  const { t } = useTranslation();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,7 +37,9 @@ const Infographics = () => {
 
   return (
     <div className=" bg-gradient-to-r border-t-4 border-blue-900 shadow-lg rounded-lg p-6">
-      <h2 className="text-lg font-bold font-serif mb-4">Total Consultations</h2>
+      <h2 className="text-lg font-bold font-serif mb-4">
+        {t("Total Consultations")}
+      </h2>
       {data.length > 0 ? (
         <LineChart width={500} height={200} data={data}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -53,7 +56,7 @@ const Infographics = () => {
           />
         </LineChart>
       ) : (
-        <div>Loading data...</div>
+        <div>{t("Loading data...")}</div>
       )}
     </div>
   );

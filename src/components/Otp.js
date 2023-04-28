@@ -5,6 +5,7 @@ import "react-phone-number-input/style.css";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { authentication } from "../firebase";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 function Otp(props) {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function Otp(props) {
   const [send, setSend] = useState(false);
   const [validOTP, setValidOTP] = useState(false);
   const [isValid, setIsValid] = useState(false);
-
+  const { t } = useTranslation();
   const generateRecaptcha = () => {
     window.recaptchaVerifier = new RecaptchaVerifier(
       "recaptcha-container",
@@ -142,7 +143,7 @@ function Otp(props) {
     <div>
       <form className="max-w-md mx-auto mt-2 p-2">
         <div>
-          <h2 className="text-lg font-serif">Enter Phone Number</h2>
+          <h2 className="text-lg font-serif">{t("Enter Phone Number")}</h2>
           <div className="flex flex-row justify-evenly items-center">
             <div className="flex flex-col">
               <PhoneInput
@@ -161,7 +162,7 @@ function Otp(props) {
                 className="w-24 h-10 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
                 onClick={sendOTP}
               >
-                Send OTP
+                {t("Send OTP")}
               </button>
             </div>
           </div>
@@ -186,7 +187,7 @@ function Otp(props) {
                     className="w-24 h-10 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
                     onClick={verifyOTP}
                   >
-                    Verify OTP
+                    {t("Verify OTP")}
                   </button>
                 </div>
               </div>

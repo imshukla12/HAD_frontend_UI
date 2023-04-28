@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 
 const QueuedPatient = () => {
   const [count, setCount] = useState(0);
@@ -11,7 +12,7 @@ const QueuedPatient = () => {
   const [isRotating, setIsRotating] = useState(false);
   var appointmentId;
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   function timeout(delay) {
     return new Promise((res) => setTimeout(res, delay));
   }
@@ -65,7 +66,7 @@ const QueuedPatient = () => {
   return (
     <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300 font-serif sm:px-2 sm:py-2 md:px-4 md:py-8 items-center justify-center float-right shadow-lg shadow-blue-500 shadow-opacity-70">
       <div className="flex flex-row items-center space-x-2 px-8">
-        <h2 className="py-2 text-md">Queued Patients</h2>
+        <h2 className="py-2 text-md">{t("Queued Patients")}</h2>
         <button onClick={handleClick}>
           <FontAwesomeIcon
             icon={faArrowsRotate}
@@ -81,7 +82,7 @@ const QueuedPatient = () => {
               key={index}
               className="px-2 py-2 flex flex-row items-center justify-evenly "
             >
-              PatientId : {p.patientId}
+              {t("")}Patient Id : {p.patientId}
               <button
                 className="menu-item bg-green-400 hover:bg-green-600 rounded-lg px-2"
                 onClick={() => {
@@ -91,13 +92,13 @@ const QueuedPatient = () => {
                   deletePt();
                 }}
               >
-                Accept
+                {t("Accept")}
               </button>
             </div>
           );
         })
       ) : (
-        <h1>No Patients Waiting</h1>
+        <h1>{t("No Patients Waiting")}</h1>
       )}
     </div>
   );

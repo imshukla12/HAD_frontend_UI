@@ -5,13 +5,14 @@ import QueuedPatient from "./QueuedPatient";
 import Infographics from "./Infographics";
 import axios from "axios";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
+import { useTranslation } from "react-i18next";
 
 const DoctorDashboard = () => {
   const [dailyLog, setDailyLog] = useState();
   const [totalConsult, setTotalConsult] = useState(0);
   const [todayConsult, setTodayConsult] = useState(0);
   const doctorDetails = JSON.parse(localStorage.getItem("doctorDetails"));
-
+  const { t } = useTranslation();
   const fetchTotalConsult = async () => {
     await axios
       .get(
@@ -73,11 +74,11 @@ const DoctorDashboard = () => {
           <div className="w-3/5 grid grid-rows-5">
             <div className="row-span-2 flex flex-row justify-between p-8 w-full space-x-6">
               <div className="w-1/2 p-4 h-3/5 border-t-4 border-blue-900 shadow-lg font-serif rounded-lg flex flex-col justify-evenly transition-transform duration-500 transform-gpu hover:scale-110">
-                <p>Total Consultations</p>
+                <p>{t("Total Consultations")}</p>
                 <p className="text-5xl text-center">{totalConsult}</p>
               </div>
               <div className="w-1/2 p-4 h-3/5 border-t-4 border-blue-900 shadow-lg font-serif rounded-lg flex flex-col justify-evenly transition-transform duration-500 transform-gpu hover:scale-110">
-                <p>Today's Consultations</p>
+                <p>{t("Today's Consultations")}</p>
                 <p className="text-5xl text-center">{todayConsult}</p>
               </div>
             </div>
@@ -88,13 +89,13 @@ const DoctorDashboard = () => {
           <div className="shadow-lg p-6 w-2/5 h-4/5 border-t-4 border-blue-900 rounded-lg mt-8">
             <table className="table-auto w-full mx-auto">
               <caption className="caption-top font-serif text-2xl p-2 border-b-2 border-gray-700">
-                Daily Log
+                {t("Daily Log")}
               </caption>
               <thead className="font-serif text-lg">
                 <tr>
-                  <th>Pt.Id</th>
-                  <th>Observation</th>
-                  <th>Remarks</th>
+                  <th>{t("Patient Id")}</th>
+                  <th>{t("Observation")}</th>
+                  <th>{t("Remarks")}</th>
                   <th></th>
                 </tr>
               </thead>

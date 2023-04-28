@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import WhiteLogo from "./whiteLogo.png";
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 
 const DoctorNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +14,15 @@ const DoctorNavbar = () => {
     localStorage.removeItem("DrPatientId");
     window.location.href = "/";
   };
+  const [selectedOption, setSelectedOption] = useState("Select Language");
 
+  function handleDropdownChange(event) {
+    setSelectedOption(event.target.value);
+    console.log(`User selected ${event.target.value}`);
+    i18next.changeLanguage(event.target.value);
+    localStorage.setItem("language", event.target.value);
+  }
+  const { t } = useTranslation();
   return (
     <nav className="bg-white dark:bg-blue-900 top-0 w-full z-20 left-0 dark:border-blue-600">
       <div className="max-w-full mx-auto px-0 sm:px-6 lg:px-8">
@@ -29,9 +39,15 @@ const DoctorNavbar = () => {
                   href="/doctor"
                   className="text-white font-medium font-serif hover:text-blue-200"
                 >
-                  Home
+                  {t("Home")}
                 </a>
               </div>
+              <li className="block py-2 pl-3 pr-4 text-black rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
+                <select value={selectedOption} onChange={handleDropdownChange}>
+                  <option value="en">English</option>
+                  <option value="hi">हिंदी</option>
+                </select>
+              </li>
               <div className="text-white font-medium font-serif">
                 Dr.{doctor.firstName}
               </div>
@@ -70,14 +86,14 @@ const DoctorNavbar = () => {
                         className="block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-blue-200 hover:text-gray-900"
                         role="menuitem"
                       >
-                        Update Profile
+                        {t("Update Profile")}
                       </a>
                       <button
                         className="w-full block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-red-400 hover:text-gray-900"
                         role="menuitem"
                         onClick={logOut}
                       >
-                        Logout
+                        {t("Logout")}
                       </button>
                     </div>
                   </div>
