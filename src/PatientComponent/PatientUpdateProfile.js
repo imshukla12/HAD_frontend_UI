@@ -1,25 +1,55 @@
-import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import PatientNavbar from './PatientNavbar';
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import PatientNavbar from "./PatientNavbar";
 
 const PatientUpdateProfile = () => {
+  const navigate = useNavigate();
+  const patientDetails = JSON.parse(localStorage.getItem("patientDetails"));
+  const patientId = patientDetails.patientId;
+  const [title, setTitle] = useState(patientDetails.title);
+  const [firstName, setFirstName] = useState(patientDetails.firstName);
+  const [lastName, setLastName] = useState(patientDetails.lastName);
+  const [gender, setGender] = useState(patientDetails.gender);
+  const [selectedDate, setSelectedDate] = useState(
+    new Date(patientDetails.dob)
+  );
+  const [email, setEmail] = useState(patientDetails.email);
+  const [phoneNo, setPhoneNo] = useState(patientDetails.phoneNo);
+  const [address, setAddress] = useState(patientDetails.addr);
+  const [city, setCity] = useState(patientDetails.city);
+  const [pinCode, setPinCode] = useState(patientDetails.pincode);
 
-    const navigate = useNavigate()
-    const patientDetails = JSON.parse(localStorage.getItem("patientDetails"))
-    const patientId = patientDetails.patientId
-    const [title, setTitle] = useState(patientDetails.title)
-    const [firstName, setFirstName] = useState(patientDetails.firstName)
-    const [lastName, setLastName] = useState(patientDetails.lastName)
-    const [gender, setGender] = useState(patientDetails.gender)
-    const [selectedDate, setSelectedDate] = useState(new Date(patientDetails.dob))
-    const [email, setEmail] = useState(patientDetails.email)
-    const [phoneNo, setPhoneNo] = useState(patientDetails.phoneNo)
-    const [address, setAddress] = useState(patientDetails.addr)
-    const [city, setCity] = useState(patientDetails.city)
-    const [pinCode, setPinCode] = useState(patientDetails.pincode)
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = {
+      title: title,
+      firstName: firstName,
+      lastName: lastName,
+      gender: gender,
+      phoneNo: phoneNo,
+      email: email,
+      dob: selectedDate,
+      addr: address,
+      city: city,
+      pincode: pinCode,
+    };
+    await axios
+      .put(
+        `${process.env.REACT_APP_BACKEND_URL}/patient/updatePatient/${patientId}`,
+        data
+      )
+      .then((response) => {
+        // console.log(JSON.stringify(response.data));
+        localStorage.setItem("patientDetails", JSON.stringify(response.data));
+        navigate("/patient");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -118,17 +148,38 @@ const PatientUpdateProfile = () => {
                                 <input type="text" name="State" id="State" autoComplete='false' className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " value={state} onChange={(e) => setState(e.target.value)} required />
                                 <label for="State" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">State</label>
                             </div> */}
-                            <div className="relative z-0 w-full mb-6 group">
-                                <input type="text" name="Pincode" id="Pincode" autoComplete='false' className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " value={pinCode} onChange={(e) => setPinCode(e.target.value)} required />
-                                <label for="Pincode" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pincode</label>
-                            </div>
-                        </div>
-                        <button type="submit" className="text-white bg-green-400 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-500 dark:hover:bg-green-700 dark:focus:ring-green-800" onClick={handleSubmit}>Update</button>
-                    </form>
-                </div>
+              <div className="relative z-0 w-full mb-6 group">
+                <input
+                  type="text"
+                  name="Pincode"
+                  id="Pincode"
+                  autoComplete="false"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=" "
+                  value={pinCode}
+                  onChange={(e) => setPinCode(e.target.value)}
+                  required
+                />
+                <label
+                  for="Pincode"
+                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Pincode
+                </label>
+              </div>
             </div>
+            <button
+              type="submit"
+              className="text-white bg-green-400 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-500 dark:hover:bg-green-700 dark:focus:ring-green-800"
+              onClick={handleSubmit}
+            >
+              Update
+            </button>
+          </form>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default PatientUpdateProfile
+export default PatientUpdateProfile;

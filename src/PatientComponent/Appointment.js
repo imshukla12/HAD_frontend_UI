@@ -3,43 +3,45 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Appointment = () => {
-  const navigate = useNavigate()
-  const patientDetails = JSON.parse(localStorage.getItem("patientDetails"))
-  const [departments, setDepartments] = useState()
+
+  const navigate = useNavigate();
+  const patientDetails = JSON.parse(localStorage.getItem("patientDetails"));
+  const [departments, setDepartments] = useState();
   const languages = ["English", "Hindi", "Marathi", "Tamil","Kannada", "Telugu","Gujarati","Punjabi","Bengali","Malayalam","Urdu"]
-  const [show, setShow] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
-  const [isOpenLang, setIsOpenLang] = useState(false)
-  const [selectedDepartment, setSelectedDepartment] = useState("")
-  const [selectedLanguage, setSelectedLanguage] = useState("")
-  const [prevAppointment, setPrevAppointment] = useState(false)
-  const [count, setCount] = useState(0)
+  const [show, setShow] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenLang, setIsOpenLang] = useState(false);
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState("");
+  const [prevAppointment, setPrevAppointment] = useState(false);
+  const [count, setCount] = useState(0);
+
 
   const toggleModal = () => {
     setShow(!show);
-  }
+  };
 
   const handleSelectDepartment = (department) => {
     setSelectedDepartment(department);
     setIsOpen(false);
-  }
+  };
 
   const handleSelectLanguage = (lang) => {
     setSelectedLanguage(lang);
     setIsOpenLang(false);
-  }
+  };
 
   const fetchDept = async () => {
     const jwtToken=localStorage.getItem("jwtToken");
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios.get(`${process.env.REACT_APP_BACKEND_URL}/department/getDepartment`)
       .then((response) => {
-        setDepartments(response.data)
+        setDepartments(response.data);
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }
+        console.log(error);
+      });
+  };
 
   const fetchPrevAppointment = async () => {
     const jwtToken=localStorage.getItem("jwtToken");
@@ -49,12 +51,12 @@ const Appointment = () => {
         `${process.env.REACT_APP_BACKEND_URL}/appointment/checkAppointments/${patientDetails.patientId}`
       )
       .then((response) => {
-        setPrevAppointment(response.data)
+        setPrevAppointment(response.data);
       })
       .catch((error) => {
-        console.log("error", error)
+        console.log("error", error);
       });
-  }
+  };
 
   const OPD = () => {
     navigate(`/patient/waitingroom`)
@@ -62,31 +64,29 @@ const Appointment = () => {
 
   const submitHandler = async (event) => {
     // setShow(!show)
-    event.preventDefault()
+    event.preventDefault();
     const data = {
       appointmentTimestamp: new Date(),
       patientId: patientDetails.patientId,
       departmentName: selectedDepartment,
-      preferredLanguage: selectedLanguage
-    }
-
-
+      preferredLanguage: selectedLanguage,
+    };
     console.log("data",data)
     const jwtToken=localStorage.getItem("jwtToken");
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios.post(`${process.env.REACT_APP_BACKEND_URL}/appointment/requestAppointment`,data)
       .then((response) => {
-        console.log("appointment set", response.data)
-        localStorage.setItem("ptAppointmentId", response.data)
+        console.log("appointment set", response.data);
+        localStorage.setItem("ptAppointmentId", response.data);
         // const appId = response.data
         // console.log("appId",appId)
-        navigate(`/patient/waitingroom`)
+        navigate(`/patient/waitingroom`);
       })
       .catch((error) => {
-        console.log(error)
-      })
-    setShow(!show)
-  }
+        console.log(error);
+      });
+    setShow(!show);
+  };
 
   const deletePrevAppointment = async () => {
     const jwtToken=localStorage.getItem("jwtToken");
@@ -102,16 +102,16 @@ const Appointment = () => {
         console.log(`Error: ${error.message}`);
         console.error("There was an error!", error);
       });
-  }
+  };
 
   const handleClose = () => {
-    setShow(false)
-  }
+    setShow(false);
+  };
 
   useEffect(() => {
-    fetchDept()
-    fetchPrevAppointment()
-  }, [count])
+    fetchDept();
+    fetchPrevAppointment();
+  }, [count]);
 
   return (
     <div className="flex flex-col items-center justify-center border-2 border-gray-300 rounded-lg p-8 space-y-8">
@@ -139,12 +139,15 @@ const Appointment = () => {
         >
           Apply for Consultation
         </button>
-      }
+      )}
       {/* Modal */}
       {show && (
         <div className="fixed z-10 inset-0 overflow-y-auto">
           <div className="flex items-center justify-center min-h-screen">
-            <div className="fixed inset-0 transition-opacity" aria-hidden="true">
+            <div
+              className="fixed inset-0 transition-opacity"
+              aria-hidden="true"
+            >
               <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
             </div>
 
@@ -152,7 +155,9 @@ const Appointment = () => {
               {/* Modal content */}
               <div className="bg-blue-50 flex flex-col justify-center items-center">
                 <div className="flex flex-row justify-between w-full p-4">
-                  <h2 className="text-xl font-bold mb-2 font-serif ml-8">Apply for Consultation</h2>
+                  <h2 className="text-xl font-bold mb-2 font-serif ml-8">
+                    Apply for Consultation
+                  </h2>
                   <button onClick={handleClose}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +181,9 @@ const Appointment = () => {
                     onClick={() => setIsOpen((prev) => !prev)}
                     className="p-2 bg-blue-100 w-full flex items-center justify-between mb-4 font-serif text-lg rounded-lg border-4 border-gray-500 active:border-blue-100 duration-300"
                   >
-                    {selectedDepartment ? selectedDepartment : "Select Department"}
+                    {selectedDepartment
+                      ? selectedDepartment
+                      : "Select Department"}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6"
@@ -199,7 +206,9 @@ const Appointment = () => {
                         <div
                           key={i}
                           className="flex w-full justify-between hover:bg-blue-100 p-2 cursor-pointer"
-                          onClick={() => handleSelectDepartment(department.departmentName)}
+                          onClick={() =>
+                            handleSelectDepartment(department.departmentName)
+                          }
                         >
                           <h3>{department.departmentName}</h3>
                         </div>
