@@ -94,6 +94,8 @@ const PatientHistory = () => {
 
   const fetchPrescription = async () => {
     try {
+      // const jwtToken=localStorage.getItem("jwtToken");
+      // axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
       const response = await axios.get(`http://localhost:9090/prescription/getPrescriptions/${patientDetails.patientId}`);
       setPrescription(response.data);
     } catch (error) {
@@ -103,6 +105,8 @@ const PatientHistory = () => {
 
   const downloadPDF = async (id) => {
     try {
+      const jwtToken=localStorage.getItem("jwtToken");
+      axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
       const response = await axios.get(`http://localhost:9090/pdf/getPdf/${id}`, {
         responseType: 'blob',
       });

@@ -60,6 +60,9 @@ const DoctorProfile = () => {
     }
     // console.log("data", data)
     // api called for updation
+    
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios.put(`http://localhost:9090/doctor/updateDoctor/${doctorDetails.doctorId}`,data)
     .then((response) => {
       // console.log(JSON.stringify(response.data));

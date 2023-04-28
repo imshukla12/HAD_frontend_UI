@@ -13,7 +13,12 @@ const DoctorDashboard = () => {
   const doctorDetails = JSON.parse(localStorage.getItem("doctorDetails"));
 
   const fetchTotalConsult = async() => {
+
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+    //await axios.get(`http://localhost:9090/consultation/getAllConsultationsCount`)
     await axios.get(`http://localhost:9090/consultation/totalConsultationByDoctor/${doctorDetails.doctorId}`)
+
     .then((response) => {
       // console.log("totalCount",response.data)
       setTotalConsult(response.data)
@@ -24,6 +29,8 @@ const DoctorDashboard = () => {
   }
 
   const fetchTodayConsult = async() =>{
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios.get(`http://localhost:9090/consultation/totalDailyConsultationByDoctor/${doctorDetails.doctorId}`)
     .then((response) => {
       console.log("todayConsult",response.data)
@@ -35,6 +42,8 @@ const DoctorDashboard = () => {
   }
 
   const fetchDailyLog = async () => {
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios.get(`http://localhost:9090/doctor/doctorDailyLog/${doctorDetails.doctorId}`)
       .then((response) => {
         setDailyLog(response.data)

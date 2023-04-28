@@ -85,6 +85,8 @@ const Calendar = () => {
   }
 
   const fetchFollowUp = async () => {
+    const jwtToken = localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`
     await axios.get(`http://localhost:9090/patient/getFollowUp/${patientId}`)
       .then((response) => {
         const formattedEvents = response.data.map((event) => ({
@@ -156,7 +158,7 @@ const Calendar = () => {
             <h2 className="text-2xl font-bold mb-2">{selectedEvent.title}</h2>
             <p>{selectedEvent.extendedProps.description}</p>
             <p>{new Date(selectedEvent.start).toLocaleDateString()}</p>
-            {disableButton ? (<button type='submit' className='bg-zinc-400 rounded-lg px-2 py-2' disabled >Added to google Calender</button>):(<button type='submit' className='bg-blue-400 rounded-lg px-2 py-2' onClick={() => handleButton(selectedEvent.start)}>Add to google Calender</button>)}
+            {disableButton ? (<button type='submit' className='bg-zinc-400 rounded-lg px-2 py-2' disabled >Added to google Calender</button>) : (<button type='submit' className='bg-blue-400 rounded-lg px-2 py-2' onClick={() => handleButton(selectedEvent.start)}>Add to google Calender</button>)}
           </div>
         )}
       </Modal>

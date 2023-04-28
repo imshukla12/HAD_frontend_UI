@@ -67,6 +67,8 @@ const Prescription = () => {
     };
 
     const fetchPatientDetail = async () => {
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
         await axios
             .get(`http://localhost:9090/patient/getPatientById/${patientId}`)
             .then((response) => {
@@ -131,6 +133,8 @@ const Prescription = () => {
         };
 
         // console.log("form updated data", data);
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
         await axios
             .post("http://localhost:9090/prescription/addPrescription", data)
             .then((response) => {
@@ -145,6 +149,8 @@ const Prescription = () => {
     }
 
     const fetchPtHistory = async () => {
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
         await axios.get(`http://localhost:9090/fileaws/getAllFiles/${patientId}`)
             .then((response) => {
                 console.log("fetched files", response.data)
@@ -158,6 +164,8 @@ const Prescription = () => {
 
     const handleViewClick = async (fileKey) => {
         console.log(`File key:`,fileKey);
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
         await axios.get(`http://localhost:9090/fileaws/downloadFile/${fileKey}`, { responseType: 'arraybuffer' })
             .then(response => {
                 console.log("fileeeee")
