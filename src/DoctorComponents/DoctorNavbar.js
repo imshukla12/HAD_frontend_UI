@@ -1,20 +1,34 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
-import WhiteLogo from "./whiteLogo.png";
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import WhiteLogo from "../components/images/whiteLogo.png";
+import axios from 'axios';
 
 const DoctorNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const doctor = JSON.parse(localStorage.getItem("doctorDetails"));
 
-  const logOut = () => {
-    localStorage.removeItem("doctorDetails");
-    localStorage.removeItem("DrPatientId");
-    window.location.href = "/";
-  };
+  const drLogout = async() => {
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+    await axios.put(`${process.env.REACT_APP_BACKEND_URL}/doctor/Doctorlogout/${doctor.doctorId}`)
+    .then((response) => {
+      // console.log(response.data)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
+  const logOut = async() => {
+    await drLogout()
+    localStorage.removeItem("doctorDetails")
+    localStorage.removeItem("DrPatientId")
+    window.location.href = "/"
+  }
 
   return (
-    <nav className="bg-white dark:bg-blue-900 top-0 w-full z-20 left-0 dark:border-blue-600">
+    <nav className="bg-blue-900 border-blue-600 dark:bg-blue-900 top-0 w-full z-20 left-0 dark:border-blue-600">
       <div className="max-w-full mx-auto px-0 sm:px-6 lg:px-8">
         <div className="flex flex-row justify-between h-16">
           <div className="flex-shrink-0 flex items-center p-4">
@@ -24,17 +38,10 @@ const DoctorNavbar = () => {
           </div>
           <div className="flex flex-row items-center justify-end">
             <div className="relative flex flex-row items-center justify-end space-x-4">
-              <div>
-                <a
-                  href="/doctor"
-                  className="text-white font-medium font-serif hover:text-blue-200"
-                >
-                  Home
-                </a>
-              </div>
-              <div className="text-white font-medium font-serif">
-                Dr.{doctor.firstName}
-              </div>
+
+              <div><a href='/doctor' className='text-white font-medium font-serif hover:text-blue-200'>Home</a></div>
+              <div className='text-white font-medium font-serif'>Dr.{doctor?.firstName}</div>
+
               <div>
                 <button
                   className="py-2 rounded inline-flex items-center"

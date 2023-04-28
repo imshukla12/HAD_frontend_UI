@@ -14,6 +14,7 @@ import {
   faStethoscope,
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
+import img from './images/img1.png'
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -27,10 +28,7 @@ const HomePage = () => {
   };
 
   const fetchTotalConsult = async () => {
-    await axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URL}/consultation/getAllConsultationsCount`
-      )
+   await axios.get(`${process.env.REACT_APP_BACKEND_URL}/consultation/getAllConsultationsCount`)
       .then((response) => {
         // console.log("response",response.data)
         setTotalConsult(response.data);
@@ -42,8 +40,7 @@ const HomePage = () => {
   };
 
   const fetchOnlineDr = async () => {
-    await axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/OnlineDoctors/totalOnline`)
+    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/OnlineDoctors/totalOnline`)
       .then((response) => {
         setOnlineDr(response.data);
         // console.log("onlineDr",onlineDr)
@@ -121,7 +118,7 @@ const HomePage = () => {
         </div>
         <div className="md:flex-1 md:w-1/2 p-4 md:flex md:items-center md:justify-center">
           <img
-            src="./images/img1.png"
+            src={img}
             alt="main-img1"
             className="max-h-full max-w-full"
           />

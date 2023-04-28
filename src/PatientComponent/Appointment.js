@@ -3,10 +3,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Appointment = () => {
+
   const navigate = useNavigate();
   const patientDetails = JSON.parse(localStorage.getItem("patientDetails"));
   const [departments, setDepartments] = useState();
-  const languages = ["English", "Spanish", "French", "German", "Japanese"];
+  const languages = ["English", "Hindi", "Marathi", "Tamil","Kannada", "Telugu","Gujarati","Punjabi","Bengali","Malayalam","Urdu"]
   const [show, setShow] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenLang, setIsOpenLang] = useState(false);
@@ -14,6 +15,7 @@ const Appointment = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("");
   const [prevAppointment, setPrevAppointment] = useState(false);
   const [count, setCount] = useState(0);
+
 
   const toggleModal = () => {
     setShow(!show);
@@ -30,8 +32,9 @@ const Appointment = () => {
   };
 
   const fetchDept = async () => {
-    await axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/department/getDepartment`)
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/department/getDepartment`)
       .then((response) => {
         setDepartments(response.data);
       })
@@ -41,6 +44,8 @@ const Appointment = () => {
   };
 
   const fetchPrevAppointment = async () => {
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios
       .get(
         `${process.env.REACT_APP_BACKEND_URL}/appointment/checkAppointments/${patientDetails.patientId}`
@@ -53,6 +58,10 @@ const Appointment = () => {
       });
   };
 
+  const OPD = () => {
+    navigate(`/patient/waitingroom`)
+  }
+
   const submitHandler = async (event) => {
     // setShow(!show)
     event.preventDefault();
@@ -62,13 +71,10 @@ const Appointment = () => {
       departmentName: selectedDepartment,
       preferredLanguage: selectedLanguage,
     };
-
-    console.log("data", data);
-    await axios
-      .post(
-        `${process.env.REACT_APP_BACKEND_URL}/appointment/requestAppointment`,
-        data
-      )
+    console.log("data",data)
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+    await axios.post(`${process.env.REACT_APP_BACKEND_URL}/appointment/requestAppointment`,data)
       .then((response) => {
         console.log("appointment set", response.data);
         localStorage.setItem("ptAppointmentId", response.data);
@@ -83,6 +89,8 @@ const Appointment = () => {
   };
 
   const deletePrevAppointment = async () => {
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios
       .delete(
         `${process.env.REACT_APP_BACKEND_URL}/appointment/deleteAppointmentByPatientId/${patientDetails.patientId}`
@@ -109,15 +117,23 @@ const Appointment = () => {
     <div className="flex flex-col items-center justify-center border-2 border-gray-300 rounded-lg p-8 space-y-8">
       <p className="font-serif text-5xl text-red-700">Welcome to E-Aarogya</p>
       {/* Button to open modal */}
-      {prevAppointment ? (
-        <button
-          className="bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-          onClick={deletePrevAppointment}
-        >
-          Revoke Consultation
-        </button>
-      ) : (
-        <button
+      {prevAppointment ?
+        (<div className="flex flex-row justify-evenly  p-4 items-center w-full">
+          <button
+            className="bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            onClick={deletePrevAppointment}
+          >
+            Revoke Consultation
+          </button>
+          <button
+            className="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={OPD}
+          >
+           Waiting Room
+          </button>
+        </div>)
+
+        : <button
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
           onClick={toggleModal}
         >

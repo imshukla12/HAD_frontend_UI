@@ -4,14 +4,15 @@ import { authentication } from "../firebase";
 import axios from "axios";
 
 const PatientMedicalHistory = ({ patientDetail }) => {
-  const phoneNo = patientDetail.phoneNo;
-  const patientId = localStorage.getItem("patientId");
-  const [showMedicalHistory, setShowMedicalHistory] = useState(false);
-  const [showVerifyOTP, setShowVerifyOTP] = useState(false);
-  const [otp, setOtp] = useState();
-  const [prescription, setPrescription] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(2);
+    const phoneNo = patientDetail.phoneNo
+    const patientId = localStorage.getItem("DrPatientId")
+    const [showMedicalHistory, setShowMedicalHistory] = useState(false)
+    const [showVerifyOTP, setShowVerifyOTP] = useState(false)
+    const [otp, setOtp] = useState()
+    const [prescription, setPrescription] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(2);
+
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -36,26 +37,36 @@ const PatientMedicalHistory = ({ patientDetail }) => {
     </li>
   ));
 
-  const fetchPrescription = async () => {
-    await axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URL}/prescription/getPrescriptions/${patientId}`
-      )
-      .then((response) => {
-        setPrescription(response.data);
-        console.log("prescription", prescription);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+    const fetchPrescription = async () => {
+        // const jwtToken=localStorage.getItem("jwtToken");
+        // axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        console.log("pt id",patientId)
+        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/prescription/getPrescriptions/${patientId}`)
+            .then((response) => {
+                console.log("egfgwe")
+                setPrescription(response.data)
+                console.log("prescription", prescription)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
 
-  const downloadPDF = async (id, date) => {
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/pdf/getPdfDoctor/${id}`,
-        {
-          responseType: "blob",
+    const downloadPDF = async (id, date) => {
+        try {
+            const jwtToken=localStorage.getItem("jwtToken");
+            axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/pdf/getPdfDoctor/${id}`, {
+                responseType: 'blob',
+            });
+            console.log("inside download pdf")
+            const blob = new Blob([response.data], { type: 'application/pdf' });
+            const url = window.URL.createObjectURL(blob);
+            const newWindow = window.open();
+            newWindow.document.write(`<iframe src="${url}" width="100%" height="100%"></iframe>`);
+        } catch (error) {
+            console.log(error);
+
         }
       );
       console.log("inside download pdf");

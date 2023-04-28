@@ -91,7 +91,6 @@ const PatientRegistration = () => {
       city: city,
       pincode: pinCode,
     };
-
     await axios
       .post(`${process.env.REACT_APP_BACKEND_URL}/patient/addPatient`, data)
       .then((response) => {

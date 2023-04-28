@@ -11,7 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import PatientMedicalHistory from "./PatientMedicalHistory";
-import GradientLogo from "./GradientLogo.png";
+import GradientLogo from "../components/images/GradientLogo.png"
 
 const Prescription = () => {
   const navigate = useNavigate();
@@ -68,26 +68,27 @@ const Prescription = () => {
       });
   };
 
-  const fetchPatientDetail = async () => {
-    await axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URL}/patient/getPatientById/${patientId}`
-      )
-      .then((response) => {
-        console.log("patientDetail", response.data);
-        setPatientDetail(response.data);
-        console.log("patients", patientDetail);
-      })
-      .catch((error) => {
-        console.log("error:", error);
-      });
-  };
-
   const handleFormChange = (index, event) => {
     let data = [...inputFeilds];
     data[index][event.target.name] = event.target.value;
     setInputFeilds(data);
   };
+
+    const fetchPatientDetail = async () => {
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        await axios
+            .get(`${process.env.REACT_APP_BACKEND_URL}/patient/getPatientById/${patientId}`)
+            .then((response) => {
+                console.log("patientDetail", response.data);
+                setPatientDetail(response.data);
+                console.log("patients", patientDetail);
+            })
+            .catch((error) => {
+                console.log("error:", error);
+            });
+    };
+
 
   const addFields = (event) => {
     event.preventDefault();
@@ -134,55 +135,53 @@ const Prescription = () => {
       followUpDate: selectedDate,
     };
 
-    // console.log("form updated data", data);
-    await axios
-      .post(
-        `${process.env.REACT_APP_BACKEND_URL}/prescription/addPrescription`,
-        data
-      )
-      .then((response) => {
-        // console.log("inside post prescription api");
-        // console.log(response.data);
-        // deletePtHistory()
-        navigate(`/doctor`);
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
-  };
 
-  const fetchPtHistory = async () => {
-    await axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URL}/fileaws/getAllFiles/${patientId}`
-      )
-      .then((response) => {
-        console.log("fetched files", response.data);
-        setFileList(response.data);
-        setPtHistory(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+        // console.log("form updated data", data);
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        await axios
+            .post(`${process.env.REACT_APP_BACKEND_URL}/prescription/addPrescription`, data)
+            .then((response) => {
+                // console.log("inside post prescription api");
+                // console.log(response.data);
+                // deletePtHistory()
+                navigate(`/doctor`);
+            })
+            .catch((error) => {
+                console.log("error", error);
+            });
+    }
 
-  const handleViewClick = async (fileKey) => {
-    console.log(`File key:`, fileKey);
-    await axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URL}/fileaws/downloadFile/${fileKey}`,
-        { responseType: "arraybuffer" }
-      )
-      .then((response) => {
-        console.log("fileeeee");
-        const file = new Blob([response.data], { type: "application/pdf" });
-        const fileURL = URL.createObjectURL(file);
-        window.open(fileURL);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+    const fetchPtHistory = async () => {
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/fileaws/getAllFiles/${patientId}`)
+            .then((response) => {
+                console.log("fetched files", response.data)
+                setFileList(response.data)
+                setPtHistory(true)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    const handleViewClick = async (fileKey) => {
+        console.log(`File key:`,fileKey);
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/fileaws/downloadFile/${fileKey}`, { responseType: 'arraybuffer' })
+            .then(response => {
+                console.log("fileeeee")
+                const file = new Blob([response.data], { type: 'application/pdf' });
+                const fileURL = URL.createObjectURL(file);
+                window.open(fileURL);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
 
   // const deletePtHistory = async() => {
   //     await axios.delete(`http://localhost:9090/fileaws/deleteAllFiles/${patientId}`)

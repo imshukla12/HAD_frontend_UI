@@ -61,20 +61,18 @@ const DoctorProfile = () => {
     };
     // console.log("data", data)
     // api called for updation
-    await axios
-      .put(
-        `${process.env.REACT_APP_BACKEND_URL}/doctor/updateDoctor/${doctorDetails.doctorId}`,
-        data
-      )
-      .then((response) => {
-        // console.log(JSON.stringify(response.data));
-        localStorage.setItem("doctorDetails", JSON.stringify(response.data));
-        navigate("/doctor");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+    await axios.put(`${process.env.REACT_APP_BACKEND_URL}/doctor/updateDoctor/${doctorDetails.doctorId}`,data)
+    .then((response) => {
+      // console.log(JSON.stringify(response.data));
+      localStorage.setItem("doctorDetails", JSON.stringify(response.data));
+      navigate("/doctor");
+    })
+    .catch((error) =>{
+      console.log(error)
+    })
+  }
 
   return (
     <div>

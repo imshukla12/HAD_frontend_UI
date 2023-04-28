@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.8649c752.css",
+    "main.js": "/static/js/main.7c01af95.js",
+    "static/media/7617.jpg": "/static/media/7617.c883c7ce90ba9108ed20.jpg",
+    "static/media/415.jpg": "/static/media/415.b0b004ddab5f3dac0b82.jpg",
+    "static/media/FLOW (1).png": "/static/media/FLOW (1).a19b53d159773939f9f7.png",
+    "static/media/img1.png": "/static/media/img1.5705b3ff4d9af886a220.png",
+    "static/media/GradientLogo.png": "/static/media/GradientLogo.d5d6c85f70452be5f305.png",
+    "static/media/whiteLogo.png": "/static/media/whiteLogo.3b62ad1a8454338c9fa9.png",
+    "index.html": "/index.html",
+    "main.8649c752.css.map": "/static/css/main.8649c752.css.map",
+    "main.7c01af95.js.map": "/static/js/main.7c01af95.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8649c752.css",
+    "static/js/main.7c01af95.js"
+  ]
+}

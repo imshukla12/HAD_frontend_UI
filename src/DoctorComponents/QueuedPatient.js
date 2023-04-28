@@ -26,37 +26,37 @@ const QueuedPatient = () => {
     setIsRotating(false);
   };
 
-  const fetchQueuePt = async () => {
-    await axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URL}/appointment/getAllAppointments/${doctorDetails.departmentName}`
-      )
-      .then((response) => {
-        setQueuedPt(response.data);
-        // console.log(queuedPt);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
-  const deletePt = async () => {
-    // console.log("inside deletePt", appointmentId);
-    await axios
-      .delete(
-        `${process.env.REACT_APP_BACKEND_URL}/appointment/deleteAppointment/${appointmentId}`
-      )
-      .then((response) => {
-        // console.log("Delete successful");
-        setCount(count + 1);
-        console.log("appID_dr", appointmentId);
-        navigate(`/doctor/consultationpage`, { state: { appointmentId } });
-      })
-      .catch((error) => {
-        console.log(`Error: ${error.message}`);
-        console.error("There was an error!", error);
-      });
-  };
+    const fetchQueuePt = async () => {
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/appointment/getAllAppointments/${doctorDetails.departmentName}`)
+            .then((response) => {
+                setQueuedPt(response.data);
+                // console.log(queuedPt);
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    const deletePt = async () => {
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        // console.log("inside deletePt", appointmentId);
+        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/appointment/deleteAppointment/${appointmentId}`)
+            .then((response) => {
+                // console.log("Delete successful");
+                setCount(count + 1);
+                console.log("appID_dr", appointmentId)
+                navigate(`/doctor/consultationpage`, { state: { appointmentId }});
+            })
+            .catch((error) => {
+                console.log(`Error: ${error.message}`);
+                console.error("There was an error!", error);
+            })
+    }
+
 
   useEffect(() => {
     fetchQueuePt();

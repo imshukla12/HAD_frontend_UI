@@ -16,9 +16,9 @@ const Infographics = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "${process.env.REACT_APP_BACKEND_URL}/consultation/totalDateWiseConsultations"
-        );
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/consultation/totalDateWiseConsultations`);
         const formattedData = response.data.map((d) => {
           return {
             name: d.dateOfConsultation,
