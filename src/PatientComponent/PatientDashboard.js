@@ -3,7 +3,7 @@ import PatientNavbar from './PatientNavbar'
 import Appointment from './Appointment'
 import PatientHistory from './PatientHistory'
 import Calender from './Calender'
-import flow from './FLOW (1).png'
+import flow from '../components/images/FLOW (1).png'
 
 const PatientDashboard = () => {
 
@@ -16,7 +16,7 @@ const PatientDashboard = () => {
 
   return (
     <div className='bg-blue-50 w-full'>
-      <PatientNavbar />
+      <PatientNavbar/>
       <div className='flex flex-row p-4 space-x-6 w-full'>
         <div className='w-1/6'>
           <div><img src={flow} alt='steps' className='w-full h-full object-cover rounded-md' /></div>

@@ -6,7 +6,7 @@ const Appointment = () => {
   const navigate = useNavigate()
   const patientDetails = JSON.parse(localStorage.getItem("patientDetails"))
   const [departments, setDepartments] = useState()
-  const languages = ["English", "Spanish", "French", "German", "Japanese"]
+  const languages = ["English", "Hindi", "Marathi", "Tamil","Kannada", "Telugu","Gujarati","Punjabi","Bengali","Malayalam","Urdu"]
   const [show, setShow] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenLang, setIsOpenLang] = useState(false)

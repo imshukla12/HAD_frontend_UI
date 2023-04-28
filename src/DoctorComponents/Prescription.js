@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PatientMedicalHistory from './PatientMedicalHistory';
-import GradientLogo from "./GradientLogo.png"
+import GradientLogo from "../components/images/GradientLogo.png"
 
 const Prescription = () => {
 

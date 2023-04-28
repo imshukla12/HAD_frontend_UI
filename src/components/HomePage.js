@@ -14,6 +14,7 @@ import {
   faStethoscope,
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
+import img from './images/img1.png'
 
 
 const HomePage = () => {
@@ -119,7 +120,7 @@ const HomePage = () => {
         </div>
         <div className="md:flex-1 md:w-1/2 p-4 md:flex md:items-center md:justify-center">
           <img
-            src="./images/img1.png"
+            src={img}
             alt="main-img1"
             className="max-h-full max-w-full"
           />
