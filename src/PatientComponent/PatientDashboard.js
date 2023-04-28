@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-import PatientNavbar from "./PatientNavbar";
-import Appointment from "./Appointment";
-import PatientHistory from "./PatientHistory";
-import Calender from "./Calender";
+import React, { useState } from 'react'
+import PatientNavbar from './PatientNavbar'
+import Appointment from './Appointment'
+import PatientHistory from './PatientHistory'
+import Calender from './Calender'
 import flow from '../components/images/FLOW (1).png'
 
 const PatientDashboard = () => {
-// const patient = JSON.parse(localStorage.getItem("patientDetails"))
-  const [viewHistory, setViewHistory] = useState(false);
+
+  // const patient = JSON.parse(localStorage.getItem("patientDetails"))
+  const [viewHistory, setViewHistory] = useState(false)
 
   const handleToggle = () => {
-    setViewHistory(!viewHistory);
-  };
+    setViewHistory(!viewHistory)
+  }
 
   return (
     <div className='bg-blue-50 w-full'>
@@ -52,7 +53,7 @@ const PatientDashboard = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PatientDashboard;
+export default PatientDashboard

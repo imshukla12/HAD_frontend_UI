@@ -4,10 +4,11 @@ import LoginNavbar from "./LoginNavbar";
 import imagee from './images/415.jpg'
 
 const LoginPage = () => {
+
   return (
     <div className="flex md:flex-row flex-col">
       {/* NavBar */}
-      <LoginNavbar />
+      <LoginNavbar/>
       <div className="flex md:flex-row flex-col">
         {/* left-container */}
         <div className="lg:w-3/5">

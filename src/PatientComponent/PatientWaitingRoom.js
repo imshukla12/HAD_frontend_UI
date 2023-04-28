@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const PatientWaitingRoom = () => {
+
     const navigate = useNavigate()
     const patient = JSON.parse(localStorage.getItem("patientDetails"))
     const patientId = patient.patientId
@@ -95,11 +96,8 @@ const PatientWaitingRoom = () => {
                     </div>
                 </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+        </>
+    )
+}
 
-export default PatientWaitingRoom;
+export default PatientWaitingRoom
