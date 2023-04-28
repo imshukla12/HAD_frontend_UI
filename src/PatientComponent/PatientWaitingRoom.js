@@ -1,10 +1,13 @@
-import React,{ useEffect, useState } from 'react'
+import React,{ useContext, useEffect, useState } from 'react'
 import PatientNavbar from './PatientNavbar'
 import namaste from '../components/images/7617.jpg'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { LoggedinUserContext } from '../context/LoggedinUserContext'
 
 const PatientWaitingRoom = () => {
+
+    const {loggedinuser, setLoggedinUser} = useContext(LoggedinUserContext)
 
     const navigate = useNavigate()
     const patient = JSON.parse(localStorage.getItem("patientDetails"))
@@ -14,8 +17,8 @@ const PatientWaitingRoom = () => {
     const [isAccepted, setIsAccepted] = useState(false)
 
     const fetchData = async () => {
-        const jwtToken=localStorage.getItem("jwtToken");
-        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        // const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
         await axios.get(`http://localhost:9090/appointment/waitingPatients/${appointmentId}`)
         .then((response) => {
             setCount(response.data)
@@ -27,8 +30,8 @@ const PatientWaitingRoom = () => {
     };
 
     const fetchJoinRequest = async() => {
-        const jwtToken=localStorage.getItem("jwtToken");
-        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        // const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
         await axios.get(`http://localhost:9090/appointment/isAppointmentAccepted/${patientId}`)
         .then((response) => {
             console.log(response.data)
@@ -40,8 +43,8 @@ const PatientWaitingRoom = () => {
     }
 
     const deletePt = async() => {
-        const jwtToken=localStorage.getItem("jwtToken");
-        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        // const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${loggedinuser.token}`
         await axios.delete(`http://localhost:9090/appointment/deleteAppointmentStatus/${patientId}`)
         .then((response) => {
             console.log(response.data)

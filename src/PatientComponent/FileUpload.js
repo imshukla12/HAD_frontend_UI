@@ -1,9 +1,12 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons'
 import axios from "axios"
+import { LoggedinUserContext } from "../context/LoggedinUserContext"
 
 const FileUpload = () => {
+
+  const {loggedinuser, setLoggedinUser} = useContext(LoggedinUserContext)
 
   const patient = JSON.parse(localStorage.getItem("patientDetails"))
   const patientId = patient.patientId
@@ -50,8 +53,8 @@ const FileUpload = () => {
     console.log("formData", formData)
     console.log("ptID", patientId)
     try {
-      const jwtToken = localStorage.getItem("jwtToken");
-      axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`
+      // const jwtToken = localStorage.getItem("jwtToken");
+      axios.defaults.headers.common["Authorization"] = `Bearer ${loggedinuser.token}`
       const response = await axios.post(`http://localhost:9090/fileaws/uploadFile/${patientId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
