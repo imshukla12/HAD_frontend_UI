@@ -30,7 +30,7 @@ const HomePage = () => {
   }
 
   const fetchTotalConsult = async () => {
-    await axios.get(`http://localhost:9090/consultation/getAllConsultationsCount`)
+    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/consultation/getAllConsultationsCount`)
       .then((response) => {
         // console.log("response",response.data)
         setTotalConsult(response.data)
@@ -42,7 +42,7 @@ const HomePage = () => {
   }
 
   const fetchOnlineDr = async () => {
-    await axios.get(`http://localhost:9090/OnlineDoctors/totalOnline`)
+    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/OnlineDoctors/totalOnline`)
       .then((response) => {
         setOnlineDr(response.data)
         // console.log("onlineDr",onlineDr)

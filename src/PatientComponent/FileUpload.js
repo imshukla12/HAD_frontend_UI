@@ -17,7 +17,7 @@ const FileUpload = () => {
   }
 
   const fetchAllFile = async () => {
-    await axios.get(`http://localhost:9090/fileaws/getAllFiles/${patientId}`)
+    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/fileaws/getAllFiles/${patientId}`)
       .then((response) => {
         console.log("inside fetch files", response.data)
         setFileList(response.data)
@@ -52,7 +52,7 @@ const FileUpload = () => {
     try {
       const jwtToken = localStorage.getItem("jwtToken");
       axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`
-      const response = await axios.post(`http://localhost:9090/fileaws/uploadFile/${patientId}`, formData, {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/fileaws/uploadFile/${patientId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

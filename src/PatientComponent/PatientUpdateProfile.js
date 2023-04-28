@@ -38,7 +38,7 @@ const PatientUpdateProfile = () => {
 
         const jwtToken=localStorage.getItem("jwtToken");
         axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-        await axios.put(`http://localhost:9090/patient/updatePatient/${patientId}`, data)
+        await axios.put(`${process.env.REACT_APP_BACKEND_URL}/patient/updatePatient/${patientId}`, data)
             .then((response) => {
                 // console.log(JSON.stringify(response.data));
                 localStorage.setItem("patientDetails", JSON.stringify(response.data));

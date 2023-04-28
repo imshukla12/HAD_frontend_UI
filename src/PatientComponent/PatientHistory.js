@@ -8,7 +8,7 @@
 
 //   const fetchPrescription = async () => {
 //     try {
-//       const response = await axios.get(`http://localhost:9090/prescription/getPrescriptions/${patientDetails.patientId}`);
+//       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/prescription/getPrescriptions/${patientDetails.patientId}`);
 //       setPrescription(response.data);
 //     } catch (error) {
 //       console.log(error);
@@ -96,7 +96,7 @@ const PatientHistory = () => {
     try {
       // const jwtToken=localStorage.getItem("jwtToken");
       // axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-      const response = await axios.get(`http://localhost:9090/prescription/getPrescriptions/${patientDetails.patientId}`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/prescription/getPrescriptions/${patientDetails.patientId}`);
       setPrescription(response.data);
     } catch (error) {
       console.log(error);
@@ -107,7 +107,7 @@ const PatientHistory = () => {
     try {
       const jwtToken=localStorage.getItem("jwtToken");
       axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-      const response = await axios.get(`http://localhost:9090/pdf/getPdf/${id}`, {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/pdf/getPdf/${id}`, {
         responseType: 'blob',
       });
       const url = window.URL.createObjectURL(new Blob([response.data]));

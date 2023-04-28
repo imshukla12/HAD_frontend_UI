@@ -16,7 +16,7 @@ const PatientWaitingRoom = () => {
     const fetchData = async () => {
         const jwtToken=localStorage.getItem("jwtToken");
         axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-        await axios.get(`http://localhost:9090/appointment/waitingPatients/${appointmentId}`)
+        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/appointment/waitingPatients/${appointmentId}`)
         .then((response) => {
             setCount(response.data)
             console.log("count", count);
@@ -29,7 +29,7 @@ const PatientWaitingRoom = () => {
     const fetchJoinRequest = async() => {
         const jwtToken=localStorage.getItem("jwtToken");
         axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-        await axios.get(`http://localhost:9090/appointment/isAppointmentAccepted/${patientId}`)
+        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/appointment/isAppointmentAccepted/${patientId}`)
         .then((response) => {
             console.log(response.data)
             setIsAccepted(response.data);
@@ -42,7 +42,7 @@ const PatientWaitingRoom = () => {
     const deletePt = async() => {
         const jwtToken=localStorage.getItem("jwtToken");
         axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-        await axios.delete(`http://localhost:9090/appointment/deleteAppointmentStatus/${patientId}`)
+        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/appointment/deleteAppointmentStatus/${patientId}`)
         .then((response) => {
             console.log(response.data)
         })

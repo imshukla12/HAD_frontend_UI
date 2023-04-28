@@ -70,7 +70,7 @@ const Prescription = () => {
         const jwtToken=localStorage.getItem("jwtToken");
         axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
         await axios
-            .get(`http://localhost:9090/patient/getPatientById/${patientId}`)
+            .get(`${process.env.REACT_APP_BACKEND_URL}/patient/getPatientById/${patientId}`)
             .then((response) => {
                 console.log("patientDetail", response.data);
                 setPatientDetail(response.data);
@@ -136,7 +136,7 @@ const Prescription = () => {
         const jwtToken=localStorage.getItem("jwtToken");
         axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
         await axios
-            .post("http://localhost:9090/prescription/addPrescription", data)
+            .post(`${process.env.REACT_APP_BACKEND_URL}/prescription/addPrescription`, data)
             .then((response) => {
                 // console.log("inside post prescription api");
                 // console.log(response.data);
@@ -151,7 +151,7 @@ const Prescription = () => {
     const fetchPtHistory = async () => {
         const jwtToken=localStorage.getItem("jwtToken");
         axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-        await axios.get(`http://localhost:9090/fileaws/getAllFiles/${patientId}`)
+        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/fileaws/getAllFiles/${patientId}`)
             .then((response) => {
                 console.log("fetched files", response.data)
                 setFileList(response.data)
@@ -166,7 +166,7 @@ const Prescription = () => {
         console.log(`File key:`,fileKey);
         const jwtToken=localStorage.getItem("jwtToken");
         axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-        await axios.get(`http://localhost:9090/fileaws/downloadFile/${fileKey}`, { responseType: 'arraybuffer' })
+        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/fileaws/downloadFile/${fileKey}`, { responseType: 'arraybuffer' })
             .then(response => {
                 console.log("fileeeee")
                 const file = new Blob([response.data], { type: 'application/pdf' });

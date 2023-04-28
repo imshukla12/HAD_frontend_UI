@@ -61,7 +61,7 @@ function Otp(props) {
         // fetchPtData();
         const userI = result.user;
 
-        axios.post('http://localhost:9090/authenticate',{
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/authenticate`,{
           username:phoneNumber,
           password:phoneNumber
         }).then((response=>{
@@ -89,7 +89,7 @@ function Otp(props) {
   };
 
   const verifyPatient = () => {
-    axios.get(`http://localhost:9090/login/verifyPatientPhoneNumber/${phoneNumber}`)
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/login/verifyPatientPhoneNumber/${phoneNumber}`)
       .then((response) => {
         setIsValid(response.data)
       })
@@ -99,7 +99,7 @@ function Otp(props) {
   }
 
   const verifyDoctor = () => {
-    axios.get(`http://localhost:9090/login/verifyDoctorPhoneNumber/${phoneNumber}`)
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/login/verifyDoctorPhoneNumber/${phoneNumber}`)
       .then((response) => {
         setIsValid(response.data)
       })
@@ -109,7 +109,7 @@ function Otp(props) {
   }
 
   const fetchPtDetail = async () => {
-    await axios.get(`http://localhost:9090/patient/getPatientByPhoneNumber/${phoneNumber}`)
+    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/patient/getPatientByPhoneNumber/${phoneNumber}`)
       .then((response) => {
         // console.log("phoneNumber", phoneNumber)
         localStorage.setItem("patientDetails", JSON.stringify(response.data))
@@ -121,7 +121,7 @@ function Otp(props) {
   }
 
   const fetchDrDetail = async () => {
-    await axios.get(`http://localhost:9090/doctor/getDoctorByPhoneNumber/${phoneNumber}`)
+    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/doctor/getDoctorByPhoneNumber/${phoneNumber}`)
       .then((response) => {
         localStorage.setItem("doctorDetails", JSON.stringify(response.data));
         // console.log("Drresponsedata",response.data);

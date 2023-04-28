@@ -87,7 +87,7 @@ const Calendar = () => {
   const fetchFollowUp = async () => {
     const jwtToken = localStorage.getItem("jwtToken");
     axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`
-    await axios.get(`http://localhost:9090/patient/getFollowUp/${patientId}`)
+    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/patient/getFollowUp/${patientId}`)
       .then((response) => {
         const formattedEvents = response.data.map((event) => ({
           title: `${event.departmentName}`,

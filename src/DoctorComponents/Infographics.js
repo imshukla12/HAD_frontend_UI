@@ -10,7 +10,7 @@ const Infographics = () => {
       try {
         const jwtToken=localStorage.getItem("jwtToken");
         axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-        const response = await axios.get('http://localhost:9090/consultation/totalDateWiseConsultations');
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/consultation/totalDateWiseConsultations`);
         const formattedData = response.data.map((d) => {
           return {
             name: d.dateOfConsultation,

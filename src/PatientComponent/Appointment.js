@@ -32,7 +32,7 @@ const Appointment = () => {
   const fetchDept = async () => {
     const jwtToken=localStorage.getItem("jwtToken");
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-    await axios.get(`http://localhost:9090/department/getDepartment`)
+    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/department/getDepartment`)
       .then((response) => {
         setDepartments(response.data)
       })
@@ -46,7 +46,7 @@ const Appointment = () => {
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios
       .get(
-        `http://localhost:9090/appointment/checkAppointments/${patientDetails.patientId}`
+        `${process.env.REACT_APP_BACKEND_URL}/appointment/checkAppointments/${patientDetails.patientId}`
       )
       .then((response) => {
         setPrevAppointment(response.data)
@@ -74,7 +74,7 @@ const Appointment = () => {
     console.log("data",data)
     const jwtToken=localStorage.getItem("jwtToken");
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-    await axios.post(`http://localhost:9090/appointment/requestAppointment`,data)
+    await axios.post(`${process.env.REACT_APP_BACKEND_URL}/appointment/requestAppointment`,data)
       .then((response) => {
         console.log("appointment set", response.data)
         localStorage.setItem("ptAppointmentId", response.data)
@@ -93,7 +93,7 @@ const Appointment = () => {
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios
       .delete(
-        `http://localhost:9090/appointment/deleteAppointmentByPatientId/${patientDetails.patientId}`
+        `${process.env.REACT_APP_BACKEND_URL}/appointment/deleteAppointmentByPatientId/${patientDetails.patientId}`
       )
       .then((response) => {
         setCount(count + 1);

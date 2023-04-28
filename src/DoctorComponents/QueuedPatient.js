@@ -29,7 +29,7 @@ const QueuedPatient = () => {
     const fetchQueuePt = async () => {
         const jwtToken=localStorage.getItem("jwtToken");
         axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-        await axios.get(`http://localhost:9090/appointment/getAllAppointments/${doctorDetails.departmentName}`)
+        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/appointment/getAllAppointments/${doctorDetails.departmentName}`)
             .then((response) => {
                 setQueuedPt(response.data);
                 // console.log(queuedPt);
@@ -43,7 +43,7 @@ const QueuedPatient = () => {
         const jwtToken=localStorage.getItem("jwtToken");
         axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
         // console.log("inside deletePt", appointmentId);
-        await axios.delete(`http://localhost:9090/appointment/deleteAppointment/${appointmentId}`)
+        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/appointment/deleteAppointment/${appointmentId}`)
             .then((response) => {
                 // console.log("Delete successful");
                 setCount(count + 1);

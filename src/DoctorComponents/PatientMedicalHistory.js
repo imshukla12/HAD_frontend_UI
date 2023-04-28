@@ -33,7 +33,7 @@ const PatientMedicalHistory = ({ patientDetail }) => {
         // const jwtToken=localStorage.getItem("jwtToken");
         // axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
         console.log("pt id",patientId)
-        await axios.get(`http://localhost:9090/prescription/getPrescriptions/${patientId}`)
+        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/prescription/getPrescriptions/${patientId}`)
             .then((response) => {
                 console.log("egfgwe")
                 setPrescription(response.data)
@@ -48,7 +48,7 @@ const PatientMedicalHistory = ({ patientDetail }) => {
         try {
             const jwtToken=localStorage.getItem("jwtToken");
             axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-            const response = await axios.get(`http://localhost:9090/pdf/getPdfDoctor/${id}`, {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/pdf/getPdfDoctor/${id}`, {
                 responseType: 'blob',
             });
             console.log("inside download pdf")
