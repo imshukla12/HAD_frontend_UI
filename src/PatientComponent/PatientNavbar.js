@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
-import WhiteLogo from "./whiteLogo.png";
+import WhiteLogo from "../components/images/whiteLogo.png";
 
-const PatientNavbar = (props) => {
+const PatientNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const patient = JSON.parse(localStorage.getItem("patientDetails"))
   // const patient = props.value
@@ -26,7 +26,7 @@ const PatientNavbar = (props) => {
             <div className="relative flex flex-row items-center justify-end space-x-4">
               <div><a href='/patient' className='text-white font-medium font-serif hover:text-blue-200'>Home</a></div>
               {/* <div><a href='/patient/waitingroom' className='text-white font-medium font-serif hover:text-blue-200'>OPD</a></div> */}
-              <div className='text-white font-medium font-serif'>Pt.{patient.firstName}</div>
+              <div className='text-white font-medium font-serif'>Pt.{patient?.firstName}</div>
               <div>
                 <button
                   className="py-2 rounded inline-flex items-center"

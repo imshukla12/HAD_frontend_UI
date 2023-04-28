@@ -1,19 +1,15 @@
 import React,{ useEffect, useState } from 'react'
 import PatientNavbar from './PatientNavbar'
-import namaste from './7617.jpg'
-import { useNavigate, useLocation } from 'react-router-dom'
+import namaste from '../components/images/7617.jpg'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const PatientWaitingRoom = () => {
 
     const navigate = useNavigate()
-    // const { state } = useLocation()
-    // console.log("Wtstate", state.appId)
     const patient = JSON.parse(localStorage.getItem("patientDetails"))
     const patientId = patient.patientId
     const appointmentId = localStorage.getItem("ptAppointmentId")
-    // console.log("appointmentId",appointmentId)
-    // const appointmentId = state.appId
     const [count, setCount] = useState(0);
     const [isAccepted, setIsAccepted] = useState(false)
 
