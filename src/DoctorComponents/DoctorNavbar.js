@@ -49,15 +49,14 @@ const [selectedOption, setSelectedOption] = useState("Select Language");
           </div>
           <div className="flex flex-row items-center justify-end">
             <div className="relative flex flex-row items-center justify-end space-x-4">
-
-              <div>
+              {/* <div>
                 <a
                   href="/doctor"
                   className="text-white font-medium font-serif hover:text-blue-200"
                 >
                   {t("Home")}
                 </a>
-              </div>
+              </div> */}
               <li className="block py-2 pl-3 pr-4 text-black rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
                 <select value={selectedOption} onChange={handleDropdownChange}>
                   <option value="en">English</option>
@@ -66,7 +65,7 @@ const [selectedOption, setSelectedOption] = useState("Select Language");
               </li>
               
 
-              <div><a href='/doctor' className='text-white font-medium font-serif hover:text-blue-200'>Home</a></div>
+              <div><a href='/doctor' className='text-white font-medium font-serif hover:text-blue-200'>{t("Home")}</a></div>
               <div className='text-white font-medium font-serif'>Dr.{doctor?.firstName}</div>
 
               <div>
