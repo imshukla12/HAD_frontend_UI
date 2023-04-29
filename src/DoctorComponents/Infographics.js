@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
@@ -11,15 +12,16 @@ import {
 } from "recharts";
 import { useTranslation } from "react-i18next";
 
+
 const Infographics = () => {
   const [data, setData] = useState([]);
   const { t } = useTranslation();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "${process.env.REACT_APP_BACKEND_URL}/consultation/totalDateWiseConsultations"
-        );
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/consultation/totalDateWiseConsultations`);
         const formattedData = response.data.map((d) => {
           return {
             name: d.dateOfConsultation,
@@ -47,13 +49,7 @@ const Infographics = () => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line
-            type="monotone"
-            dataKey="consultations"
-            stroke="#3b82f6"
-            strokeWidth={2}
-            activeDot={{ r: 8 }}
-          />
+          <Line type="monotone" dataKey="consultations" stroke="#3b82f6" strokeWidth={2} activeDot={{ r: 8 }} />
         </LineChart>
       ) : (
         <div>{t("Loading data...")}</div>

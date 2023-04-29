@@ -8,6 +8,7 @@ import axios from "axios";
 import { useTranslation } from "react-i18next";
 
 function Otp(props) {
+
   const navigate = useNavigate();
   const user = props.value;
   const [phoneNumber, setPhoneNumber] = useState();
@@ -44,9 +45,11 @@ function Otp(props) {
         .catch((error) => {
           console.log(error);
         });
-    } else {
-      alert("Invalid Number");
     }
+    else {
+      alert("Invalid Number")
+    }
+
   }
 
   const verifyOTP = (e) => {
@@ -58,15 +61,25 @@ function Otp(props) {
         // User signed in successfully.
         // fetchPtData();
         const userI = result.user;
+
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/authenticate`,{
+          username:phoneNumber,
+          password:phoneNumber
+        }).then((response=>{
+          localStorage.setItem("jwtToken",response.data.jwtToken)
+          // console.log(localStorage.getItem("jwtToken"));
+        })).catch((e)=>console.log(e))
+        
         // console.log(result);
         // console.log("number verified");
         setValidOTP(true);
         if (props.value == 1) {
-          fetchPtDetail();
-          navigate(`/patient`);
-        } else if (props.value == 2) {
-          fetchDrDetail();
-          navigate(`/doctor`);
+          fetchPtDetail()
+          navigate(`/patient`)
+        }
+        else if (props.value == 2) {
+          fetchDrDetail()
+          navigate(`/doctor`)
         }
       })
       .catch((error) => {
@@ -77,67 +90,56 @@ function Otp(props) {
   };
 
   const verifyPatient = () => {
-    axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URL}/login/verifyPatientPhoneNumber/${phoneNumber}`
-      )
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/login/verifyPatientPhoneNumber/${phoneNumber}`)
       .then((response) => {
-        setIsValid(response.data);
+        setIsValid(response.data)
       })
       .catch((error) => {
-        console.log(error);
-      });
-  };
+        console.log(error)
+      })
+  }
 
   const verifyDoctor = () => {
-    axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URL}/login/verifyDoctorPhoneNumber/${phoneNumber}`
-      )
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/login/verifyDoctorPhoneNumber/${phoneNumber}`)
       .then((response) => {
-        setIsValid(response.data);
+        setIsValid(response.data)
       })
       .catch((error) => {
-        console.log(error);
-      });
-  };
+        console.log(error)
+      })
+  }
 
   const fetchPtDetail = async () => {
-    await axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URL}/patient/getPatientByPhoneNumber/${phoneNumber}`
-      )
+    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/patient/getPatientByPhoneNumber/${phoneNumber}`)
       .then((response) => {
         // console.log("phoneNumber", phoneNumber)
-        localStorage.setItem("patientDetails", JSON.stringify(response.data));
+        localStorage.setItem("patientDetails", JSON.stringify(response.data))
         // console.log("Ptresponsedata", response.data)
       })
       .catch((error) => {
-        console.log(error);
-      });
-  };
+        console.log(error)
+      })
+  }
 
   const fetchDrDetail = async () => {
-    await axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URL}/doctor/getDoctorByPhoneNumber/${phoneNumber}`
-      )
+    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/doctor/getDoctorByPhoneNumber/${phoneNumber}`)
       .then((response) => {
         localStorage.setItem("doctorDetails", JSON.stringify(response.data));
         // console.log("Drresponsedata",response.data);
       })
       .catch((error) => {
-        console.log(error);
-      });
-  };
+        console.log(error)
+      })
+  }
 
   useEffect(() => {
     if (user == 1) {
       verifyPatient();
-    } else if (user == 2) {
+    }
+    else if (user == 2) {
       verifyDoctor();
     }
-  }, [phoneNumber]);
+  }, [phoneNumber])
 
   return (
     <div>

@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import LoginTab from "./LoginTab";
 import LoginNavbar from "./LoginNavbar";
+
 import { Navbar } from "@material-tailwind/react";
 import { useTranslation } from "react-i18next";
 
-const LoginPage = () => {
+
   const { t } = useTranslation();
+
+import imagee from './images/415.jpg'
+
+const LoginPage = () => {
+
+
   return (
     <div className="flex md:flex-row flex-col">
       {/* NavBar */}
-      <LoginNavbar />
+      <LoginNavbar/>
       <div className="flex md:flex-row flex-col">
         {/* left-container */}
         <div className="lg:w-3/5">
           <img
-            src="./images/415.jpg"
-            alt="doctor-image"
+            src={imagee}
+            alt="doctor"
             className="object-cover h-full w-full hidden md:block mt-6 p-2"
           />
         </div>
