@@ -48,6 +48,7 @@ const PatientDashboard = () => {
             </div>
           </div>
           <div className='w-1/3 mt-2'>
+            <h4 className='text-center text-xl font-serif font-bold'>Follow Up</h4>
             <div><Calender /></div>
           </div>
         </div>

@@ -113,7 +113,7 @@ const Appointment = () => {
 
   return (
     <div className="flex flex-col items-center justify-center border-2 border-gray-300 rounded-lg p-8 space-y-8">
-      <p className="font-serif text-5xl text-red-700">Welcome to E-Aarogya</p>
+      <p className="font-serif text-5xl text-blue-950">Welcome to E-Aarogya</p>
       {/* Button to open modal */}
       {prevAppointment ?
         (<div className="flex flex-row justify-evenly  p-4 items-center w-full">
