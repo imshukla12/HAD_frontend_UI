@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Otp from "./Otp";
+import { useTranslation } from "react-i18next";
 
 const LoginTab = () => {
   const [toggleState, setToggleState] = useState(1);
@@ -7,7 +8,7 @@ const LoginTab = () => {
   const toggleTab = (index) => {
     setToggleState(index);
   };
-
+  const { t } = useTranslation();
   return (
     <div className="flex items-center bg-gradient-to-br">
       <div className="max-w-3xl mx-auto px-8 sm:px-0">
@@ -22,7 +23,7 @@ const LoginTab = () => {
                 }
                 onClick={() => toggleTab(1)}
               >
-                <span className="text-lg font-serif">Patient</span>
+                <span className="text-lg font-serif">{t("Patient")}</span>
               </button>
             </div>
             <div>
@@ -32,7 +33,7 @@ const LoginTab = () => {
                 }
                 onClick={() => toggleTab(2)}
               >
-                <span className="text-lg font-serif">Doctor</span>
+                <span className="text-lg font-serif">{t("Doctor")}</span>
               </button>
             </div>
           </div>
@@ -42,15 +43,20 @@ const LoginTab = () => {
                 {/* <h2 className="text-xl font-semibold text-gray-800">second tab panel</h2> */}
                 <Otp value = {toggleState}/>
                 <div className="flex items-center justify-center pb-6">
-                  <p className="mb-0 mr-2">Don't have an account?</p>
+                  <p className="mb-0 mr-2">{t("Don't have an account?")}</p>
                   {/* <button
                                         type="button"
                                         className="inline-block rounded-full border-2 px-6 pb-[6px] pt-2 text-xs font-serif font-bold uppercase leading-normal hover:bg-purple-100 transform transition duration-300 hover:scale-110"
                                     >
                                         Register
                                     </button> */}
-                  <a href="/register" className="text-blue-500 hover:text-blue-900">
-                    Register
+
+                  <a
+                    href="/register"
+                    className="text-blue-500 hover:text-blue-900"
+                  >
+                    {t("Register")}
+
                   </a>
                 </div>
               </div>

@@ -1,4 +1,5 @@
-import React from 'react'
+
+import React,{ Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import HomePage from './components/HomePage';
@@ -18,6 +19,7 @@ import PatientWaitingRoom from './PatientComponent/PatientWaitingRoom';
 import PatientUpdateProfile from './PatientComponent/PatientUpdateProfile';
 import PatientVideoCallPage from './PatientComponent/PatientVideoCallPage';
 // import FileUpload from './PatientComponent/FileUpload';
+
 // import Appp from './PatientComponent/Appp';
 
 const App = () => {
@@ -34,6 +36,7 @@ const App = () => {
 
   return (
     <div>
+      <Suspense fallback={"Loading..."}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -59,8 +62,9 @@ const App = () => {
           {/* <Route path='/file' element={<ProtectedRoute><FileUpload /></ProtectedRoute>} /> */}
         </Routes>
       </BrowserRouter>
+      </Suspense>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

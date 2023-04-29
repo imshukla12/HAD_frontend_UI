@@ -19,7 +19,7 @@ const PatientHistory = () => {
     }
   };
 
-  const downloadPDF = async (id) => {
+  const downloadPDF = async (id, date) => {
     try {
       const jwtToken=localStorage.getItem("jwtToken");
       axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
@@ -29,7 +29,9 @@ const PatientHistory = () => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `${id}-prescription.pdf`);
+
+      link.setAttribute("download", `${date}-prescription.pdf`);
+
       document.body.appendChild(link);
       link.click();
     } catch (error) {
@@ -78,7 +80,9 @@ const PatientHistory = () => {
                 <td className='p-2'>
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded"
-                    onClick={() => downloadPDF(p.prescriptionId, p.date)}
+                    onClick={() =>
+                      downloadPDF(p.prescriptionId, p.consultationDate)
+                    }
                   >
                     download pdf
                   </button>

@@ -1,6 +1,19 @@
-import React from 'react'
+
+import i18next from "i18next";
+import React, { useState, useTransition } from "react";
+import { useTranslation } from "react-i18next";
+
 
 const LoginNavbar = () => {
+  const { t } = useTranslation();
+  const [selectedOption, setSelectedOption] = useState("option1");
+
+  function handleDropdownChange(event) {
+    setSelectedOption(event.target.value);
+    console.log(`User selected ${event.target.value}`);
+    i18next.changeLanguage(event.target.value);
+    localStorage.setItem("language", event.target.value);
+  }
   return (
     <div>
       <nav className="bg-white dark:bg-blue-900 fixed  w-full z-20 top-0 left-0 dark:border-blue-600">
@@ -29,7 +42,7 @@ const LoginNavbar = () => {
                 aria-controls="navbar-sticky"
                 aria-expanded="false"
               >
-                <span className="sr-only">Open main menu</span>
+                <span className="sr-only">{t("Open main menu")}</span>
                 <svg
                   className="w-6 h-6"
                   aria-hidden="true"
@@ -51,19 +64,30 @@ const LoginNavbar = () => {
             >
               <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
                 <li className="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
-                 <a href='/'> Home</a>
+
+                  <a href="/"> {t("Home")}</a>
+
                 </li>
                 <li className="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
-                  About
+                  {t("About")}
                 </li>
                 <li className="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
-                  Timmings
+                  {t("Timmings")}
                 </li>
                 <li className="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
-                  FAQ
+                  {t("FAQ")}
                 </li>
                 <li className="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
-                  Contact
+                  {t("Contact")}
+                </li>
+                <li className="block py-2 pl-3 pr-4 text-black rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
+                  <select
+                    value={selectedOption}
+                    onChange={handleDropdownChange}
+                  >
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी</option>
+                  </select>
                 </li>
               </ul>
             </div>

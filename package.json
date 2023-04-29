@@ -34,7 +34,13 @@
     "flowbite": "^1.6.5",
     "flowbite-datepicker": "^1.2.2",
     "flowbite-react": "^0.4.4",
-    "gapi-script": "^1.2.0",
+
+    "i18next": "^22.4.15",
+    "i18next-browser-languagedetector": "^7.0.1",
+    "i18next-http-backend": "^2.2.0",
+    "i18next-xhr-backend": "^3.2.2",
+     "gapi-script": "^1.2.0",
+
     "mdb-ui-kit": "^6.2.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
@@ -42,6 +48,7 @@
     "react-bootstrap": "^2.7.4",
     "react-datepicker": "^4.11.0",
     "react-dom": "^18.2.0",
+    "react-i18next": "^12.2.2",
     "react-intl": "^6.3.2",
     "react-modal": "^3.16.1",
     "react-paginate": "^8.2.0",

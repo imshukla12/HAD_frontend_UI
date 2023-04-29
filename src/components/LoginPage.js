@@ -1,9 +1,17 @@
 import React from "react";
 import LoginTab from "./LoginTab";
 import LoginNavbar from "./LoginNavbar";
+
+import { Navbar } from "@material-tailwind/react";
+import { useTranslation } from "react-i18next";
+
+
+  const { t } = useTranslation();
+
 import imagee from './images/415.jpg'
 
 const LoginPage = () => {
+
 
   return (
     <div className="flex md:flex-row flex-col">
@@ -28,8 +36,9 @@ const LoginPage = () => {
                 src="./images/GradientLogo.png"
                 alt="logo"
               />
+              {t("")}
               <h4 className="mb-4 pb-1 text-3xl font-serif font-bold text-blue-900 mt-8 border-b border-solid border-blue-900">
-                Login Portal
+                {t("Login Portal")}
               </h4>
             </div>
             <div>

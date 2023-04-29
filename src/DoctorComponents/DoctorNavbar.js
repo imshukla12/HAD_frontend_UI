@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
-import WhiteLogo from "../components/images/whiteLogo.png";
-import axios from 'axios';
+
+import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import WhiteLogo from "./whiteLogo.png";
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
+
 
 const DoctorNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const doctor = JSON.parse(localStorage.getItem("doctorDetails"))
 
+
+const [selectedOption, setSelectedOption] = useState("Select Language");
   const drLogout = async() => {
     const jwtToken=localStorage.getItem("jwtToken");
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
@@ -28,6 +33,14 @@ const DoctorNavbar = () => {
     window.location.href = "/"
   }
 
+
+  function handleDropdownChange(event) {
+    setSelectedOption(event.target.value);
+    console.log(`User selected ${event.target.value}`);
+    i18next.changeLanguage(event.target.value);
+    localStorage.setItem("language", event.target.value);
+  }
+  const { t } = useTranslation();
   return (
     <nav className="bg-blue-900 border-blue-600 dark:bg-blue-900 top-0 w-full z-20 left-0 dark:border-blue-600">
       <div className="max-w-full mx-auto px-0 sm:px-6 lg:px-8">
@@ -37,8 +50,26 @@ const DoctorNavbar = () => {
           </div>
           <div className="flex flex-row items-center justify-end">
             <div className="relative flex flex-row items-center justify-end space-x-4">
+
+              <div>
+                <a
+                  href="/doctor"
+                  className="text-white font-medium font-serif hover:text-blue-200"
+                >
+                  {t("Home")}
+                </a>
+              </div>
+              <li className="block py-2 pl-3 pr-4 text-black rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
+                <select value={selectedOption} onChange={handleDropdownChange}>
+                  <option value="en">English</option>
+                  <option value="hi">हिंदी</option>
+                </select>
+              </li>
+              
+
               <div><a href='/doctor' className='text-white font-medium font-serif hover:text-blue-200'>Home</a></div>
               <div className='text-white font-medium font-serif'>Dr.{doctor?.firstName}</div>
+
               <div>
                 <button
                   className="py-2 rounded inline-flex items-center"
@@ -53,9 +84,28 @@ const DoctorNavbar = () => {
               {isOpen && (
                 <div className="overflow-hidden z-10 absolute top-8 right-0 mt-2 w-36 rounded-sm shadow-lg">
                   <div className="rounded-md bg-blue-50 shadow-xs">
-                    <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                      <a href="/doctor/profile" className="block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-blue-200 hover:text-gray-900" role="menuitem">Update Profile</a>
-                      <button className="w-full block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-red-400 hover:text-gray-900" role="menuitem" onClick={logOut}>Logout</button>
+
+                    <div
+                      className="py-1"
+                      role="menu"
+                      aria-orientation="vertical"
+                      aria-labelledby="options-menu"
+                    >
+                      <a
+                        href="/doctor/profile"
+                        className="block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-blue-200 hover:text-gray-900"
+                        role="menuitem"
+                      >
+                        {t("Update Profile")}
+                      </a>
+                      <button
+                        className="w-full block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-red-400 hover:text-gray-900"
+                        role="menuitem"
+                        onClick={logOut}
+                      >
+                        {t("Logout")}
+                      </button>
+
                     </div>
                   </div>
                 </div>
