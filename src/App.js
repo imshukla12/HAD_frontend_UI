@@ -45,9 +45,9 @@ const App = () => {
 
           {/*                 Doctor Components               */}
           <Route path="/doctor" element={
-            <ProtectedRoute>
+            
               <DoctorDashboard />
-            </ProtectedRoute>
+            
           } />
           
           <Route path="/doctor/consultationpage" element={<ProtectedRoute><DoctorConsultationPage /></ProtectedRoute>} />

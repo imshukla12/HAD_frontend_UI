@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 function Otp(props) {
 
   const navigate = useNavigate();
+  let jwtToken;
   const user = props.value;
   const [phoneNumber, setPhoneNumber] = useState();
   const [otp, setOtp] = useState("");
@@ -62,29 +63,32 @@ function Otp(props) {
         // fetchPtData();
         const userI = result.user;
 
-        axios.post(`${process.env.REACT_APP_BACKEND_URL}/authenticate`,{
-          username:phoneNumber,
-          password:phoneNumber
-        }).then((response=>{
-          localStorage.setItem("jwtToken",response.data.jwtToken)
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/authenticate`, {
+          username: phoneNumber,
+          password: phoneNumber
+        }).then((response => {
+          jwtToken = response.data.jwtToken
+          axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`
+          localStorage.setItem("jwtToken", response.data.jwtToken)
+          setValidOTP(true);
+          if (props.value == 1) {
+            fetchPtDetail()
+            navigate(`/patient`)
+          }
+          else if (props.value == 2) {
+            fetchDrDetail()
+            navigate(`/doctor`)
+          }
           // console.log(localStorage.getItem("jwtToken"));
-        })).catch((e)=>console.log(e))
-        
+        })).catch((e) => console.log(e))
+
         // console.log(result);
         // console.log("number verified");
-        setValidOTP(true);
-        if (props.value == 1) {
-          fetchPtDetail()
-          navigate(`/patient`)
-        }
-        else if (props.value == 2) {
-          fetchDrDetail()
-          navigate(`/doctor`)
-        }
+
       })
       .catch((error) => {
         // User couldn't sign in (bad verification code?)
-        alert("Invalid OTP");
+        // alert("Invalid OTP");
         console.log(error);
       });
   };
