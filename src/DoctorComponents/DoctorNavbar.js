@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
-import WhiteLogo from "./whiteLogo.png";
+import WhiteLogo from "../components/images/whiteLogo.png";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
-
+import axios from 'axios';
 
 const DoctorNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);

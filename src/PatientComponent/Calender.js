@@ -39,7 +39,7 @@ const Calendar = () => {
 
   const handleButton = (startDate) => {
     const ISOStartDate = new Date(startDate).toISOString()
-    // console.log("follow",ISOStartDate)
+    console.log("follow",ISOStartDate)
     gapi.load("client:auth2", () => {
       gapi.client
         .init({
@@ -96,7 +96,7 @@ const Calendar = () => {
           id: Math.random().toString(36).substring(7),
         }));
         setEvents(formattedEvents)
-        // console.log("events",events)
+        console.log("events",events)
       })
       .catch((error) => {
         console.log(error)

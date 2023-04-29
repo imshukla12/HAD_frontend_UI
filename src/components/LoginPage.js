@@ -1,17 +1,12 @@
 import React from "react";
 import LoginTab from "./LoginTab";
 import LoginNavbar from "./LoginNavbar";
-
-import { Navbar } from "@material-tailwind/react";
 import { useTranslation } from "react-i18next";
-
-
-  const { t } = useTranslation();
-
 import imagee from './images/415.jpg'
 
 const LoginPage = () => {
 
+  const { t } = useTranslation();
 
   return (
     <div className="flex md:flex-row flex-col">

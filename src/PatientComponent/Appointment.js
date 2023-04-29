@@ -69,8 +69,6 @@ const Appointment = () => {
       departmentName: selectedDepartment,
       preferredLanguage: selectedLanguage
     }
-
-
     console.log("data",data)
     const jwtToken=localStorage.getItem("jwtToken");
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`

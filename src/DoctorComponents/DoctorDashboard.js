@@ -17,25 +17,10 @@ const DoctorDashboard = () => {
 
   const { t } = useTranslation();
   const fetchTotalConsult = async () => {
-    await axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URL}/consultation/totalConsultationByDoctor/${doctorDetails.doctorId}`
-      )
-      .then((response) => {
-        // console.log("totalCount",response.data)
-        setTotalConsult(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-
     const jwtToken=localStorage.getItem("jwtToken");
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     //await axios.get(`http://localhost:9090/consultation/getAllConsultationsCount`)
     await axios.get(`${process.env.REACT_APP_BACKEND_URL}/consultation/totalConsultationByDoctor/${doctorDetails?.doctorId}`)
-
     .then((response) => {
       // console.log("totalCount",response.data)
       setTotalConsult(response.data)
