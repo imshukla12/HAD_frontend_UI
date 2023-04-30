@@ -31,6 +31,7 @@ const Prescription = () => {
             dob: "",
         },
     ]);
+    const [clickedButton, setClickedButton] = useState(false);
 
     const [inputFeilds, setInputFeilds] = useState([
         { medicine: "", dosage: "" },
@@ -121,6 +122,7 @@ const Prescription = () => {
     // console.log("follow",selectedDate)
    
     const submitHandler = async (event) => {
+        setClickedButton(true)
         event.preventDefault();
         const data = {
             consultationDate: new Date(),
@@ -191,7 +193,18 @@ const Prescription = () => {
     useEffect(() => {
         fetchPatientDetail();
         getAllMedicine();
-    }, []);
+
+        const handleBeforeUnload = (event) => {
+            if (!clickedButton) {
+              event.preventDefault();
+              event.returnValue = '';
+            }
+          };
+          window.addEventListener('beforeunload', handleBeforeUnload);
+          return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+          };
+    }, [clickedButton]);
 
     return (
         <div className='w-full p-8 items-center justify-center bg-blue-50 border-l-4 border-b-4 shadow-lg border-indigo-700'>

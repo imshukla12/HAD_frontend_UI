@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Appointment = () => {
   const navigate = useNavigate()
   const patientDetails = JSON.parse(localStorage.getItem("patientDetails"))
+  // const [patientDetails,setPatientDetails] = useState()
   const [departments, setDepartments] = useState()
   const languages = ["English", "Hindi", "Marathi", "Tamil","Kannada", "Telugu","Gujarati","Punjabi","Bengali","Malayalam","Urdu"]
   const [show, setShow] = useState(false)
@@ -46,7 +47,7 @@ const Appointment = () => {
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios
       .get(
-        `${process.env.REACT_APP_BACKEND_URL}/appointment/checkAppointments/${patientDetails.patientId}`
+        `${process.env.REACT_APP_BACKEND_URL}/appointment/checkAppointments/${patientDetails?.patientId}`
       )
       .then((response) => {
         setPrevAppointment(response.data)
@@ -65,11 +66,11 @@ const Appointment = () => {
     event.preventDefault()
     const data = {
       appointmentTimestamp: new Date(),
-      patientId: patientDetails.patientId,
+      patientId: patientDetails?.patientId,
       departmentName: selectedDepartment,
       preferredLanguage: selectedLanguage
     }
-    console.log("data",data)
+    // console.log("data",data)
     const jwtToken=localStorage.getItem("jwtToken");
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios.post(`${process.env.REACT_APP_BACKEND_URL}/appointment/requestAppointment`,data)
@@ -107,6 +108,7 @@ const Appointment = () => {
   }
 
   useEffect(() => {
+    // setPatientDetails(JSON.parse(localStorage.getItem("patientDetails")))
     fetchDept()
     fetchPrevAppointment()
   }, [count])

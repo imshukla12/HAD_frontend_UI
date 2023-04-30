@@ -36,6 +36,7 @@ function Otp(props) {
     // console.log("isVAlid",isValid);
     if (isValid) {
       setSend(true);
+      console.log("true")
       generateRecaptcha();
       let appVerifier = window.recaptchaVerifier;
       signInWithPhoneNumber(authentication, phoneNumber, appVerifier)
@@ -62,7 +63,6 @@ function Otp(props) {
         // User signed in successfully.
         // fetchPtData();
         const userI = result.user;
-
         axios.post(`${process.env.REACT_APP_BACKEND_URL}/authenticate`, {
           username: phoneNumber,
           password: phoneNumber

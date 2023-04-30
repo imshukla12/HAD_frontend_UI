@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PatientNavbar from './PatientNavbar'
 import Appointment from './Appointment'
 import PatientHistory from './PatientHistory'
@@ -8,12 +8,17 @@ import flow from '../components/images/FLOW (1).png'
 const PatientDashboard = () => {
 
   // const patient = JSON.parse(localStorage.getItem("patientDetails"))
+  let patient
   const [viewHistory, setViewHistory] = useState(false)
 
   const handleToggle = () => {
     setViewHistory(!viewHistory)
   }
 
+  useEffect(() => {
+    patient = JSON.parse(localStorage.getItem("patientDetails"))
+    // console.log("dashboard",patient)
+  })
   return (
     <div className='bg-blue-50 w-full'>
       <PatientNavbar/>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import WhiteLogo from "../components/images/whiteLogo.png";
@@ -8,23 +8,22 @@ import axios from 'axios';
 
 const DoctorNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const doctor = JSON.parse(localStorage.getItem("doctorDetails"))
-
-
-const [selectedOption, setSelectedOption] = useState("Select Language");
-  const drLogout = async() => {
-    const jwtToken=localStorage.getItem("jwtToken");
-    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+  // const doctor = JSON.parse(localStorage.getItem("doctorDetails"))
+ const [doctor,setDoctor] = useState("")
+  const [selectedOption, setSelectedOption] = useState("Select Language");
+  const drLogout = async () => {
+    const jwtToken = localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`
     await axios.put(`${process.env.REACT_APP_BACKEND_URL}/doctor/Doctorlogout/${doctor?.doctorId}`)
-    .then((response) => {
-      // console.log(response.data)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+      .then((response) => {
+        // console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
-  const logOut = async() => {
+  const logOut = async () => {
     await drLogout()
     localStorage.removeItem("doctorDetails")
     localStorage.removeItem("DrPatientId")
@@ -40,6 +39,10 @@ const [selectedOption, setSelectedOption] = useState("Select Language");
     localStorage.setItem("language", event.target.value);
   }
   const { t } = useTranslation();
+
+  useEffect(() => {
+     setDoctor(JSON.parse(localStorage.getItem("doctorDetails")))
+  }, [])
   return (
     <nav className="bg-blue-900 border-blue-600 dark:bg-blue-900 top-0 w-full z-20 left-0 dark:border-blue-600">
       <div className="max-w-full mx-auto px-0 sm:px-6 lg:px-8">
@@ -63,7 +66,7 @@ const [selectedOption, setSelectedOption] = useState("Select Language");
                   <option value="hi">हिंदी</option>
                 </select>
               </li>
-              
+
 
               <div><a href='/doctor' className='text-white font-medium font-serif hover:text-blue-200'>{t("Home")}</a></div>
               <div className='text-white font-medium font-serif'>Dr.{doctor?.firstName}</div>

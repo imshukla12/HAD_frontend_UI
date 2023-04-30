@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import DoctorNavbar from "./DoctorNavbar";
 import QueuedPatient from "./QueuedPatient";
 import Infographics from "./Infographics";
@@ -13,7 +12,8 @@ const DoctorDashboard = () => {
   const [dailyLog, setDailyLog] = useState()
   const [totalConsult, setTotalConsult] = useState(0)
   const [todayConsult, setTodayConsult] = useState(0)
-  const doctorDetails = JSON.parse(localStorage.getItem("doctorDetails"));
+  // const doctorDetails = JSON.parse(localStorage.getItem("doctorDetails"));
+  let doctorDetails;
 
   const { t } = useTranslation();
   const fetchTotalConsult = async () => {
@@ -57,6 +57,10 @@ const DoctorDashboard = () => {
   }
 
   useEffect(() => {
+    doctorDetails = JSON.parse(localStorage.getItem("doctorDetails"));
+    fetchTotalConsult()
+    fetchTodayConsult()
+    fetchDailyLog()
     fetchTotalConsult()
     fetchTodayConsult()
     fetchDailyLog()

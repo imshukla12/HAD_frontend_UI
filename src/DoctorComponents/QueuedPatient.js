@@ -7,22 +7,23 @@ import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 
 const QueuedPatient = () => {
-  const [count, setCount] = useState(0);
-  const doctorDetails = JSON.parse(localStorage.getItem("doctorDetails"));
-  const [queuedPt, setQueuedPt] = useState([]);
-  const [isRotating, setIsRotating] = useState(false);
-  var appointmentId;
-  const navigate = useNavigate();
-  const { t } = useTranslation();
-  function timeout(delay) {
-    return new Promise((res) => setTimeout(res, delay));
-  }
-  const handleClick = async () => {
-    setIsRotating(true);
-    await fetchQueuePt();
-    await timeout(1000);
-    handleAnimationEnd();
-  };
+    const [count, setCount] = useState(0);
+      const doctorDetails = JSON.parse(localStorage.getItem("doctorDetails"));
+    // let doctorDetails
+    const [queuedPt, setQueuedPt] = useState([]);
+    const [isRotating, setIsRotating] = useState(false);
+    var appointmentId;
+    const navigate = useNavigate();
+    const { t } = useTranslation();
+    function timeout(delay) {
+        return new Promise((res) => setTimeout(res, delay));
+    }
+    const handleClick = async () => {
+        setIsRotating(true);
+        await fetchQueuePt();
+        await timeout(1000);
+        handleAnimationEnd();
+    };
 
 
     const handleAnimationEnd = () => {
@@ -30,8 +31,8 @@ const QueuedPatient = () => {
     }
 
     const fetchQueuePt = async () => {
-        const jwtToken=localStorage.getItem("jwtToken");
-        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        const jwtToken = localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`
         await axios.get(`${process.env.REACT_APP_BACKEND_URL}/appointment/getAllAppointments/${doctorDetails?.departmentName}`)
             .then((response) => {
                 setQueuedPt(response.data);
@@ -43,15 +44,15 @@ const QueuedPatient = () => {
     }
 
     const deletePt = async () => {
-        const jwtToken=localStorage.getItem("jwtToken");
-        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        const jwtToken = localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`
         // console.log("inside deletePt", appointmentId);
         await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/appointment/deleteAppointment/${appointmentId}`)
             .then((response) => {
                 // console.log("Delete successful");
                 setCount(count + 1);
                 console.log("appID_dr", appointmentId)
-                navigate(`/doctor/consultationpage`, { state: { appointmentId }});
+                navigate(`/doctor/consultationpage`, { state: { appointmentId } });
             })
             .catch((error) => {
                 console.log(`Error: ${error.message}`);
@@ -60,6 +61,7 @@ const QueuedPatient = () => {
     }
 
     useEffect(() => {
+        // doctorDetails = JSON.parse(localStorage.getItem("doctorDetails"));
         fetchQueuePt()
     }, [count])
 

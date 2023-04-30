@@ -89,9 +89,14 @@ const PatientWaitingRoom = () => {
                             <h1 className='font-serif text-9xl'>{count}</h1>
                         </div>
                         <div className='items-center justify-center'>
-                            <button type="button" className="text-white w-full bg-green-500 hover:bg-green-700 font-serif text-lg rounded-lg text-sm px-2 py-2 text-center mr-3 md:mr-0 transform transition duration-300 hover:scale-110" onClick={handleSubmit} disabled = {!isAccepted}>
+                            {isAccepted ? (<button type="button" className="text-white w-full bg-green-500 hover:bg-green-700 font-serif text-lg rounded-lg text-sm px-2 py-2 text-center mr-3 md:mr-0 transform transition duration-300 hover:scale-110" onClick={handleSubmit}>
                                 Join Consultation
+                            </button>) : (
+                            <button type="button" className="text-white w-full bg-gray-500 font-serif text-lg rounded-lg text-sm px-2 py-2 text-center mr-3 md:mr-0" disabled>
+                                Wait here
                             </button>
+                            )}
+                            
                         </div>
                     </div>
                 </div>

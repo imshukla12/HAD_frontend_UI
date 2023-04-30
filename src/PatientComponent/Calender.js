@@ -11,7 +11,8 @@ Modal.setAppElement('#root');
 
 const Calendar = () => {
 
-  const patient = JSON.parse(localStorage.getItem("patientDetails"))
+  // const patient = JSON.parse(localStorage.getItem("patientDetails"))
+  let patient
   // const patientId = patient.patientId
   const [events, setEvents] = useState([])
   // const { addToast } = useToasts()
@@ -96,7 +97,7 @@ const Calendar = () => {
           id: Math.random().toString(36).substring(7),
         }));
         setEvents(formattedEvents)
-        console.log("events",events)
+        // console.log("events",events)
       })
       .catch((error) => {
         console.log(error)
@@ -104,6 +105,7 @@ const Calendar = () => {
   }
 
   useEffect(() => {
+    patient = JSON.parse(localStorage.getItem("patientDetails"))
     fetchFollowUp()
   }, [])
 

@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const PatientHistory = () => {
-  const patientDetails = JSON.parse(localStorage.getItem('patientDetails'));
+  // const patientDetails = JSON.parse(localStorage.getItem('patientDetails'));
+  let patientDetails
   const [prescription, setPrescription] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(2);
@@ -55,6 +56,7 @@ const PatientHistory = () => {
   ));
 
   useEffect(() => {
+    patientDetails = JSON.parse(localStorage.getItem("patientDetails"))
     fetchPrescription();
   }, []);
 

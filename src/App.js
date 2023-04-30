@@ -40,27 +40,18 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          
           <Route path="/login" element={<LoginPage />} />
-
+          
           {/*                 Doctor Components               */}
-          <Route path="/doctor" element={
-            
-              <DoctorDashboard />
-            
-          } />
-          
+          <Route path="/doctor" element={<DoctorDashboard />} />
           <Route path="/doctor/consultationpage" element={<ProtectedRoute><DoctorConsultationPage /></ProtectedRoute>} />
-          
           <Route path="/doctor/profile" element={<ProtectedRoute><DoctorProfile /></ProtectedRoute>} />
           {/* <Route path="/doctor/prescription" element={<ProtectedRoute><Prescription /></ProtectedRoute>} />  isko htana h baad me */}
           {/* <Route path = "/doctor/videocall" element = { <DoctorVideocall/> } />   isko htana h baad me */}
 
           {/*                 Patient Components               */}
-          <Route path="/patient" element={<ProtectedRoute><PatientDashboard /></ProtectedRoute>} />
-
+          <Route path="/patient" element={<PatientDashboard />} />
           <Route path='/register' element={<PatientRegistration />} />
-
           <Route path='/patient/waitingroom' element={<ProtectedRoute><PatientWaitingRoom /></ProtectedRoute>} />
           {/* <Route path='/patient/followUp' element={<FollowUp />} />   isko htana h baad me */}
           {/* <Route path='/calender' element={<ProtectedRoute><MyCalender /></ProtectedRoute>} />           isko htana h */}

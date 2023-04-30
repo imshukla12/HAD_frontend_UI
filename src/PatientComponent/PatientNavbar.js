@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import WhiteLogo from "../components/images/whiteLogo.png";
 
 const PatientNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const patient = JSON.parse(localStorage.getItem("patientDetails"))
+  // const patient = JSON.parse(localStorage.getItem("patientDetails"))
+  const [patient,setPatient] = useState("")
+  // let patientFname
+  // console.log("patient", patient)
+  // console.log("ottt",patientFname)
   // const patient = props.value
   // console.log("pt",patient)
 
@@ -15,6 +19,13 @@ const PatientNavbar = () => {
     localStorage.removeItem("jwtToken")
     window.location.href = "/"
   }
+
+  useEffect(() => {
+    setPatient(JSON.parse(localStorage.getItem("patientDetails")))
+    // patientFname = patient.firstName
+    // console.log("Navbar",patient)
+    // console.log("ptfname",patient.firstName)
+  },[])
 
   return (
     <nav className="bg-blue-900 border-blue-600 top-0 w-full z-20 left-0 dark:bg-blue-900 dark:border-blue-600">

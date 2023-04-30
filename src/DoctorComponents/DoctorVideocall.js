@@ -2,12 +2,12 @@ import React from 'react'
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt'
 
 const DoctorVideocall = (props) => {
-    console.log("props",props)
-    console.log("videoCall",props.value)
+    // console.log("props",props)
+    // console.log("videoCall",props.value)
     const roomId = props.value.toString()
     const dr = JSON.parse(localStorage.getItem("doctorDetails"))
     const drName = dr.firstName
-    console.log("roomCode",roomId)
+    // console.log("roomCode",roomId)
 
     const myMeeting = async (element) => {
         const appID = 626528421;       //tele-health
