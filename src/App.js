@@ -24,18 +24,18 @@ import PatientVideoCallPage from './PatientComponent/PatientVideoCallPage';
 
 const App = () => {
 
-  let jwtToken
+  // let jwtToken
 
-  const ProtectedRoute = ({ children }) => {
-    if (jwtToken === null) {         //user is fetched from localStorage
-      return <Navigate to="/login" />;
-    } else {
-      return children;
-    }
-  }
-  useEffect(() => {
-    jwtToken = localStorage.getItem("jwtToken")
-  })
+  // const ProtectedRoute = ({ children }) => {
+  //   if (jwtToken === null) {         //user is fetched from localStorage
+  //     return <Navigate to="/login" />;
+  //   } else {
+  //     return children;
+  //   }
+  // }
+  // useEffect(() => {
+  //   jwtToken = localStorage.getItem("jwtToken")
+  // })
 
   return (
     <div>
@@ -47,22 +47,22 @@ const App = () => {
           
           {/*                 Doctor Components               */}
           <Route path="/doctor" element={<DoctorDashboard />} />
-          <Route path="/doctor/consultationpage" element={<ProtectedRoute><DoctorConsultationPage /></ProtectedRoute>} />
-          <Route path="/doctor/profile" element={<ProtectedRoute><DoctorProfile /></ProtectedRoute>} />
-          {/* <Route path="/doctor/prescription" element={<ProtectedRoute><Prescription /></ProtectedRoute>} />  isko htana h baad me */}
+          <Route path="/doctor/consultationpage" element={<DoctorConsultationPage />} />
+          <Route path="/doctor/profile" element={<DoctorProfile />} />
+          {/* <Route path="/doctor/prescription" element={<Prescription />} />  isko htana h baad me */}
           {/* <Route path = "/doctor/videocall" element = { <DoctorVideocall/> } />   isko htana h baad me */}
 
           {/*                 Patient Components               */}
           <Route path="/patient" element={<PatientDashboard />} />
           <Route path='/register' element={<PatientRegistration />} />
-          <Route path='/patient/waitingroom' element={<ProtectedRoute><PatientWaitingRoom /></ProtectedRoute>} />
+          <Route path='/patient/waitingroom' element={<PatientWaitingRoom />} />
           {/* <Route path='/patient/followUp' element={<FollowUp />} />   isko htana h baad me */}
-          {/* <Route path='/calender' element={<ProtectedRoute><MyCalender /></ProtectedRoute>} />           isko htana h */}
-          {/* <Route path='/app' element={<ProtectedRoute><Appointment /></ProtectedRoute>} />       htana h */}
-          {/* <Route path='/history' element={<ProtectedRoute><PatientHistory /></ProtectedRoute>} />   htana h */}
-          <Route path='/patient/updateProfile' element={<ProtectedRoute><PatientUpdateProfile /></ProtectedRoute>} />
-          <Route path='/patient/patientVideoCall' element={<ProtectedRoute><PatientVideoCallPage /></ProtectedRoute>} />
-          {/* <Route path='/file' element={<ProtectedRoute><FileUpload /></ProtectedRoute>} /> */}
+          {/* <Route path='/calender' element={<MyCalender />} />           isko htana h */}
+          {/* <Route path='/app' element={<Appointment />} />       htana h */}
+          {/* <Route path='/history' element={<PatientHistory />} />   htana h */}
+          <Route path='/patient/updateProfile' element={<PatientUpdateProfile />} />
+          <Route path='/patient/patientVideoCall' element={<PatientVideoCallPage />} />
+          {/* <Route path='/file' element={<FileUpload />} /> */}
         </Routes>
       </BrowserRouter>
       </Suspense>
