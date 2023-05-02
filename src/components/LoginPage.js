@@ -12,7 +12,7 @@ const LoginPage = () => {
     <div className="flex md:flex-row flex-col">
       {/* NavBar */}
       <LoginNavbar/>
-      <div className="flex md:flex-row flex-col">
+      <div className="flex md:flex-row flex-col h-screen">
         {/* left-container */}
         <div className="lg:w-3/5">
           <img

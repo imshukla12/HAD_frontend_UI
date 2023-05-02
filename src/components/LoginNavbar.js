@@ -16,7 +16,7 @@ const LoginNavbar = () => {
   }
   return (
     <div>
-      <nav className="bg-white dark:bg-blue-900 fixed  w-full z-20 top-0 left-0 dark:border-blue-600">
+      <nav className="bg-blue-900 fixed  w-full z-20 top-0 left-0 border-blue-600">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <div className="flex items-center flex-shrink-0">
             <a href='/'>
