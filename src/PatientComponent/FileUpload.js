@@ -17,8 +17,8 @@ const FileUpload = () => {
   }
 
   const fetchAllFile = async () => {
-    const jwtToken=localStorage.getItem("jwtToken");
-    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+    const jwtToken = localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`
     await axios.get(`${process.env.REACT_APP_BACKEND_URL}/fileaws/getAllFilesPatient/${patientId}`)
       .then((response) => {
         console.log("inside fetch files", response.data)
@@ -40,6 +40,19 @@ const FileUpload = () => {
 
   const handleAnimationEnd = () => {
     setIsRotating(false)
+  }
+
+  const handleDelete = async (filename) => {
+    console.log("filename",filename)
+    const jwtToken = localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`
+    await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/fileaws/deleteFile/${filename}`)
+    .then((response) => {
+      console.log(response.data)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
   }
 
   const handleFileUpload = async (event) => {
@@ -97,11 +110,11 @@ const FileUpload = () => {
                     <li key={file.Key}>
                       {file}
                     </li>
-                    {/* <li>
-                      <button className="bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                      Delete
-                    </button>
-                    </li> */}
+                    <li>
+                      <button className="bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-2 rounded" onClick={() => handleDelete(file)}>
+                        Delete
+                      </button>
+                    </li>
                   </div>
                 ))}
               </ul>
