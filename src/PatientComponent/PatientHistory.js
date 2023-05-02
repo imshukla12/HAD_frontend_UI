@@ -11,9 +11,9 @@ const PatientHistory = () => {
 
   const fetchPrescription = async () => {
     try {
-      // const jwtToken=localStorage.getItem("jwtToken");
-      // axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/prescription/getPrescriptions/${patientDetails?.patientId}`);
+      const jwtToken=localStorage.getItem("jwtToken");
+      axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/prescription/getPrescriptionsPatient/${patientDetails?.patientId}`);
       setPrescription(response.data);
     } catch (error) {
       console.log(error);

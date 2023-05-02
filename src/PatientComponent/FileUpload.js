@@ -17,7 +17,7 @@ const FileUpload = () => {
   }
 
   const fetchAllFile = async () => {
-    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/fileaws/getAllFiles/${patientId}`)
+    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/fileaws/getAllFilesPatient/${patientId}`)
       .then((response) => {
         console.log("inside fetch files", response.data)
         setFileList(response.data)

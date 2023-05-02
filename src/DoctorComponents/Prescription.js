@@ -153,7 +153,7 @@ const Prescription = () => {
     const fetchPtHistory = async () => {
         const jwtToken=localStorage.getItem("jwtToken");
         axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/fileaws/getAllFiles/${patientId}`)
+        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/fileaws/getAllFilesDoctor/${patientId}`)
             .then((response) => {
                 console.log("fetched files", response.data)
                 setFileList(response.data)
