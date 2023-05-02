@@ -24,10 +24,17 @@ const DoctorProfile = () => {
   const [pinCode, setPinCode] = useState(doctorDetails.pincode)
   const [drLang, setDrLang] = useState(doctorDetails.doctorLanguages)
   const options = [
-    { value: "english", label: "English" },
-    { value: "french", label: "French" },
-    { value: "spanish", label: "Spanish" },
-    { value: "german", label: "German" },
+    { value: "English", label: "English" },
+    { value: "Hindi", label: "Hindi" },
+    { value: "Marathi", label: "Marathi" },
+    { value: "Tamil", label: "Tamil" },
+    { value: "Kannada", label: "Kannada" },
+    { value: "Telugu", label: "Telugu" },
+    { value: "Gujarati", label: "Gujarati" },
+    { value: "Punjabi", label: "Punjabi" },
+    { value: "Bengali", label: "Bengali" },
+    { value: "Malayalam", label: "Malayalam" },
+    { value: "Urdu", label: "Urdu" },
   ];
 
   const customStyles = {

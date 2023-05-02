@@ -1,5 +1,5 @@
 
-import React,{ Suspense } from 'react'
+import React,{ Suspense, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import HomePage from './components/HomePage';
@@ -24,7 +24,7 @@ import PatientVideoCallPage from './PatientComponent/PatientVideoCallPage';
 
 const App = () => {
 
-  const jwtToken = localStorage.getItem("jwtToken")
+  let jwtToken
 
   const ProtectedRoute = ({ children }) => {
     if (jwtToken === null) {         //user is fetched from localStorage
@@ -33,6 +33,9 @@ const App = () => {
       return children;
     }
   }
+  useEffect(() => {
+    jwtToken = localStorage.getItem("jwtToken")
+  })
 
   return (
     <div>

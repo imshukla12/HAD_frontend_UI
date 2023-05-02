@@ -37,7 +37,7 @@ const DoctorVideocall = (props) => {
                         roomId,
                 },
             ],
-            showPreJoinView: true,
+            showPreJoinView: false,
             showScreenSharingButton: false,
             maxUsers: 2,
             showUserList: false,
