@@ -17,6 +17,8 @@ const FileUpload = () => {
   }
 
   const fetchAllFile = async () => {
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios.get(`${process.env.REACT_APP_BACKEND_URL}/fileaws/getAllFilesPatient/${patientId}`)
       .then((response) => {
         console.log("inside fetch files", response.data)
