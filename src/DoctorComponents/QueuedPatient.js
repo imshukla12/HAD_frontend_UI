@@ -79,7 +79,7 @@ const QueuedPatient = () => {
                     return (
                         <div key={index} className='px-2 py-2 flex flex-row items-center justify-evenly '>
                             {t("Patient Id")} : {p.patientId}
-                            <button
+                            <button key = {index}
                                 className="menu-item bg-green-400 hover:bg-green-600 rounded-lg px-2"
                                 onClick={() => {
                                     appointmentId = p.appointmentId;
@@ -87,6 +87,7 @@ const QueuedPatient = () => {
                                     console.log("appointmentId: ", appointmentId);
                                     deletePt();
                                 }}
+                                disabled={index !== 1}
                             >
                                 {t("Accept")}
                             </button>

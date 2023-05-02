@@ -14,14 +14,16 @@ import { useTranslation } from "react-i18next";
 
 
 const Infographics = () => {
+  let doctor
   const [data, setData] = useState([]);
   const { t } = useTranslation();
   useEffect(() => {
+    doctor = JSON.parse(localStorage.getItem("doctorDetails"))
     const fetchData = async () => {
       try {
         const jwtToken=localStorage.getItem("jwtToken");
         axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/consultation/totalDateWiseConsultations`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/consultation/totalDateWiseConsultations/${doctor?.doctorId}`);
         const formattedData = response.data.map((d) => {
           return {
             name: d.dateOfConsultation,
