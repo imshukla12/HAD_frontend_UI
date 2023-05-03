@@ -68,7 +68,7 @@ const PatientWaitingRoom = () => {
 
     const handleSubmit = async(event) => {
         event.preventDefault()
-        console.log("aaa")
+        // console.log("aaa")
         await deletePt()
         console.log("pt deleted")
         navigate(`/patient/patientVideoCall`, { state: { appointmentId }})

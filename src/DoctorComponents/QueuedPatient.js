@@ -84,10 +84,10 @@ const QueuedPatient = () => {
                                 onClick={() => {
                                     appointmentId = p.appointmentId;
                                     localStorage.setItem("DrPatientId", p.patientId);
-                                    console.log("appointmentId: ", appointmentId);
+                                    // console.log("appointmentId: ", appointmentId);
                                     deletePt();
                                 }}
-                                disabled={index !== 1}
+                                disabled={index === 1}
                             >
                                 {t("Accept")}
                             </button>
