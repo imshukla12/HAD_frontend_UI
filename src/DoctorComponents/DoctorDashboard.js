@@ -35,7 +35,7 @@ const DoctorDashboard = () => {
     axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
     await axios.get(`${process.env.REACT_APP_BACKEND_URL}/consultation/totalDailyConsultationByDoctor/${doctorDetails?.doctorId}`)
     .then((response) => {
-      console.log("todayConsult",response.data)
+      // console.log("todayConsult",response.data)
       setTodayConsult(response.data)
     })
     .catch((error) =>{

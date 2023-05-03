@@ -36,7 +36,7 @@ function Otp(props) {
     // console.log("isVAlid",isValid);
     if (isValid) {
       setSend(true);
-      console.log("true")
+      // console.log("true")
       generateRecaptcha();
       let appVerifier = window.recaptchaVerifier;
       signInWithPhoneNumber(authentication, phoneNumber, appVerifier)

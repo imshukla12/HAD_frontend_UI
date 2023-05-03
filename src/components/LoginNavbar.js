@@ -10,7 +10,7 @@ const LoginNavbar = () => {
 
   function handleDropdownChange(event) {
     setSelectedOption(event.target.value);
-    console.log(`User selected ${event.target.value}`);
+    // console.log(`User selected ${event.target.value}`);
     i18next.changeLanguage(event.target.value);
     localStorage.setItem("language", event.target.value);
   }
